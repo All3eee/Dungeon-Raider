@@ -26,6 +26,9 @@ class Item():
 
 #Huvudprogram
 
+def menu():
+    print("yeet")
+
 while True:
     meny()
     break
