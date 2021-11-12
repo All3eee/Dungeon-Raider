@@ -25,8 +25,6 @@ class Item():
 
 
 #Huvudprogram
-
-
 while True:
     meny()
     break
