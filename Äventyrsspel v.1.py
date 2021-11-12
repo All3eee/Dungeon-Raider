@@ -1,4 +1,4 @@
-
+import random as rand
 import sys
 import time
 
