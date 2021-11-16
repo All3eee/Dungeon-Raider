@@ -15,7 +15,7 @@ Välkommen till Dungeon Raider
 class Player():
     def __init__(self, name, strength, hp, lvl):
         self.name = name
-        self.strenght = strength
+        self.strength = strength
         self.hp = hp
         self.lvl = lvl
 
