@@ -13,15 +13,15 @@ Välkommen till Dungeon Raider
         time.sleep(.03)
 
 class Player():
-    def __init__(self, name, strenght, hp, lvl):
+    def __init__(self, name, strength, hp, lvl):
         self.name = name
-        self.strenght = strenght
+        self.strenght = strength
         self.hp = hp
         self.lvl = lvl
 
 class Item():
-    def __init(self, strenght_bonus):
-        self.strenght_bonus = strenght_bonus
+    def __init(self, strength_bonus):
+        self.strength_bonus = strength_bonus
 
 
 #Huvudprogram
