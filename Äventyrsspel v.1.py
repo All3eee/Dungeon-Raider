@@ -23,7 +23,9 @@ class Item():
     def __init(self, strength_bonus):
         self.strength_bonus = strength_bonus
 
-
+def Prolog():
+    print("Det var en gång...")
+        
 #Huvudprogram
 while True:
     meny()
