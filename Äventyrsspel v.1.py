@@ -1,4 +1,5 @@
 #Använd sleep() istället för time.sleep()
+#Man kan berätta i början vilka hur man öppnar inventory etc.
 
 import random as rand
 import sys
