@@ -5,10 +5,10 @@ import sys
 from time import sleep
 
 class Player():
-    def __init__(self, name, strength, HP, lvl, respawn, inventory):
+    def __init__(self, name, strength, hp, lvl, respawn, inventory):
         self.name = name
         self.strength = strength
-        self.HP = HP
+        self.hp = hp
         self.lvl = lvl
         self.respawn = respawn
         self.inventory = inventory
