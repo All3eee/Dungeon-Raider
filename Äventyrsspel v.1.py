@@ -64,13 +64,17 @@ def Prolog():
     sleep(1)
 
 def meny():
-    print('''
+    while True:
+        print('''
     Ange [1] för egenskaper
     Ange [2] för inventory
     Ange [3] för att stänga meny
     Ange [4] för att avsluta spel
     ''')
-    chosen_number = input("---> ")
+        chosen_number = input("---> ")
+        if chosen_number == '1' or '2' or '3' or '4':
+            return chosen_number
+    
 
 def the_room():
     while True:
