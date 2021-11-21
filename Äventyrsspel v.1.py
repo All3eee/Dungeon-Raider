@@ -57,7 +57,11 @@ Välkommen till Dungeon Raider
     input("\nTryck <Enter> för att starta spelet")
 
 def meny():
-    pass
+    print('''
+    Ange [1] för egenskaper
+    Ange [2] för inventory
+    Ange [3] för att avsluta spel
+    ''')
 
 def Prolog():
     print('''
