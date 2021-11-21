@@ -31,7 +31,7 @@ class Player():
             else:
                 print("\nAnge [1] eller [2]")
 
-    def set_character_name(self):
+    def set_character(self):
         print("Laban - Hejsan vem är du?")
         self.name = input("Ange ditt namn: ")
         print(f'''
@@ -117,7 +117,7 @@ Player1.difficulty()
 
 Prolog()
 
-Player1.set_character_name()
+Player1.set_character()
 
 while True:
     given_input = the_room()
