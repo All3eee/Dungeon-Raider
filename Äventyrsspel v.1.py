@@ -1,5 +1,5 @@
 #Använd sleep() istället för time.sleep()
-#Man kan berätta i början vilka hur man öppnar inventory etc.
+#Man kan berätta i början hur man öppnar inventory etc.
 
 import random as rand
 import sys
@@ -84,4 +84,4 @@ Player1.set_character_name()
 
 while True:
     meny()
-    pass
+    break
