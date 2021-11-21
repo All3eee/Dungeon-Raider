@@ -56,20 +56,53 @@ Välkommen till Dungeon Raider
     sleep(1)
     input("\nTryck <Enter> för att starta spelet")
 
-def meny():
-    print('''
-    Ange [1] för egenskaper
-    Ange [2] för inventory
-    Ange [3] för att avsluta spel
-    ''')
-
 def Prolog():
     print('''
     Det var en gång för länge sedan
     Laban berättar om sitt liv blah blah blah 
     ''')
     sleep(1)
+
+def meny():
+    print('''
+    Ange [1] för egenskaper
+    Ange [2] för inventory
+    Ange [3] för att stänga meny
+    Ange [4] för att avsluta spel
+    ''')
+    chosen_number = input("---> ")
+
+def the_room():
+    while True:
+        print('''
+ ____________   ____________   ____________
+|            | |            | |            |
+|            | |            | |            |
+|            | |            | |            |
+|      V     | |      M     | |      H     | 
+|            | |            | |            |
+|            | |            | |            |
+|____________| |____________| |____________|
+    
+Vänster dörr [V], Mitten dörr [M], Höger dörr [H]    
+Meny [E]  
+        ''')
+        chosen_input = input("Ange här --> ")
+        chosen_input = chosen_input.lower()
+        if chosen_input == 'v' or 'm' or 'h' or 'e':
+            return chosen_input
+
+def door_chance():
+    pass
+
+#ska denna vara som en metod i klassen Person?
+def inventory():
+    pass
+
+def egenskaper():
+    pass
         
+
 #Huvudprogram
 
 Player1 = Player('x',10,200,0, True, [])
@@ -83,5 +116,13 @@ Prolog()
 Player1.set_character_name()
 
 while True:
-    meny()
+    given_input = the_room()
+    if given_input == 'e':
+        meny()
+    elif given_input == 'v':
+        print("Vänster dörr öppnas")
+    elif given_input == 'm':
+        print("Dörren i mitten öppnas")
+    elif given_input == 'h':
+        print("Höger dörr öppnas")
     break
