@@ -132,19 +132,19 @@ def door_chance():
     return door_type
 
 def room_chest():
-    new_item_kategory = Player1.item_type_decider()
+    new_item_kategory = Player1_Item.item_type_decider()
     v = new_item_kategory.pop()
     
     if v == "Sword":
-        new_sword_item = Player1.item_kategory_sword()
+        new_sword_item = Player1_Item.item_kategory_sword()
         return new_sword_item.pop()
 
     elif v == "Ring":
-        new_ring_item = Player1.item_kategory_ring()
+        new_ring_item = Player1_Item.item_kategory_ring()
         return new_ring_item.pop()
 
     elif v == "Potion":
-        new_potion_item = Player1.item_kategory_potion()
+        new_potion_item = Player1_Item.item_kategory_potion()
         return new_potion_item.pop()
     
 def room_trap():
@@ -185,7 +185,7 @@ Prolog()
 
 Player1.set_character()
 
-Player1 = Item(list_kategories, list_swords, list_rings, list_potion)
+Player1_Item = Item(list_kategories, list_swords, list_rings, list_potion)
 while True:
     animation()
     
