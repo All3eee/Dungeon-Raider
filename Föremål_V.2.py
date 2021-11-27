@@ -1,5 +1,4 @@
 import random
-from types import new_class
 
 
 katigories = ['sword', 'potion', 'ring']
@@ -24,11 +23,10 @@ new_sword_item = item_kategory_sword()
 h = new_sword_item.pop(0)
 print(h)
 
-swords = {
-    "woodensword": 2,
-    "lightsaber": 1000,
-}
+vi()
 
+'''
 s = 0
 s += swords[h]
 print(s)
+'''
