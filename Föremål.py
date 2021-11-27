@@ -1,7 +1,6 @@
 import random
 
 class Item():
-
     def __init__(self, kategories, sword_items, ring_items, potion_items) :
         self.kategories = kategories
         self.sword_items = sword_items
@@ -17,12 +16,12 @@ class Item():
         return item_sword
 
     def item_kategory_ring(self):
-        item_ring = random.choices(self.ring_items, weights=(10, 50, 40), k=1)
+        item_ring = random.choices(self.ring_items, weights=(50, 50), k=1)
         return item_ring
     
     def item_kategory_potion(self):
         item_potion = random.choices(self.potion_items, weights=(50, 50), k=1)
-
+        return item_potion
 
 list_kategories = ['Sword', 'Potion', 'Ring']  
 list_swords = ["Woodensword", "Lightsaber"]
@@ -31,31 +30,37 @@ list_potion = ['Health potion', 'Strenght potion']
 
 Player1 = Item(list_kategories, list_swords, list_rings, list_potion)
 
-def open_chest():   
+def open_chest():  
     new_item_kategory = Player1.item_type_decider()
+    v = new_item_kategory.pop()
     
-    if new_item_kategory == 'sword':
+    if v == "Sword":
         new_sword_item = Player1.item_kategory_sword()
-        h = new_sword_item.pop(0)
-        print(h)
+        print(new_sword_item.pop())
+        return new_sword_item
 
-    elif new_item_kategory == 'ring':
+    elif v == "Ring":
         new_ring_item = Player1.item_kategory_ring()
         print(new_ring_item.pop())
+        return new_ring_item
 
-    elif new_item_kategory == 'potion':
+    elif v == "Potion":
         new_potion_item = Player1.item_kategory_potion()
-        print(new_potion_item.pop(0))
+        print(new_potion_item.pop())
+        return new_potion_item
 
-while True:
-    open_chest()
+opened_item = open_chest()
 
-'''
 swords = {
     "woodensword": 2,
-    "lightsaber": 1000,
+    "sdawdawda": 1,
+    "lightsaber": 1000,  
 }
 
+
+
+
+'''
 s = 0
 s += swords[h]
 print(s)

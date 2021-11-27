@@ -5,6 +5,7 @@ import random as rand
 import sys
 from time import sleep
 
+
 class Player():
     def __init__(self, name, strength, hp, lvl, lives, inventory):
         self.name = name
@@ -50,26 +51,38 @@ Laban - Jasså, så du heter {self.name}.
         ''')
 
 class Item():
-
-    def __init__(self, kategories, sword_items, ring_items) :
-        self.kategories = ['sword', 'potion', 'ring']
-        self.sword_items = ["woodensword", "lightsaber"]
-        self.ring_items = ['force ring', 'ring of fire']
+    def __init__(self, kategories, sword_items, ring_items, potion_items) :
+        self.kategories = kategories
+        self.sword_items = sword_items
+        self.ring_items = ring_items
+        self.potion_items = potion_items
 
     def item_type_decider(self):
-        item_type = random.choices(self.kategories, weights=(40, 20, 40), k=1 )
+        item_type = rand.choices(self.kategories, weights=(40, 20, 40), k=1 )
         return item_type
 
     def item_kategory_sword(self):
-        item_sword = random.choices(self.sword_items, weights=(50, 50), k=1)
+        item_sword = rand.choices(self.sword_items, weights=(50, 50), k=1)
         return item_sword
 
     def item_kategory_ring(self):
-        item_ring = random.choices(self.ring_items, weights=(10, 50, 40), k=1)
+        item_ring = rand.choices(self.ring_items, weights=(50, 50), k=1)
         return item_ring
     
+    def item_kategory_potion(self):
+        item_potion = rand.choices(self.potion_items, weights=(50, 50), k=1)
+        return item_potion
 
-swords = {
+#Item kategories
+list_kategories = ['Sword', 'Potion', 'Ring']  
+
+#Diffrent items
+list_swords = ["Woodensword", "Lightsaber"]
+list_rings =  ['Force ring', 'Ring of fire']
+list_potion = ['Health potion', 'Strenght potion']
+
+#Swords strenght
+swords_strenght = {
     "woodensword": 2,
     "lightsaber": 1000,
 }
@@ -115,10 +128,24 @@ def the_room():
             return chosen_input
 
 def door_chance():
-    pass
+    door_type = 1
+    return door_type
 
 def room_chest():
-    pass
+    new_item_kategory = Player1.item_type_decider()
+    v = new_item_kategory.pop()
+    
+    if v == "Sword":
+        new_sword_item = Player1.item_kategory_sword()
+        return new_sword_item.pop()
+
+    elif v == "Ring":
+        new_ring_item = Player1.item_kategory_ring()
+        return new_ring_item.pop()
+
+    elif v == "Potion":
+        new_potion_item = Player1.item_kategory_potion()
+        return new_potion_item.pop()
     
 def room_trap():
     print("Oh no! It's a trap")
@@ -129,9 +156,27 @@ def room_monster():
 def boss_monster():
     pass        
 
+def animation():
+    print('''
+      ,-' ;'! `-.         ,-' ;'! `-.         ,-' ;'! `-.
+     / :  ! :  . \       / :  ! :  . \       / :  ! :  . :
+    |_ ;    :  ;  |     |_ ;    :  ;  |     |_ ;    :  ;  |
+    (| .  : (  !  |     (| .  : (  !  |     (| .  : (  !  | 
+    |"    [V]    "|     |"    [M]    "|     |"    [H]    "|
+    |  :  ; ' (_) l     |  :  ; ' (_) l     |  :  ; ' (_) l
+    |  :    .     |     |  :    .     |     |  :    .     |
+    || .  . :  :  |     || .  . :  :  |     || .  . :  :  |
+    |" ,  | .  .  |     |" ,  | .  .  |     |" ,  | .  .  |
+    |__-__;---.___|     |__-__;---.___|     |__-__;---.___|
+    
+    ''')
+    print('''
+    Vänster dörr [V], Mitten dörr [M], Höger dörr [H]    
+    Meny [E]  
+        ''')
+
 #Main Program
 Player1 = Player('x',10,200,0, 3, [])
-animation()
 
 start_game()
 Player1.difficulty()
@@ -140,9 +185,14 @@ Prolog()
 
 Player1.set_character()
 
+Player1 = Item(list_kategories, list_swords, list_rings, list_potion)
 while True:
+    animation()
+    
+    '''
     if Player1[0] == 10:
-        break
+        pass
+    '''
     given_input = the_room()
     if given_input == 'e':
         while True:
@@ -151,15 +201,20 @@ while True:
                 pass
             elif chosen_number == '2':
                 pass
+    
     elif given_input == 'v':
         print("Vänster dörr öppnas")
         room_type = door_chance()
         if room_type == 1:
-            room_chest()
+            item_in_chest = room_chest()
+            print(f"Du hittade {item_in_chest} i kistan")
+            input("\nTryck <Enter> för att fortsätta")
         elif room_type == 2:
             room_monster()
         elif room_type == 3:
             room_trap()
+
+    
     elif given_input == 'm':
         print("Dörren i mitten öppnas")
     elif given_input == 'h':
