@@ -83,8 +83,8 @@ list_potion = ['Health potion', 'Strenght potion']
 
 #Swords strenght
 swords_strenght = {
-    "woodensword": 2,
-    "lightsaber": 1000,
+    "Woodensword": 2,
+    "Lightsaber": 1000,
 }
 
 
@@ -194,6 +194,7 @@ while True:
         pass
     '''
     given_input = the_room()
+
     if given_input == 'e':
         while True:
             chosen_number = meny()
@@ -207,8 +208,13 @@ while True:
         room_type = door_chance()
         if room_type == 1:
             item_in_chest = room_chest()
-            print(f"Du hittade {item_in_chest} i kistan")
-            input("\nTryck <Enter> för att fortsätta")
+            if item_in_chest in list_swords:
+                print(f"Du hittade {item_in_chest} med STR:{swords_strenght[item_in_chest]} i kistan")
+                input("\nTryck <Enter> för att fortsätta")
+            elif item_in_chest in list_rings:
+                print("hej")
+            elif item_in_chest in list_potion:
+                print("he")
         elif room_type == 2:
             room_monster()
         elif room_type == 3:
