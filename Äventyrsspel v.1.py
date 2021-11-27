@@ -50,26 +50,29 @@ Laban - Jasså, så du heter {self.name}.
         ''')
 
 class Item():
-    def __init__(self, type_of_item, strength_bonus):
-        self.type_of_item = type_of_item
-        self.strength_bonus = strength_bonus
+
+    def __init__(self, kategories, sword_items, ring_items) :
+        self.kategories = ['sword', 'potion', 'ring']
+        self.sword_items = ["woodensword", "lightsaber"]
+        self.ring_items = ['force ring', 'ring of fire']
+
+    def item_type_decider(self):
+        item_type = random.choices(self.kategories, weights=(40, 20, 40), k=1 )
+        return item_type
+
+    def item_kategory_sword(self):
+        item_sword = random.choices(self.sword_items, weights=(50, 50), k=1)
+        return item_sword
+
+    def item_kategory_ring(self):
+        item_ring = random.choices(self.ring_items, weights=(10, 50, 40), k=1)
+        return item_ring
     
-    def item_type_decider():
-        type = rand.randint(1, 100)
-        if type == (1, 40):
-            type_of_item = "sword"
-        elif type == (41, 60):
-            type_of_item = "ring"
-        elif type == (61, 100):
-            type_of_item = "potion"
 
-    def item_type_sword():
-        rarity = rand.randint(1, 100)
-        if rarity == (1, 50):
-            return(wooden_sword)
-        if rarity == (51, 100):
-            return(laser_saber)
-
+swords = {
+    "woodensword": 2,
+    "lightsaber": 1000,
+}
 
 
 def start_game():
@@ -145,9 +148,9 @@ while True:
         while True:
             chosen_number = meny()
             if chosen_number == '1':
-                abilities():
-            elif chosen number == '2':
-                Player1.inventory():
+                pass
+            elif chosen_number == '2':
+                pass
     elif given_input == 'v':
         print("Vänster dörr öppnas")
         room_type = door_chance()
@@ -161,6 +164,9 @@ while True:
         print("Dörren i mitten öppnas")
     elif given_input == 'h':
         print("Höger dörr öppnas")
+
+
+
 
 boss_monster()
 while True:
