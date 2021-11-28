@@ -1,4 +1,4 @@
-def animation():
+def animation_door():
     print('''
       ,-' ;'! `-.         ,-' ;'! `-.         ,-' ;'! `-.
      / :  ! :  . \       / :  ! :  . \       / :  ! :  . :

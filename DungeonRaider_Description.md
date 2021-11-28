@@ -1,3 +1,4 @@
 # Dungeon-Raider
 
-What will you choose
+There are three doors to choose between.
+Which one will you choose
