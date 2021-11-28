@@ -13,11 +13,11 @@ class Player():
         self.hp = hp
         self.lvl = lvl
         self.lives = lives
-        self.inventory = inventory
+        self.inventariet = inventory
 
-    def inventory():
-        pass
-    
+    def inventory(self):
+        print(self.inventariet)
+
     def abilites(self):
         print(f'''
         Strength: {self.strength}
@@ -50,12 +50,17 @@ Laban - Jasså, så du heter {self.name}.
         Du ser ut att ha varit med om en hel del.
         ''')
 
+#Items i spelarens inventory
+items_in_inventory = []
+
+
 class Item():
-    def __init__(self, kategories, sword_items, ring_items, potion_items) :
+    def __init__(self, kategories, sword_items, ring_items, potion_items, items_inventory):
         self.kategories = kategories
         self.sword_items = sword_items
         self.ring_items = ring_items
         self.potion_items = potion_items
+        self.items_inventory = items_inventory
 
     def item_type_decider(self):
         item_type = rand.choices(self.kategories, weights=(40, 20, 40), k=1 )
@@ -72,6 +77,16 @@ class Item():
     def item_kategory_potion(self):
         item_potion = rand.choices(self.potion_items, weights=(50, 50), k=1)
         return item_potion
+
+    def add_items_in_inventory(self,):
+        if len(self.items_inventory) < 7:
+            print("[1]Om du vill kasta bort föremålet [2]Om du vill spara föremålet")
+            choice_item = input("--->")
+            if choice_item == 1:
+                print("Du kastade bort föremålet")
+            elif choice_item == 2:
+                self.items_inventory.append(item_in_chest)
+                print(f"Du la till {item_in_chest} i ditt inventory")
 
 #Item kategories
 list_kategories = ['Sword', 'Potion', 'Ring']  
@@ -176,7 +191,7 @@ def animation():
         ''')
 
 #Main Program
-Player1 = Player('x',10,200,0, 3, [])
+Player1 = Player('x', 10, 200, 0, 3, items_in_inventory)
 
 start_game()
 Player1.difficulty()
@@ -185,8 +200,10 @@ Prolog()
 
 Player1.set_character()
 
-Player1_Item = Item(list_kategories, list_swords, list_rings, list_potion)
+Player1_Item = Item(list_kategories, list_swords, list_rings, list_potion, items_in_inventory)
+
 while True:
+    Player1.inventory()
     animation()
     
     '''
@@ -210,6 +227,7 @@ while True:
             item_in_chest = room_chest()
             if item_in_chest in list_swords:
                 print(f"Du hittade {item_in_chest} med STR:{swords_strenght[item_in_chest]} i kistan")
+                Player1_Item.add_items_in_inventory()
                 input("\nTryck <Enter> för att fortsätta")
             elif item_in_chest in list_rings:
                 print("hej")
