@@ -56,14 +56,15 @@ Laban - Jasså, så du heter {self.name}.
     def losing_lives(self):
         if self.hp <= 0:
             self.lives = self.lives -1
+            if self.lives == 0:
+                return True
             self.hp = 200
             print(f'''
     Du dog
     Liv kvar: [{self.lives}]
     200 hp återställs...
             ''')
-        if self.lives == 0:
-            return True
+
         
     def room_trap(self):
         print("Oh no! It's a trap")
