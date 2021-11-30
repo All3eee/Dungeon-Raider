@@ -248,6 +248,7 @@ while True:
     given_input = the_room()
 
     if given_input == 'e':
+        #Det går att göra menyn under till en hel funktion
         while True:
             chosen_number = meny()
             if chosen_number == '1':
