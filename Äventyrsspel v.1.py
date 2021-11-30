@@ -57,14 +57,21 @@ Laban - Jasså, så du heter {self.name}.
         if self.hp <= 0:
             self.lives = self.lives -1
             self.hp = 200
+            print(f'''
+    Du dog
+    Liv kvar: [{self.lives}]
+    200 hp återställs...
+            ''')
         if self.lives == 0:
             return True
         
     def room_trap(self):
         print("Oh no! It's a trap")
-        trap_damage = rand.randint(10,100)
+        trap_damage = rand.randint(10,200)
         self.hp = self.hp - trap_damage
+        sleep(1)
         print(f"Du tog {trap_damage} skada")
+        sleep(1)
 
 
     
@@ -227,8 +234,10 @@ Player1.set_character()
 
 Player1_Item = Item(list_kategories, list_swords, list_rings, list_potion)
 
+Player1.show_inventory()
+
 while True:
-    Player1.show_inventory()
+    
     animation_door()
     
     '''
@@ -257,7 +266,7 @@ while True:
             print("programmet avslutas")
             break        
     
-    elif given_input == 'v' or 'm' or 'h':
+    elif given_input == 'v' or given_input == 'm' or given_input == 'h':
         room_type = door_chance()
         if room_type == 1:
             item_in_chest = room_chest()
@@ -270,6 +279,7 @@ while True:
                 print("hej")
             elif item_in_chest in list_potion:
                 print("he")
+            sleep(2)
         elif room_type == 2:
             room_monster()
         elif room_type == 3:
@@ -277,6 +287,8 @@ while True:
             Player1.losing_lives()
             if Player1.lives == True:
                 end_game = True
+                print("LIVES LEFT: [0]")
+                print("GAME OVER!")
                 break
 
 
