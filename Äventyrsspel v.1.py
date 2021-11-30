@@ -4,6 +4,9 @@ import random as rand
 import sys
 from time import sleep
 
+#Variabel som används för att stänga av spelet helt
+end_game = False
+
 
 class Player():
     def __init__(self, name, strength, hp, lvl, lives, inventory):
@@ -50,6 +53,21 @@ Laban - Jasså, så du heter {self.name}.
         Du ser ut att ha varit med om en hel del.
         ''')
 
+    def losing_lives(self):
+        if self.hp <= 0:
+            self.lives = self.lives -1
+            self.hp = 200
+        if self.lives == 0:
+            return True
+        
+    def room_trap(self):
+        print("Oh no! It's a trap")
+        trap_damage = rand.randint(10,100)
+        self.hp = self.hp - trap_damage
+        print(f"Du tog {trap_damage} skada")
+
+
+    
 #Items i spelarens inventory
 items_in_inventory = []
 
@@ -138,11 +156,17 @@ def the_room():
     while True:
         chosen_input = input("Ange här --> ")
         chosen_input = chosen_input.lower()
+        if chosen_input == 'v':
+            print("Vänster dörr öppnas")
+        elif chosen_input == 'v':
+            print("Dörren i mitten öppnas")
+        elif chosen_input == 'h':
+            print("Höger dörr öppnas")
         if chosen_input == 'v' or 'm' or 'h' or 'e':
             return chosen_input
 
 def door_chance():
-    door_type = 1
+    door_type = rand.randint(1,3)
     return door_type
 
 def room_chest():
@@ -160,9 +184,6 @@ def room_chest():
     elif v == "Potion":
         new_potion_item = Player1_Item.item_kategory_potion()
         return new_potion_item.pop()
-    
-def room_trap():
-    print("Oh no! It's a trap")
     
     
 def room_monster():
@@ -211,7 +232,7 @@ while True:
     animation_door()
     
     '''
-    if Player1[0] == 10:
+    if Player1(3) == 10:
         pass
     '''
     given_input = the_room()
@@ -230,15 +251,13 @@ while True:
                 end = end.lower()
                 if end == "ja":
                     end_game = True
-                else:
                     break
                     
         if end_game == True:
             print("programmet avslutas")
-            
             break        
-    elif given_input == 'v':
-        print("Vänster dörr öppnas")
+    
+    elif given_input == 'v' or 'm' or 'h':
         room_type = door_chance()
         if room_type == 1:
             item_in_chest = room_chest()
@@ -254,17 +273,16 @@ while True:
         elif room_type == 2:
             room_monster()
         elif room_type == 3:
-            room_trap()
-
-    
-    elif given_input == 'm':
-        print("Dörren i mitten öppnas")
-    elif given_input == 'h':
-        print("Höger dörr öppnas")
+            Player1.room_trap()
+            Player1.losing_lives()
+            if Player1.lives == True:
+                end_game = True
+                break
 
 
 
 
-boss_monster()
-while True:
-    pass
+if end_game == False:
+    boss_monster()
+    while True:
+        pass
