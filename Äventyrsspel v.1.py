@@ -15,7 +15,7 @@ class Player():
         self.inventory = inventory
 
     def show_inventory(self):
-        print("Item:            Srength:")
+        print("Item:")
         print(*self.inventory, sep = "\n")
 
     def abilites(self):
