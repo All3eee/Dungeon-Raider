@@ -18,9 +18,9 @@ class Player():
         self.inventory = inventory
         
     def show_inventory(self):
-        for number, letter in enumerate(self.inventory):
-            print("Item:")
-            print(*number, letter , sep = "\n")
+        for i, item in enumerate(self.inventory, 1):
+            print(i, '. ' + item, sep='',end='')
+        
 
     def abilites(self):
         print(f'''
@@ -112,7 +112,7 @@ class Item():
                 print("Du kastade bort föremålet")
             elif choice_item == '2':
                 print(f"Du la till {item_in_chest} i ditt inventory")
-                items_in_inventory.append(item_and_strenght)
+                items_in_inventory.append(item_and_effekt)
 
 #Item kategories
 list_kategories = ['Sword', 'Potion', 'Ring']  
@@ -128,6 +128,17 @@ swords_strenght = {
     "Lightsaber": 1000,
 }
 
+#Potion Effekt
+potion_effekt = {
+    "Health potion": 50,
+    "Strenght potion": 50,
+}
+
+#Ring strenght
+ring_strenght = {
+    "Force ring": 50,
+    "Ring of fire": 50,
+}
 
 def start_game():
     string ='''
@@ -145,12 +156,13 @@ def Prolog():
     print('''
     Det var en gång för länge sedan
     Laban berättar om sitt liv blah blah blah 
+
     ''')
     sleep(1)
 
 def meny():
     while True:
-        print('''
+        print('''\n
     Ange [1] för egenskaper
     Ange [2] för inventory
     Ange [3] för att stänga meny
@@ -158,8 +170,17 @@ def meny():
     ''')
         chosen_number = input("---> ")
         if chosen_number == '1' or '2' or '3' or '4':
-            return chosen_number
-    
+            if chosen_number == '1':
+                pass
+            elif chosen_number == '2':
+                Player1.show_inventory()
+            elif chosen_number == '3':
+                return False
+            elif chosen_number == '4':
+                end = input("Är du säker på att du vill avsluta? [Ja]: ")
+                end = end.lower()
+                if end == "ja":
+                    return True
 
 def the_room():
     while True:
@@ -202,7 +223,7 @@ def boss_monster():
     pass        
 
 def animation_door():
-    print('''
+    print(f'''
       ,-' ;'! `-.         ,-' ;'! `-.         ,-' ;'! `-.
      / :  ! :  . \       / :  ! :  . \       / :  ! :  . :
     |_ ;    :  ;  |     |_ ;    :  ;  |     |_ ;    :  ;  |
@@ -213,7 +234,11 @@ def animation_door():
     || .  . :  :  |     || .  . :  :  |     || .  . :  :  |
     |" ,  | .  .  |     |" ,  | .  .  |     |" ,  | .  .  |
     |__-__;---.___|     |__-__;---.___|     |__-__;---.___|
-    
+                
+                ------------------------
+                |        LIV:{Player1.lives}         |
+                |        HP: {Player1.hp}       |
+                ------------------------
     ''')
     print('''
     Vänster dörr [V], Mitten dörr [M], Höger dörr [H]    
@@ -249,22 +274,7 @@ while True:
     given_input = the_room()
 
     if given_input == 'e':
-        #Det går att göra menyn under till en hel funktion
-        while True:
-            chosen_number = meny()
-            if chosen_number == '1':
-                pass
-            elif chosen_number == '2':
-                Player1.show_inventory()
-            elif chosen_number == '3':
-                break
-            elif chosen_number == '4':
-                end = input("Är du säker på att du vill avsluta? [Ja]: ")
-                end = end.lower()
-                if end == "ja":
-                    end_game = True
-                    break
-                    
+        end_game = meny()
         if end_game == True:
             print("programmet avslutas")
             break        
@@ -275,13 +285,20 @@ while True:
             item_in_chest = room_chest()
             if item_in_chest in list_swords:
                 print(f"Du hittade {item_in_chest} med STR:{swords_strenght[item_in_chest]} i kistan")
-                item_and_strenght = (f"{item_in_chest} --- STR:{swords_strenght[item_in_chest]}")
+                item_and_effekt = (f"{item_in_chest} --- STR:{swords_strenght[item_in_chest]}")
                 Player1_Item.add_items_in_inventory()
                 input("\nTryck <Enter> för att fortsätta")
             elif item_in_chest in list_rings:
-                print("hej")
+                print(f"Du hittade {item_in_chest} med STR:{ring_strenght[item_in_chest]}")
+                item_and_effekt = (f"{item_in_chest} --- STR:{ring_strenght[item_in_chest]}")
+                Player1_Item.add_items_in_inventory()
+                input("\nTryck <Enter> för att fortsätta")
             elif item_in_chest in list_potion:
-                print("he")
+                print(f"Du hittade {item_in_chest} med Effekt:{potion_effekt[item_in_chest]}")
+                item_and_effekt = (f"{item_in_chest} --- Effekt:{potion_effekt[item_in_chest]}")
+                Player1_Item.add_items_in_inventory()
+                input("\nTryck <Enter> för att fortsätta")
+
             sleep(2)
         elif room_type == 2:
             room_monster()
