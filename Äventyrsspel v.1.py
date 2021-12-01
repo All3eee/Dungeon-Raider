@@ -16,10 +16,11 @@ class Player():
         self.lvl = lvl
         self.lives = lives
         self.inventory = inventory
-
+        
     def show_inventory(self):
-        print("Item:")
-        print(*self.inventory, sep = "\n")
+        for number, letter in enumerate(self.inventory):
+            print("Item:")
+            print(*number, letter , sep = "\n")
 
     def abilites(self):
         print(f'''
