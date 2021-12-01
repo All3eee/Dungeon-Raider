@@ -19,7 +19,7 @@ class Player():
         
     def show_inventory(self):
         for i, item in enumerate(self.inventory, 1):
-            print(i, '. ' + item, sep='',end='')
+            print(i, '. ' + item, end='', sep= '\n' )
         
 
     def abilites(self):
@@ -136,9 +136,9 @@ class Item():
 
     def add_items_in_inventory(self):
         if len(items_in_inventory) < 5:
-            choice_item = input('''[1] Om du vill kasta bort föremålet [2] Om du vill spara föremålet
-            --->
-            ''')
+            choice_item = input(f'''
+[1] Om du vill kasta bort föremålet [2] Om du vill spara föremålet 
+--->''')
             if choice_item == '1':
                 print("Du kastade bort föremålet")
             elif choice_item == '2':
@@ -147,33 +147,32 @@ class Item():
         
         if len(items_in_inventory) >= 5:
             choice_item = input('''
-            Ditt inventory ar fullt
-            print("[1] Om du vill kasta bort föremålet [2] Om du vill byta ut något av de items som du redan har
-            --->
+Ditt inventory ar fullt
+[1] Om du vill kasta bort föremålet [2] Om du vill byta ut något av de items som du redan har
+--->
             ''')
             if choice_item == '1':
                 print("Du kastade bort föremålet")
             
             if choice_item == '2':
-                Player1
-                item_number_switch = input('''
-                Vilket nummer har det foremol som du vill ta bort?
-                Ga tillbaka [G]
-                --->
-                ''').lower()
+                Player1.show_inventory()
+                item_number_switch = int(input('''
+Vilket nummer har det foremol som du vill ta bort?
+Ga tillbaka [G]
+--->
+                ''')).lower()
                 if item_number_switch == 'g':
                     pass
                 else:
-                    if_sure = input('''Ar du saker pa att du vill byta ut detta item?
-                    [Ja] = 1
-                    [Nej] = 2
+                    if_sure = input('''
+Ar du saker pa att du vill byta ut detta item?
+[Ja] = 1
+[Nej] = 2
                     ''')
                     if if_sure == '1':
                         items_in_inventory.append(item_number_switch - 1)
                         items_in_inventory.append(item_and_effekt)
 
-        else:
-            print('hej')
 
 #Items i spelarens inventory
 items_in_inventory = []
@@ -251,7 +250,7 @@ def Prolog():
         sys.stdout.flush()
         sleep(.03)
     sleep(1)
-
+    
 def meny():
     while True:
         print('''\n
@@ -361,7 +360,6 @@ Player1 = Player('x', 10, 200, 0, None, items_in_inventory)
 start_game()
 Player1.difficulty()
 
-Prolog()
 
 Player1.set_character()
 
