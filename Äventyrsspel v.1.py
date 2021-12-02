@@ -80,12 +80,12 @@ Laban: Jasså, så du heter {self.name}.
         monster = 120 + 10*self.lvl
         print("Ett monster har dykt upp!!!")
         print(f"Monstret har {monster} HP")
-        sleep(2)
+        sleep(1)
         while True:
             damage = rand.randint(15,100)
             monster = monster - damage
             input("\nTryck <Enter> för att attackera monstret")
-            sleep(2)
+            sleep(1)
             print(f"\nMonstret tog {damage} damage")
             print(f"Monstret har {monster} HP kvar")
             sleep(2)
@@ -95,7 +95,7 @@ Laban: Jasså, så du heter {self.name}.
                 self.lvl = self.lvl +1
                 print("Du gick upp i LVL!")
                 sleep(1)
-                print(f"Du är nu LVL{self.lvl}!")
+                print(f"Du är nu LVL_{self.lvl}!")
                 sleep(2)
                 break
             damage1 = rand.randint(15,200)
@@ -106,10 +106,9 @@ Laban: Jasså, så du heter {self.name}.
             sleep(1)
             if self.hp <= 0:
                 print("Du dog")
-                sleep(1)
-                Player1.losing_lives
-                if Player1.lives == 0:
-                    break
+                Player1.losing_lives()
+            if Player1.lives == 0:
+                break
 
 class Item():
     def __init__(self, kategories, sword_items, ring_items, potion_items):
@@ -157,7 +156,7 @@ Ditt inventory ar fullt
             if choice_item == '2':
                 Player1.show_inventory()
                 item_number_switch = int(input('''
-Vilket nummer har det foremol som du vill ta bort?
+Vilket nummer har det föremål som du vill ta bort?
 Ga tillbaka [G]
 --->
                 ''')).lower()
@@ -381,6 +380,12 @@ while True:
         end_game = meny()
         if end_game == True:
             print("programmet avslutas")
+            sleep(0.5)
+            print("3")
+            sleep(0.5)
+            print("2")
+            sleep(0.5)
+            print("1")
             break        
     
     elif given_input == 'v' or given_input == 'm' or given_input == 'h':
