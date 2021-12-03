@@ -6,7 +6,7 @@ from time import sleep
 
 #Variabel som används för att stänga av spelet helt
 end_game = False
-
+player_inventory = []
 
 class Player():
     def __init__(self, name, strength, hp, lvl, lives, inventory):
@@ -78,6 +78,25 @@ Laban: Jasså, så du heter {self.name}.
 
     def room_monster(self):
         monster = 120 + 10*self.lvl
+        string = """
+        .-----:
+       /       |
+   __ /   .-.  .|
+  /  `\  /   \/  |
+  |  _ \/   .==.==.
+  | (   \  /____\__:
+   \ \      (_()(_()
+    \ \            '---._
+     \                   \_
+  /\ |`       (__)________/
+ /  \|     /\___/
+|    \     \||VV
+|     \     \|_____,
+|      \     ______)
+\       \  /`
+      \(
+                """
+        print(string)
         print("Ett monster har dykt upp!!!")
         print(f"Monstret har {monster} HP")
         sleep(1)
@@ -111,12 +130,18 @@ Laban: Jasså, så du heter {self.name}.
                 break
 
 class Item():
-    def __init__(self, kategories, sword_items, ring_items, potion_items):
-        self.kategories = kategories
-        self.sword_items = sword_items
-        self.ring_items = ring_items
-        self.potion_items = potion_items
+    def __init__(self, category, name, strength, health):
+        self.category = category
+        self.name = name
+        self.strength = strength
+        self.health = health
         
+    def add_to_inventory(self):
+        print("Det är en kista")
+        player_inventory.append(self.name)
+        print(player_inventory)
+  
+    
     def item_type_decider(self):
         item_type = rand.choices(self.kategories, weights=(40, 20, 40), k=1 )
         return item_type
@@ -134,17 +159,16 @@ class Item():
         return item_potion
 
     def add_items_in_inventory(self):
-        if len(items_in_inventory) < 5:
+        if len(player_inventory) < 5:
             choice_item = input(f'''
 [1] Om du vill kasta bort föremålet [2] Om du vill spara föremålet 
 --->''')
             if choice_item == '1':
                 print("Du kastade bort föremålet")
             elif choice_item == '2':
-                print(f"Du la till {item_in_chest} i ditt inventory")
-                items_in_inventory.append(item_and_effekt)
+                pass
         
-        if len(items_in_inventory) >= 5:
+        if len() >= 5:
             choice_item = input('''
 Ditt inventory ar fullt
 [1] Om du vill kasta bort föremålet [2] Om du vill byta ut något av de items som du redan har
@@ -154,7 +178,7 @@ Ditt inventory ar fullt
                 print("Du kastade bort föremålet")
             
             if choice_item == '2':
-                Player1.show_inventory()
+                pass
                 item_number_switch = int(input('''
 Vilket nummer har det föremål som du vill ta bort?
 Ga tillbaka [G]
@@ -169,39 +193,38 @@ Ar du saker pa att du vill byta ut detta item?
 [Nej] = 2
                     ''')
                     if if_sure == '1':
-                        items_in_inventory.append(item_number_switch - 1)
-                        items_in_inventory.append(item_and_effekt)
+                        pass
 
 
 #Items i spelarens inventory
-items_in_inventory = []
 
-#Item kategories
-list_kategories = ['Sword', 'Potion', 'Ring']  
-
-#Diffrent items
-list_swords = ["Woodensword", "Lightsaber"]
-list_rings =  ['Force ring', 'Ring of fire']
-list_potion = ['Health potion', 'Strength potion']
-
+category2 = ["Sword", "Ring", "Potion"]
 #Swords strength
-swords_strength = {
-    "Woodensword": 2,
-    "Lightsaber": 1000,
-}
+item1 = Item("Sword", "Woodensword", 10, None)
+item2 = Item("Sword", "Lightsaber", 200, None)
+item3 = Item("Ring", "Force Ring", 50, None)
+item4 = Item("Ring", "Ring of fire", 50, None)
+item5 = Item("Potion", "Health Potion", None, 50)
+item6 = Item("Potion", "Strength Potion", 50, None)
 
-#Potion Effekt
-potion_effekt = {
-    "Health potion": 50,
-    "Strength potion": 50,
-}
+all_items = [item1, item2, item3, item4, item5, item6]
 
-#Ring strength
-ring_strength = {
-    "Force ring": 50,
-    "Ring of fire": 50,
-}
-
+def room_chest():
+        print("Det är en kista")
+        chest_item = rand.randint(1,100)
+        if chest_item == list(range(1,21)):
+            Item(0).add_items_in_inventory()
+        elif chest_item == list(range(21,26)):
+            Item(1).add_items_in_inventory()
+        elif chest_item == list(range(26,38)):
+            Item(2).add_items_in_inventory()
+        elif chest_item == list(range(38,51)):
+            Item(3).add_items_in_inventory()
+        elif chest_item == list(range(51,76)):
+            Item(4).add_items_in_inventory()
+        elif chest_item == list(range(76,101)):
+            Item(5).add_items_in_inventory()
+        #print(Player1[5])    
 def start_game():
     string ='''
 -----------------------------
@@ -240,7 +263,7 @@ def Prolog():
     under din resa, en fiende som kommer göra allt i sin makt för att döda
     dig och slutligen finns det fällor, dessa vill du undvika, ingen har 
     någonsin lämnat ett rum med en fälla oskadd. Nu måste du ge dig iväg,
-    tiden är viktig här. Just det, jag glömde fråga dig en sak"
+    tiden är viktig här. Just det, jag glömde fråga dig en sak."
     
 
     '''
@@ -289,43 +312,22 @@ def door_chance():
     door_type = rand.randint(1,3)
     return door_type
 
-def room_chest():
-    new_item_kategory = Player1_Item.item_type_decider()
-    v = new_item_kategory.pop()
-    
-    if v == "Sword":
-        new_sword_item = Player1_Item.item_kategory_sword()
-        return new_sword_item.pop()
-
-    elif v == "Ring":
-        new_ring_item = Player1_Item.item_kategory_ring()
-        return new_ring_item.pop()
-
-    elif v == "Potion":
-        new_potion_item = Player1_Item.item_kategory_potion()
-        return new_potion_item.pop()
-  
-def new_item_information(item_in_chest):
-    if item_in_chest in list_swords:
-        print(f"hittade {item_in_chest} med STR:{swords_strength[item_in_chest]} i kistan")
-        item_and_effekt = (f"{item_in_chest} --- STR:{swords_strength[item_in_chest]}")
-        return item_and_effekt
-
-    elif item_in_chest in list_rings:
-        print(f"Du hittade {item_in_chest} med STR:{ring_strength[item_in_chest]}")
-        item_and_effekt = (f"{item_in_chest} --- STR:{ring_strength[item_in_chest]}")
-        return item_and_effekt
-                
-    elif item_in_chest in list_potion:
-        print(f"Du hittade {item_in_chest} med Effekt:{potion_effekt[item_in_chest]}")
-        item_and_effekt = (f"{item_in_chest} --- Effekt:{potion_effekt[item_in_chest]}")
-        return item_and_effekt
-  
-    
-
 
 def boss_monster():
-    pass        
+    string = ''' 
+    
+    '''
+    for char in string:
+        sys.stdout.write(char)
+        sys.stdout.flush()
+        sleep(.03)
+    sleep(1)
+    attack = input("Tryck snabbt på [A] för att attackera Laban!")
+    attack = attack.lower()
+    if attack == "a":
+        
+        pass
+        
 
 def animation_door():
     print(f'''
@@ -354,7 +356,7 @@ def animation_door():
 
 #Main Program
 #           Namn Strength HP  LVL Lives Inventory
-Player1 = Player('x', 10, 200, 0, None, items_in_inventory)
+Player1 = Player('x', 10, 200, 0, None, player_inventory)
 
 start_game()
 Player1.difficulty()
@@ -362,7 +364,6 @@ Player1.difficulty()
 
 Player1.set_character()
 
-Player1_Item = Item(list_kategories, list_swords, list_rings, list_potion)
 
 Player1.show_inventory()
 
@@ -391,13 +392,11 @@ while True:
     elif given_input == 'v' or given_input == 'm' or given_input == 'h':
         room_type = door_chance()
         if room_type == 1:
-            item_in_chest = room_chest()
-            item_and_effekt = new_item_information(item_in_chest)
-            Player1_Item.add_items_in_inventory()
+            room_chest()
             input("\nTryck <Enter> för att fortsätta")
-        elif room_type == 2:
-            Player1.room_monster()
-        elif room_type == 3:
+       # elif room_type == 2:
+            Player1.room_monster() 
+       # elif room_type == 3:
             Player1.room_trap()
             Player1.losing_lives()
             if Player1.lives == 0:
