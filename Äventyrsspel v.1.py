@@ -18,8 +18,7 @@ class Player():
         self.inventory = inventory
         
     def show_inventory(self):
-        for i, item in enumerate(self.inventory, 1):
-            print(i, '. ' + item, end='', sep= '\n' )
+        print(self.inventory)
         
 
     def abilites(self):
@@ -66,8 +65,7 @@ Laban: Jasså, så du heter {self.name}.
             ''')
                 sleep(1)
             
-
-        
+    
     def room_trap(self):
         print("Oh no! It's a trap")
         trap_damage = rand.randint(10,100)
@@ -101,7 +99,7 @@ Laban: Jasså, så du heter {self.name}.
         print(f"Monstret har {monster} HP")
         sleep(1)
         while True:
-            damage = rand.randint(15,100)
+            damage = rand.randint(15,150)
             monster = monster - damage
             input("\nTryck <Enter> för att attackera monstret")
             sleep(1)
@@ -117,17 +115,16 @@ Laban: Jasså, så du heter {self.name}.
                 print(f"Du är nu LVL_{self.lvl}!")
                 sleep(2)
                 break
-            damage1 = rand.randint(15,200)
+            damage1 = rand.randint(10,150)
             self.hp = self.hp - damage1
             sleep(1)
             print(f"\nDu tog {damage1} damage")
             print(f"Du har {self.hp} Hp kvar")
             sleep(1)
             if self.hp <= 0:
-                print("Du dog")
                 Player1.losing_lives()
-            if Player1.lives == 0:
-                break
+                if Player1.lives == 0:
+                    break
 
 class Item():
     def __init__(self, category, name, strength, health):
@@ -136,11 +133,6 @@ class Item():
         self.strength = strength
         self.health = health
         
-    def add_to_inventory(self):
-        print("Det är en kista")
-        player_inventory.append(self.name)
-        print(player_inventory)
-  
     
     def item_type_decider(self):
         item_type = rand.choices(self.kategories, weights=(40, 20, 40), k=1 )
@@ -159,46 +151,46 @@ class Item():
         return item_potion
 
     def add_items_in_inventory(self):
-        if len(player_inventory) < 5:
-            choice_item = input(f'''
+        print(f"\nDu har fått {self.name}")
+        while True:
+            if len(player_inventory) < 5:
+                choice_item = input(f'''
 [1] Om du vill kasta bort föremålet [2] Om du vill spara föremålet 
 --->''')
-            if choice_item == '1':
-                print("Du kastade bort föremålet")
-            elif choice_item == '2':
-                pass
+                if choice_item == '1':
+                    print("Du kastade bort föremålet")
+                elif choice_item == '2':
+                    return self.name
         
-        if len() >= 5:
-            choice_item = input('''
+            elif len(player_inventory) >= 5:
+                choice_item = input('''
 Ditt inventory ar fullt
 [1] Om du vill kasta bort föremålet [2] Om du vill byta ut något av de items som du redan har
 --->
             ''')
-            if choice_item == '1':
-                print("Du kastade bort föremålet")
+                if choice_item == '1':
+                    print("Du kastade bort föremålet")
             
-            if choice_item == '2':
-                pass
-                item_number_switch = int(input('''
+                elif choice_item == '2':
+                    item_number_switch = int(input('''
 Vilket nummer har det föremål som du vill ta bort?
-Ga tillbaka [G]
+Gå tillbaka [G]
 --->
                 ''')).lower()
-                if item_number_switch == 'g':
-                    pass
-                else:
-                    if_sure = input('''
+                    if item_number_switch == 'g':
+                        pass
+                    else:
+                        if_sure = input('''
 Ar du saker pa att du vill byta ut detta item?
 [Ja] = 1
 [Nej] = 2
                     ''')
                     if if_sure == '1':
-                        pass
-
+                        return self.name
+                
 
 #Items i spelarens inventory
 
-category2 = ["Sword", "Ring", "Potion"]
 #Swords strength
 item1 = Item("Sword", "Woodensword", 10, None)
 item2 = Item("Sword", "Lightsaber", 200, None)
@@ -210,21 +202,21 @@ item6 = Item("Potion", "Strength Potion", 50, None)
 all_items = [item1, item2, item3, item4, item5, item6]
 
 def room_chest():
-        print("Det är en kista")
+        print("Det är en kista!")
         chest_item = rand.randint(1,100)
-        if chest_item == list(range(1,21)):
-            Item(0).add_items_in_inventory()
-        elif chest_item == list(range(21,26)):
-            Item(1).add_items_in_inventory()
-        elif chest_item == list(range(26,38)):
-            Item(2).add_items_in_inventory()
-        elif chest_item == list(range(38,51)):
-            Item(3).add_items_in_inventory()
-        elif chest_item == list(range(51,76)):
-            Item(4).add_items_in_inventory()
-        elif chest_item == list(range(76,101)):
-            Item(5).add_items_in_inventory()
-        #print(Player1[5])    
+        if chest_item > 0 and chest_item <= 21:
+            appending_item = item1.add_items_in_inventory()
+        elif chest_item > 21 and chest_item <= 26:
+            appending_item = item2.add_items_in_inventory()
+        elif chest_item > 26 and chest_item <= 38:
+            appending_item = item3.add_items_in_inventory()
+        elif chest_item > 38 and chest_item <= 61:
+            appending_item = item4.add_items_in_inventory()
+        elif chest_item > 51 and chest_item <=76:
+            appending_item = item5.add_items_in_inventory()
+        elif chest_item > 76 and chest_item <= 100 :
+            appending_item = item6.add_items_in_inventory()
+        player_inventory.append(appending_item)
 def start_game():
     string ='''
 -----------------------------
@@ -394,9 +386,9 @@ while True:
         if room_type == 1:
             room_chest()
             input("\nTryck <Enter> för att fortsätta")
-       # elif room_type == 2:
+        elif room_type == 2:
             Player1.room_monster() 
-       # elif room_type == 3:
+        elif room_type == 3:
             Player1.room_trap()
             Player1.losing_lives()
             if Player1.lives == 0:
@@ -404,7 +396,6 @@ while True:
                 print("LIVES LEFT: [0]")
                 print("GAME OVER!")
                 break
-
 
 
 
