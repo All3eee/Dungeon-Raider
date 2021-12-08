@@ -1,8 +1,10 @@
 #Använd sleep() istället för time.sleep()
+#pip install keyboard
 
 import random as rand
 import sys
 from time import sleep
+
 
 #Variabel som används för att stänga av spelet helt
 end_game = False
@@ -17,15 +19,13 @@ class Player():
         self.lives = lives
         self.inventory = inventory
         
-    def show_inventory(self):
-        for i in self.inventory:
-            print(self.inventory.index(i) +1, end=' ')
-            print(" ",i)
+
         
 
     def abilites(self):
         print(f'''
         Strength: {self.strength}
+        Acutal HP:
         Level: {self.lvl}
         Lives: {self.lives}
         
@@ -91,8 +91,8 @@ Laban: Jasså, så du heter {self.name}.
   /\ |`       (__)________/
  /  \|     /\___/
 |    \     \||VV
-|     \     \|_____,
-|      \     ______)
+|     \     \|_A_,
+|      \     ____)
 \       \  /`
       \(
                 """
@@ -100,8 +100,18 @@ Laban: Jasså, så du heter {self.name}.
         print("Ett monster har dykt upp!!!")
         print(f"Monstret har {monster} HP")
         sleep(1)
+        number = 1
+        for i in player_inventory:
+            if i.category == "Sword":
+                print(f"{number}.{i.name}  ---  +{i.strength} STR", sep =' ')
+                number += 1
+        if number > 1:
+            print("Vilket vapen vill du använda?")
+            attack_weapon = input("Skriv nummret som korrespenderar med ditt val av vapen")
+        else:
+            print("Du har inget vapen och måste slåss med händerna!")
         while True:
-            damage = rand.randint(15,150)
+            damage = rand.randint(15,100)
             monster = monster - damage
             input("\nTryck <Enter> för att attackera monstret")
             sleep(1)
@@ -114,7 +124,7 @@ Laban: Jasså, så du heter {self.name}.
                 self.lvl = self.lvl +1
                 print("Du gick upp i LVL!")
                 sleep(1)
-                print(f"Du är nu LVL_{self.lvl}!")
+                print(f"Du är nu LVL {self.lvl}!")
                 sleep(2)
                 break
             damage1 = rand.randint(10,150)
@@ -129,15 +139,29 @@ Laban: Jasså, så du heter {self.name}.
                     break
 
 class Item():
-    def __init__(self, category, name, strength, health):
+    def __init__(self, category, name, strength, attribute):
         self.category = category
         self.name = name
         self.strength = strength
-        self.health = health
+        self.attribute = attribute
         
 
     def add_items_in_inventory(self):
         print(f"\nDu har fått {self.name}")
+        if self.name == 'Health Potion':
+             print(f"Som ger dig +{self.strength} HP när du dricker den")
+        elif self.name == 'Strength Potion':
+            print(f"Som ger dig +{self.strength} styrka när du dricker den")
+        #Health Ring
+        elif self.name == 'Health ring':
+            print(f"Som ger dig +{self.strength} extra på ditt MAX HP")
+        #Alla ringar med styrka
+        elif self.category == 'Ring':
+            print(f"Som ger dig +{self.strength} extra styrka")
+        #Alla svärd
+        elif self.category == 'Sword':
+            print(f"Med styrkan: {self.strength}")
+        
         while True:
             if len(player_inventory) < 5:
                 choice_item = input(f'''
@@ -145,47 +169,57 @@ class Item():
 --->''')
                 if choice_item == '1':
                     print("Du kastade bort föremålet")
+                    break
                 elif choice_item == '2':
-                    return self.name
+                    if self.name == "Health ring":
+                        Player1.hp += self.strength
+                    elif self.category == "Ring":
+                        Player1.strength += self.strength
+                    return self
         
             elif len(player_inventory) >= 5:
                 choice_item = input('''
 Ditt inventory ar fullt
 [1] Om du vill kasta bort föremålet [2] Om du vill byta ut något av de items som du redan har
---->
-            ''')
+---> ''')
                 if choice_item == '1':
                     print("Du kastade bort föremålet")
-            
+                    break
                 elif choice_item == '2':
-                    item_number_switch = int(input('''
+                    show_inventory()
+                    item_number_switch = input('''
 Vilket nummer har det föremål som du vill ta bort?
 Gå tillbaka [G]
---->
-                ''')).lower()
+---> ''').lower()
                     if item_number_switch == 'g':
-                        pass
+                        continue
                     else:
-                        if_sure = input('''
+                        
+                       if_sure = input('''
 Ar du saker pa att du vill byta ut detta item?
 [Ja] = 1
 [Nej] = 2
-                    ''')
+--->''')
                     if if_sure == '1':
-                        return self.name
+                        item_number_switch = int(item_number_switch)
+                        player_inventory.pop(item_number_switch-1)
+                        return self
+                    if if_sure == '2':
+                        continue
 
     def get_item_strength(self):
         return self.strength                
 
 #Items i spelarens inventory
 
-#Swords strength
-item1 = Item("Sword", "Stick", 10, None)
-item2 = Item("Sword", "Lightsaber", 200, None)
-item3 = Item("Ring", "Force Ring", 50, None)
-item4 = Item("Ring", "Ring of fire", 50, None)
-item5 = Item("Potion", "Health Potion", None, 50)
-item6 = Item("Potion", "Strength Potion", 50, None)
+# Category, Name, Strength/health
+item1 = Item("Sword", "Stick", 10, "STR")
+item2 = Item("Sword", "Lightsaber", 200, "STR")
+item3 = Item("Ring", "Force Ring", 50, "STR")
+item4 = Item("Ring", "Ring of fire", 50, "STR")
+item5 = Item("Potion", "Health Potion", 50, "Health")
+item6 = Item("Potion", "Strength Potion", 50, "STR")
+item7 = Item("Ring", "Health Ring", 50, "Health")
 
 
 def room_chest():
@@ -266,7 +300,7 @@ def meny():
             if chosen_number == '1':
                 pass
             elif chosen_number == '2':
-                Player1.show_inventory()
+                show_inventory()
             elif chosen_number == '3':
                 break
             elif chosen_number == '4':
@@ -274,6 +308,16 @@ def meny():
                 end = end.lower()
                 if end == "ja":
                     return True
+def show_inventory():
+    number = 1
+    for i in player_inventory:
+        if i == None:
+            break
+        if i.attribute == 'STR':
+            print(f"{number}.{i.name}  ---  +{i.strength} STR", sep =' ')
+        elif i.attribute == 'Health':
+            print(f"{number}.{i.name}  ---  +{i.strength} Health", sep =' ')
+        number += 1                
 
 def the_room():
     while True:
@@ -295,18 +339,34 @@ def door_chance():
 
 def boss_monster():
     string = ''' 
-    
+    .-.
+   .'   `.
+   :g g   :
+   : O    `.
+  :         ``.
+ :             `.
+:  :         .   `.
+:   :          ` . `.
+ `.. :            `. ``;
+    `:;             `:'
+       :              `.
+        `.              `.     .
+          `'`'`'`---..,___`;:-'
     '''
     for char in string:
         sys.stdout.write(char)
         sys.stdout.flush()
         sleep(.03)
-    sleep(1)
-    attack = input("Tryck snabbt på [A] för att attackera Laban!")
-    attack = attack.lower()
-    if attack == "a":
-        
-        pass
+    
+    import keyboard
+    print('"Tryck snabbt på [A] för att attackera Laban!')
+    t=3
+    while t >= 0:
+        if keyboard.read_key() == "a":
+            break
+        print(f"{t}...")
+        sleep(1)
+        t -= 1
         
 
 def animation_door():
@@ -345,16 +405,10 @@ Player1.difficulty()
 Player1.set_character()
 
 
-Player1.show_inventory()
-
 while True:
     
     animation_door()
-    
-    '''
-    if Player1(3) == 10:
-        pass
-    '''
+
     given_input = the_room()
 
     if given_input == 'e':
@@ -375,16 +429,16 @@ while True:
             room_chest()
             input("\nTryck <Enter> för att fortsätta")
         elif room_type == 2:
-            Player1.room_monster() 
+            Player1.room_monster()
+            input("\nTryck <Enter> för att fortsätta") 
         elif room_type == 3:
             Player1.room_trap()
             Player1.losing_lives()
-            if Player1.lives == 0:
+            if Player1.lives <= 0:
                 end_game = True
                 print("LIVES LEFT: [0]")
                 print("GAME OVER!")
                 break
-
 
 
 if end_game == False:
