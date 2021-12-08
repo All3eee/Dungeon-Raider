@@ -187,7 +187,6 @@ item4 = Item("Ring", "Ring of fire", 50, None)
 item5 = Item("Potion", "Health Potion", None, 50)
 item6 = Item("Potion", "Strength Potion", 50, None)
 
-all_items = [item1, item2, item3, item4, item5, item6]
 
 def room_chest():
         print("Det är en kista!")
