@@ -18,7 +18,9 @@ class Player():
         self.inventory = inventory
         
     def show_inventory(self):
-        print(self.inventory)
+        for i in self.inventory:
+            print(self.inventory.index(i) +1, end=' ')
+            print(" ",i)
         
 
     def abilites(self):
@@ -133,22 +135,6 @@ class Item():
         self.strength = strength
         self.health = health
         
-    
-    def item_type_decider(self):
-        item_type = rand.choices(self.kategories, weights=(40, 20, 40), k=1 )
-        return item_type
-
-    def item_kategory_sword(self):
-        item_sword = rand.choices(self.sword_items, weights=(50, 50), k=1)
-        return item_sword
-
-    def item_kategory_ring(self):
-        item_ring = rand.choices(self.ring_items, weights=(50, 50), k=1)
-        return item_ring
-    
-    def item_kategory_potion(self):
-        item_potion = rand.choices(self.potion_items, weights=(50, 50), k=1)
-        return item_potion
 
     def add_items_in_inventory(self):
         print(f"\nDu har fått {self.name}")
@@ -187,12 +173,14 @@ Ar du saker pa att du vill byta ut detta item?
                     ''')
                     if if_sure == '1':
                         return self.name
-                
+
+    def get_item_strength(self):
+        return self.strength                
 
 #Items i spelarens inventory
 
 #Swords strength
-item1 = Item("Sword", "Woodensword", 10, None)
+item1 = Item("Sword", "Stick", 10, None)
 item2 = Item("Sword", "Lightsaber", 200, None)
 item3 = Item("Ring", "Force Ring", 50, None)
 item4 = Item("Ring", "Ring of fire", 50, None)
@@ -217,6 +205,7 @@ def room_chest():
         elif chest_item > 76 and chest_item <= 100 :
             appending_item = item6.add_items_in_inventory()
         player_inventory.append(appending_item)
+
 def start_game():
     string ='''
 -----------------------------
