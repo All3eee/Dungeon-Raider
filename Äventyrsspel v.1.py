@@ -4,7 +4,7 @@
 import random as rand
 import sys
 from time import sleep
-
+from Animationer import *
 
 #Variabel som används för att stänga av spelet helt
 end_game = False
