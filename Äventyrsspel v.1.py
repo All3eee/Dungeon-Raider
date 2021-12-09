@@ -338,26 +338,9 @@ def door_chance():
 
 
 def boss_monster():
-    string = ''' 
-    .-.
-   .'   `.
-   :g g   :
-   : O    `.
-  :         ``.
- :             `.
-:  :         .   `.
-:   :          ` . `.
- `.. :            `. ``;
-    `:;             `:'
-       :              `.
-        `.              `.     .
-          `'`'`'`---..,___`;:-'
-    '''
-    for char in string:
-        sys.stdout.write(char)
-        sys.stdout.flush()
-        sleep(.03)
-    
+    laban()
+
+
     import keyboard
     print('"Tryck snabbt på [A] för att attackera Laban!')
     t=3
@@ -367,7 +350,7 @@ def boss_monster():
         print(f"{t}...")
         sleep(1)
         t -= 1
-        
+   
 
 def animation_door():
     print(f'''
@@ -397,7 +380,9 @@ def animation_door():
 #Main Program
 #           Namn Strength HP  LVL Lives Inventory
 Player1 = Player('x', 10, 200, 0, None, player_inventory)
+laban()
 
+animation_dr()
 start_game()
 Player1.difficulty()
 
@@ -445,3 +430,5 @@ if end_game == False:
     boss_monster()
     while True:
         pass
+
+

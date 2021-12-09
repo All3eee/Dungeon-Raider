@@ -1,3 +1,7 @@
+import sys
+from time import sleep
+
+
 def animation_dr():
     print('''
       ,-' ;'! `-.         ,-' ;'! `-.         ,-' ;'! `-.
@@ -16,4 +20,26 @@ def animation_dr():
     Vänster dörr [V], Mitten dörr [M], Höger dörr [H]    
     Meny [E]  
         ''')
+
+
+def laban():
+      string = ''' 
+    .-.
+   .'   `.
+   :g g   :
+   : O    `.
+  :         ``.
+ :             `.
+:  :         .   `.
+:   :          ` . `.
+ `.. :            `. ``;
+    `:;             `:'
+       :              `.
+        `.              `.     .
+          `'`'`'`---..,___`;:-'
+    '''
+      for char in string:
+        sys.stdout.write(char)
+        sys.stdout.flush()
+        sleep(.03)
     
