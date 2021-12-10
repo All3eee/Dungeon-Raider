@@ -73,7 +73,7 @@ Laban: Jasså, så du heter {self.name}.
         number_of_potion = 1
         number_in_inventory = 0
         for i in player_inventory:
-            if i.category == 'Potion' and i.attribute == 'Health':
+            if i.category == 'Potion':
                 print(f"{number_of_potion}.{i.name}  ---  +{i.strength} Health", sep =' ')
                 potion_value_list.append(i.strength)
                             
@@ -284,7 +284,7 @@ item3 = Item("Ring", "Force Ring", 50, "STR")
 item4 = Item("Ring", "Ring of fire", 50, "STR")
 item5 = Item("Potion", "Health Potion", 50, "Health")
 item7 = Item("Ring", "Health Ring", 50, "Health")
-item8 = Item("Potion", "Borogor", 1000, "Health")
+item8 = Item("Potion", "Borogor", 100, "Health")
 
 
 def room_chest():
