@@ -101,25 +101,36 @@ Laban: Jasså, så du heter {self.name}.
             if menu_choice == "69":
                 return 1000000
 
-            if menu_choice == "2":
+            elif menu_choice == "2":
                 potion_value_list = []
+                #Används för att veta platserna för de olika potions
+                potion_position_in_inventory = []
                 number_of_potion = 1
+                number_in_inventory = 0
                 for i in player_inventory:
-                    if i.category == 'Potion':
+                    
+                    if i.category == 'Potion' and i.attribute == 'Health':
                         print(f"{number_of_potion}.{i.name}  ---  +{i.strength} Health", sep =' ')
                         potion_value_list.append(i.strength)
+                        
+                        #Lägger till platserna för de olika potions i Player inventory
+                        potion_position_in_inventory.append(number_in_inventory)
                         number_of_potion += 1
-                    
+                    number_in_inventory +=1
                 if number_of_potion == 1:
                     print("n\Du har inga potions i ditt inventory") 
         
                 else:
-                    potion_choice = int(input("Vilket nummer har vapnet som du vill använda? --> "))
+                    potion_choice = int(input("Vilket nummer har den potion som du vill använda? --> "))
                     health_increase = potion_value_list[potion_choice- 1]
-                    self.hp = health_increase
+                    self.hp = self.hp + health_increase
+                    
+                    #Tar bort potion från inventory
+                    position = potion_position_in_inventory[potion_choice-1]
+                    player_inventory.pop(position)
                     
 
-            if menu_choice == "3":
+            elif menu_choice == "3":
                 Player1.abilities()
                 continue
 
@@ -272,10 +283,9 @@ item8 = Item("Potion", "Borogor", 1000, "Health")
 
 
 def room_chest():
-    chest_animation()
     print("Det är en kista!")
 
-    chest_item = rand.randint(1, 220)
+    chest_item = rand.randint(1, 200)
     if chest_item > 0 and chest_item <= 21:
         appending_item = item1.add_items_in_inventory()
     elif chest_item > 21 and chest_item <= 26:
@@ -298,9 +308,8 @@ def room_chest():
         appending_item = item10.add_items_in_inventory()
     elif chest_item > 180 and chest_item <=200 :
         appending_item = item11.add_items_in_inventory()
-
-        
-        player_inventory.append(appending_item)
+    
+    player_inventory.append(appending_item)
 
 def start_game():
     string ='''
