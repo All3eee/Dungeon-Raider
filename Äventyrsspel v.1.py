@@ -75,6 +75,8 @@ Laban: Jasså, så du heter {self.name}.
         print(f"Du tog {trap_damage} skada")
         sleep(1)
 
+ 
+
     def battle_menu(self):
         menu_choice = input('''
 [1] Attackera
@@ -83,22 +85,27 @@ Laban: Jasså, så du heter {self.name}.
 ---> ''')
         if menu_choice == "1":
             number = 1
+            svärd_lista = []
             for i in player_inventory:
-                if i.category == "Sword":
+                if i.category == 'Sword':
                     print(f"{number}.{i.name}  ---  +{i.strength} STR", sep =' ')
+                    svärd_lista.append(i.strength)
+                    print(svärd_lista)
                     number += 1
+
             if number == 1:
                 print("Du har inget vapen och måste slåss med händerna!")
                 return 30 + self.strength
             else:     
                 weapon_choice = int(input("Vilket nummer har vapnet som du vill använda? -->"))
-                jul = player_inventory[weapon_choice - 1]
-                print(jul)
-
+                print(player_inventory)
+                print(weapon_choice)
+                skada = item6.get_strength()
+                return skada
         if menu_choice == "69":
             return 1000000
         
-    
+
 
 
         
@@ -169,6 +176,8 @@ class Item():
         self.strength = strength
         self.attribute = attribute
         
+    def get_strength(self):
+        return self.strength
 
     def add_items_in_inventory(self):
         print(f"\nDu har fått {self.name}")
@@ -251,9 +260,7 @@ Ar du saker pa att du vill byta ut detta item?
             elif self.attribute == "STR":
                 Player1.strength -= self.strength
                         
-    
-    def get_item_strength(self):
-        return self.strength                
+                  
 
 #Items i spelarens inventory
 
