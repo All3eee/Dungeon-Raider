@@ -1,7 +1,7 @@
 import random as rand
 import sys
 from time import sleep
-
+from Animationer import *
 
 #Variabel som används för att stänga av spelet helt
 end_game = False
@@ -93,9 +93,9 @@ Laban: Jasså, så du heter {self.name}.
 
                 if number == 1:
                     print("Du har inget vapen och måste slåss med händerna!")
-                    return 30 + self.strength
+                    return self.strength
                 else:     
-                    weapon_choice = int(input("n\Vilket nummer har vapnet som du vill använda? --> "))
+                    weapon_choice = int(input("Vilket nummer har vapnet som du vill använda? --> "))
                     damage_of_weapon = sword_list[weapon_choice - 1] + self.strength
                     return damage_of_weapon
             if menu_choice == "69":
@@ -106,33 +106,29 @@ Laban: Jasså, så du heter {self.name}.
                 number_of_potion = 1
                 for i in player_inventory:
                     if i.category == 'Potion':
-                        print(f"{number_of_potion}.{i.name}  ---  +{i.health} Health", sep =' ')
-                        potion_value_list.append(i.health)
+                        print(f"{number_of_potion}.{i.name}  ---  +{i.strength} Health", sep =' ')
+                        potion_value_list.append(i.strength)
                         number_of_potion += 1
                     
                 if number_of_potion == 1:
                     print("n\Du har inga potions i ditt inventory") 
         
                 else:
-                    potion_choice = int(input("n\Vilket nummer har vapnet som du vill använda? --> "))
+                    potion_choice = int(input("Vilket nummer har vapnet som du vill använda? --> "))
                     health_increase = potion_value_list[potion_choice- 1]
+                    self.hp = health_increase
+                    
 
             if menu_choice == "3":
                 Player1.abilities()
                 continue
 
-
-
-
+    
     def room_monster(self):
         monster = 120 + 10*self.lvl
-        #monster_animation()
-
-        print("Ett monster har dykt upp!!!")
+        monster_animation()
         print(f"Monstret har {monster} HP")
         sleep(1)
-    
-                
         while True:
             damage = Player1.battle_menu()
 
@@ -158,7 +154,7 @@ Laban: Jasså, så du heter {self.name}.
             sleep(1)
             print(f"\nDu tog {damage1} damage")
             if self.hp <= 0:
-                self.hip = 0
+                self.hp = 0
             print(f"Du har {self.hp} Hp kvar")
             sleep(1)
             if self.hp <= 0:
@@ -271,38 +267,38 @@ item12 = Item("Sword", "Machine gun", 300, "STR")
 item3 = Item("Ring", "Force Ring", 50, "STR")
 item4 = Item("Ring", "Ring of fire", 50, "STR")
 item5 = Item("Potion", "Health Potion", 50, "Health")
-item6 = Item("Potion", "Strength Potion", 50, "STR")
 item7 = Item("Ring", "Health Ring", 50, "Health")
 item8 = Item("Potion", "Borogor", 1000, "Health")
 
 
 def room_chest():
-        print("Det är en kista!")
-        chest_item = rand.randint(1, 220)
-        if chest_item > 0 and chest_item <= 21:
-            appending_item = item1.add_items_in_inventory()
-        elif chest_item > 21 and chest_item <= 26:
-            appending_item = item2.add_items_in_inventory()
-        elif chest_item > 26 and chest_item <= 38:
-            appending_item = item3.add_items_in_inventory()
-        elif chest_item > 38 and chest_item <= 61:
-            appending_item = item4.add_items_in_inventory()
-        elif chest_item > 51 and chest_item <=76:
-            appending_item = item5.add_items_in_inventory()
-        elif chest_item > 76 and chest_item <= 100 :
-            appending_item = item6.add_items_in_inventory()
-        elif chest_item > 100 and chest_item <=120 :
-            appending_item = item7.add_items_in_inventory()
-        elif chest_item > 120 and chest_item <=140:
-            appending_item = item8.add_items_in_inventory()
-        elif chest_item > 140 and chest_item <=160 :
-            appending_item = item9.add_items_in_inventory()
-        elif chest_item > 160 and chest_item <=180 :
-            appending_item = item10.add_items_in_inventory()
-        elif chest_item > 180 and chest_item <=200 :
-            appending_item = item11.add_items_in_inventory()
-        elif chest_item > 200 and chest_item <=220 :
-            appending_item = item12.add_items_in_inventory()
+    chest_animation()
+    print("Det är en kista!")
+
+    chest_item = rand.randint(1, 220)
+    if chest_item > 0 and chest_item <= 21:
+        appending_item = item1.add_items_in_inventory()
+    elif chest_item > 21 and chest_item <= 26:
+        appending_item = item2.add_items_in_inventory()
+    elif chest_item > 26 and chest_item <= 38:
+        appending_item = item3.add_items_in_inventory()
+    elif chest_item > 38 and chest_item <= 61:
+        appending_item = item4.add_items_in_inventory()
+    elif chest_item > 51 and chest_item <=76:
+        appending_item = item5.add_items_in_inventory()
+    elif chest_item > 76 and chest_item <= 100 :
+        appending_item = item12.add_items_in_inventory()
+    elif chest_item > 100 and chest_item <=120 :
+        appending_item = item7.add_items_in_inventory()
+    elif chest_item > 120 and chest_item <=140:
+        appending_item = item8.add_items_in_inventory()
+    elif chest_item > 140 and chest_item <=160 :
+        appending_item = item9.add_items_in_inventory()
+    elif chest_item > 160 and chest_item <=180 :
+        appending_item = item10.add_items_in_inventory()
+    elif chest_item > 180 and chest_item <=200 :
+        appending_item = item11.add_items_in_inventory()
+
         
         player_inventory.append(appending_item)
 
@@ -318,42 +314,7 @@ Välkommen till Dungeon Raider
     sleep(1)
     input("\nTryck <Enter> för att starta spelet")
 
-def Prolog():
-    string = '''
-    Du öppnar dina ögon, det är totalt mörker och du kan endast urskilja
-    några fåtal konturer. Marken under dig är kall som is. 
-        "Vad är detta för ställe?", tänker du för dig själv.
-        "Drömmer jag fortfarande?"
-    Längst bort bland rummets outforskade partier skymms en ljuskälla av
-    allt mörker. Ljuset växer starkare och starkare; efter en kort stund
-    blir det tillräckligt ljust för att kunna skymta en siluett.
-        "Är jag trots allt inte ensam här nere?"
-        "Hallå? Vem är där?", lyckas du få ut med ett föträngt utrop.
-        "Mitt namn är laban, du hör inte hemma här", säger den okända
-    rösten som tycks tillhöra en pojke i tonåren.
-        "Hur hamnade jag här?", säger du.
-        "Under flertal decennier har människor som du, dykt upp i våran
-    värld under okända omständigheter. Till skillnad från mitt folk kan
-    ni människor inte stanna här länge, om ni inte önskar att stanna här
-    för evigt förstås. Du ser... Jag var också en människa som du en gång
-    i tiden. Men som du kan se var jag för långsam och nu kvarstår endast
-    en skepnad av mitt sanna jag."
-        "Hur tar jag mig härifrån?", frågar du oroligt.
-        "Det finns endast ett sätt att ta sig härifrån, bakom dessa tre
-    dörrar finner du antingen en kista med ett föremål som kan hjälpa dig
-    under din resa, en fiende som kommer göra allt i sin makt för att döda
-    dig och slutligen finns det fällor, dessa vill du undvika, ingen har 
-    någonsin lämnat ett rum med en fälla oskadd. Nu måste du ge dig iväg,
-    tiden är viktig här. Just det, jag glömde fråga dig en sak."
-    
 
-    '''
-    for char in string:
-        sys.stdout.write(char)
-        sys.stdout.flush()
-        sleep(.03)
-    sleep(1)
-    
 def meny():
     while True:
         print('''\n
@@ -414,7 +375,7 @@ def door_chance():
 
 
 def boss_monster():
-    #laban()
+    laban()
     pass
 
    
@@ -444,11 +405,12 @@ def animation_door():
     
 
 
-#Main Program
-#             Namn Strength HP MAX_HP LVL Lives Inventory
-Player1 = Player('x', 0, 200, 200, 0, None, player_inventory)
 
-#title()
+#             Namn Strength HP MAX_HP LVL Lives Inventory
+Player1 = Player('x', 20, 200, 200, 0, None, player_inventory)
+
+#Main Program
+title()
 start_game()
 Player1.difficulty()
 
