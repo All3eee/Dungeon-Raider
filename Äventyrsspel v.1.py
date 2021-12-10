@@ -65,9 +65,38 @@ Laban: Jasså, så du heter {self.name}.
             ''')
                 sleep(1)
     
+    def use_potion(self):
+        potion_value_list = []
+                    
+        #Används för att veta platserna för de olika potions
+        potion_position_in_inventory = []
+        number_of_potion = 1
+        number_in_inventory = 0
+        for i in player_inventory:
+            if i.category == 'Potion' and i.attribute == 'Health':
+                print(f"{number_of_potion}.{i.name}  ---  +{i.strength} Health", sep =' ')
+                potion_value_list.append(i.strength)
+                            
+                #Lägger till platserna för de olika potions i Player inventory
+                potion_position_in_inventory.append(number_in_inventory)
+                number_of_potion += 1
+            number_in_inventory +=1
+        if number_of_potion == 1:
+            print("\nDu har inga potions i ditt inventory") 
+            
+        else:
+            potion_choice = int(input("Vilket nummer har den potion som du vill använda? --> "))
+            health_increase = potion_value_list[potion_choice- 1]
+            self.hp = self.hp + health_increase
+                        
+            #Tar bort potion från inventory
+            position = potion_position_in_inventory[potion_choice-1]
+            player_inventory.pop(position)
+                    
+
     def room_trap(self):
         print("Oh no! It's a trap")
-        trap_damage = rand.randint(10,100)
+        trap_damage = rand.randint(10,80)
         self.hp = self.hp - trap_damage
         sleep(1)
         print(f"Du tog {trap_damage} skada")
@@ -93,43 +122,18 @@ Laban: Jasså, så du heter {self.name}.
 
                 if number == 1:
                     print("Du har inget vapen och måste slåss med händerna!")
-                    return self.strength
+                    return self.strength + rand.randint(-10,20)
                 else:     
                     weapon_choice = int(input("Vilket nummer har vapnet som du vill använda? --> "))
-                    damage_of_weapon = sword_list[weapon_choice - 1] + self.strength
+                    random_damage = rand.randint(1,20) - rand.randint(1,20)
+                    damage_of_weapon = sword_list[weapon_choice - 1] + self.strength + random_damage
                     return damage_of_weapon
             if menu_choice == "69":
                 return 1000000
 
             elif menu_choice == "2":
-                potion_value_list = []
-                #Används för att veta platserna för de olika potions
-                potion_position_in_inventory = []
-                number_of_potion = 1
-                number_in_inventory = 0
-                for i in player_inventory:
+                Player1.use_potion()
                     
-                    if i.category == 'Potion' and i.attribute == 'Health':
-                        print(f"{number_of_potion}.{i.name}  ---  +{i.strength} Health", sep =' ')
-                        potion_value_list.append(i.strength)
-                        
-                        #Lägger till platserna för de olika potions i Player inventory
-                        potion_position_in_inventory.append(number_in_inventory)
-                        number_of_potion += 1
-                    number_in_inventory +=1
-                if number_of_potion == 1:
-                    print("n\Du har inga potions i ditt inventory") 
-        
-                else:
-                    potion_choice = int(input("Vilket nummer har den potion som du vill använda? --> "))
-                    health_increase = potion_value_list[potion_choice- 1]
-                    self.hp = self.hp + health_increase
-                    
-                    #Tar bort potion från inventory
-                    position = potion_position_in_inventory[potion_choice-1]
-                    player_inventory.pop(position)
-                    
-
             elif menu_choice == "3":
                 Player1.abilities()
                 continue
@@ -160,7 +164,7 @@ Laban: Jasså, så du heter {self.name}.
                 print(f"Du är nu LVL {self.lvl}!")
                 sleep(2)
                 break
-            damage1 = rand.randint(2*self.lvl,15+150*self.lvl)
+            damage1 = rand.randint(2*self.lvl,20 + 25*self.lvl)
             self.hp = self.hp - damage1
             sleep(1)
             print(f"\nDu tog {damage1} damage")
@@ -224,7 +228,7 @@ class Item():
         
             elif len(player_inventory) >= 5:
                 choice_item = input('''
-Ditt inventory ar fullt
+Ditt inventory är fullt
 [1] Om du vill kasta bort föremålet [2] Om du vill byta ut något av de items som du redan har
 ---> ''')
                 if choice_item == '1':
@@ -247,6 +251,7 @@ Ar du saker pa att du vill byta ut detta item?
 --->''')
                     if if_sure == '1':
                         item_number_switch = int(item_number_switch)
+                        player_inventory[item_number_switch-1].popping_item()
                         player_inventory.pop(item_number_switch-1)
                         if self.category == 'Ring':
                             if self.attribute == "Health":
@@ -337,7 +342,7 @@ def meny():
             if chosen_number == '1':
                 Player1.abilities()
             elif chosen_number == '2':
-                show_inventory()
+                inventory_usage()
             elif chosen_number == '3':
                 break
             elif chosen_number == '4':
@@ -352,6 +357,7 @@ def meny():
                     sleep(0.5)
                     print("1")
                     return True
+
 def show_inventory():
     number = 1
     for i in player_inventory:
@@ -361,7 +367,44 @@ def show_inventory():
             print(f"{number}.{i.name}  ---  +{i.strength} STR", sep =' ')
         elif i.attribute == 'Health':
             print(f"{number}.{i.name}  ---  +{i.strength} Health", sep =' ')
-        number += 1                
+        number += 1
+
+def inventory_usage():
+    while True:
+        if len(player_inventory) > 0:
+            pass
+        else:    
+            print("Det är tomt i ditt inventory")
+            input("\nTryck <Enter> för att fortsätta")
+            break
+        show_inventory()
+        choice_input = input('''
+    Tryck på [1] för att ta bort föremål
+    Tryck på [2] för att använda potion
+    Tryck på [3] för att återvända till meny
+        ''')
+        if choice_input == '1':
+            item_number_switch = input('''
+    Vilket nummer har det föremål som du vill ta bort?
+    Gå tillbaka [G]
+    ---> ''').lower()
+            if item_number_switch == 'g':
+                continue
+            else:
+                if_sure = input('''
+    Ar du saker pa att du vill byta ut detta item?
+    [Ja] = 1
+    [Nej] = 2
+    --->''')
+            if if_sure == '1':
+                item_number_switch = int(item_number_switch)
+                player_inventory[item_number_switch-1].popping_item()
+                player_inventory.pop(item_number_switch-1)
+        elif choice_input == '2':
+            Player1.use_potion()               
+        elif choice_input == '3':
+            break
+
 
 def the_room():
     while True:

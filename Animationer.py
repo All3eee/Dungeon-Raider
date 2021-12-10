@@ -26,7 +26,6 @@ def monster_animation():
 
     #Monstret Jörgen
     if monster_type == 1:
-      print("Djuriga Jörgen har dykt upp!")
       string = """
         .-----:
        /       |
@@ -46,6 +45,7 @@ def monster_animation():
       \(
                 """
       print(string)
+      print("Djuriga Jörgen har dykt upp!")
     
     #Mumin
     elif monster_type == 2:
@@ -171,6 +171,7 @@ def title():
 ▀▄▄▄▄▀▀▀▄▄▄▄▀▀▄▄▄▀▀▄▄▀▄▄▄▄▄▀▄▄▄▄▄▀▄▄▄▄▀▄▄▄▀▀▄▄▀▀▀▄▄▀▄▄▀▄▄▀▄▄▀▄▄▄▀▄▄▄▄▀▀▄▄▄▄▄▀▄▄▀▄▄▀
 '''
   print(string)
+  sleep(1)
 
 def Prolog():
     string = '''
