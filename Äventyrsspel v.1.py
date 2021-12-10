@@ -1,9 +1,6 @@
-#from keyboard import *
 import random as rand
 import sys
 from time import sleep
-from Animationer import *
-import keyboard
 
 
 #Variabel som används för att stänga av spelet helt
@@ -21,7 +18,7 @@ class Player():
         self.inventory = inventory
         
 
-    def abilites(self):
+    def abilities(self):
         print(f'''
         Strength: {self.strength}
         HP: {self.hp}
@@ -30,7 +27,8 @@ class Player():
         Lives: {self.lives}
         
         ''')
-    
+        input("\nTryck <Enter> för att stänga sidan")
+
     def difficulty(self):
         print("Du kommer nu att få bestämma förinställningar")
         while True:
@@ -78,59 +76,58 @@ Laban: Jasså, så du heter {self.name}.
  
 
     def battle_menu(self):
-        menu_choice = input('''
+        while True:
+            menu_choice = input('''
 [1] Attackera
 [2] Använda potion
 [3] Spelare information
 ---> ''')
-        if menu_choice == "1":
-            number = 1
-            svärd_lista = []
-            for i in player_inventory:
-                if i.category == 'Sword':
-                    print(f"{number}.{i.name}  ---  +{i.strength} STR", sep =' ')
-                    svärd_lista.append(i.strength)
-                    print(svärd_lista)
-                    number += 1
+            if menu_choice == "1":
+                number = 1
+                sword_list = []
+                for i in player_inventory:
+                    if i.category == 'Sword':
+                        print(f"{number}.{i.name}  ---  +{i.strength} STR", sep =' ')
+                        sword_list.append(i.strength)
+                        number += 1
 
-            if number == 1:
-                print("Du har inget vapen och måste slåss med händerna!")
-                return 30 + self.strength
-            else:     
-                weapon_choice = int(input("Vilket nummer har vapnet som du vill använda? -->"))
-                print(player_inventory)
-                print(weapon_choice)
-                skada = item6.get_strength()
-                return skada
-        if menu_choice == "69":
-            return 1000000
+                if number == 1:
+                    print("Du har inget vapen och måste slåss med händerna!")
+                    return 30 + self.strength
+                else:     
+                    weapon_choice = int(input("n\Vilket nummer har vapnet som du vill använda? --> "))
+                    damage_of_weapon = sword_list[weapon_choice - 1] + self.strength
+                    return damage_of_weapon
+            if menu_choice == "69":
+                return 1000000
+
+            if menu_choice == "2":
+                potion_value_list = []
+                number_of_potion = 1
+                for i in player_inventory:
+                    if i.category == 'Potion':
+                        print(f"{number_of_potion}.{i.name}  ---  +{i.health} Health", sep =' ')
+                        potion_value_list.append(i.health)
+                        number_of_potion += 1
+                    
+                if number_of_potion == 1:
+                    print("n\Du har inga potions i ditt inventory") 
         
+                else:
+                    potion_choice = int(input("n\Vilket nummer har vapnet som du vill använda? --> "))
+                    health_increase = potion_value_list[potion_choice- 1]
+
+            if menu_choice == "3":
+                Player1.abilities()
+                continue
 
 
 
-        
 
     def room_monster(self):
         monster = 120 + 10*self.lvl
-        string = """
-        .-----:
-       /       |
-   __ /   .-.  .|
-  /  `\  /   \/  |
-  |  _ \/   .==.==.
-  | (   \  /____\__:
-   \ \      (_()(_()
-    \ \            '---._
-     \                   \_
-  /\ |`       (__)________/
- /  \|     /\___/
-|    \     \||VV
-|     \     \|_A_,
-|      \     ____)
-\       \  /`
-      \(
-                """
-        print(string)
+        #monster_animation()
+
         print("Ett monster har dykt upp!!!")
         print(f"Monstret har {monster} HP")
         sleep(1)
@@ -156,7 +153,7 @@ Laban: Jasså, så du heter {self.name}.
                 print(f"Du är nu LVL {self.lvl}!")
                 sleep(2)
                 break
-            damage1 = rand.randint(10,150)
+            damage1 = rand.randint(2*self.lvl,15+150*self.lvl)
             self.hp = self.hp - damage1
             sleep(1)
             print(f"\nDu tog {damage1} damage")
@@ -193,7 +190,7 @@ class Item():
         elif self.category == 'Ring':
             #Strength Rings
             if self.attribute == 'STR':
-                print(f"Som ger dig +{self.strength} styrka när du dricker den")
+                print(f"Som ger dig +{self.strength} styrka")
             #Health Ring
             elif self.attribute == 'Health':
                 print(f"Som ger dig +{self.strength} extra på ditt MAX HP")
@@ -368,7 +365,7 @@ def meny():
         chosen_number = input("---> ")
         if chosen_number == '1' or '2' or '3' or '4':
             if chosen_number == '1':
-                pass
+                Player1.abilities()
             elif chosen_number == '2':
                 show_inventory()
             elif chosen_number == '3':
@@ -417,15 +414,9 @@ def door_chance():
 
 
 def boss_monster():
-    laban()
-    print('Tryck snabbt på [A] för att attackera Laban!')
-    t=3
-    while t >= 0:
-        if keyboard.read_key() == "a":
-            break
-        print(f"{t}...")
-        sleep(1)
-        t -= 1
+    #laban()
+    pass
+
    
 
 def animation_door():
@@ -456,9 +447,8 @@ def animation_door():
 #Main Program
 #             Namn Strength HP MAX_HP LVL Lives Inventory
 Player1 = Player('x', 0, 200, 200, 0, None, player_inventory)
-#laban()
 
-#animation_dr()
+#title()
 start_game()
 Player1.difficulty()
 

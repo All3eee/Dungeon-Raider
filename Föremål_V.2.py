@@ -6,7 +6,7 @@ sword_items = ["woodensword", "lightsaber"]
 ring_items = ['force ring', 'ring of fire']
 
 def item_type_decider():
-    item_type = random.choices(katigories, weights=(40, 20, 40), k=1 )
+    which_item = random.choices(item_numbers, weights=(40, 20, 40), k=1 )
     return item_type
 
 def item_kategory_sword():
