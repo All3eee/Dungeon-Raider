@@ -1,7 +1,6 @@
 import sys
 from time import sleep
 
-
 def animation_dr():
     print('''
       ,-' ;'! `-.         ,-' ;'! `-.         ,-' ;'! `-.
@@ -42,4 +41,3 @@ def laban():
         sys.stdout.write(char)
         sys.stdout.flush()
         sleep(.03)
-    
