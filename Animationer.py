@@ -46,6 +46,7 @@ def monster_animation():
                 """
       print(string)
       print("Djuriga Jörgen har dykt upp!")
+      return 'Djuriga Jörgen'
     
     #Mumin
     elif monster_type == 2:
@@ -73,7 +74,8 @@ def monster_animation():
       '''
       print(string)
       print("Maffiga Mumin har dykt upp!")
-    
+      return 'Maffiga Mumin'
+
     #Monstret leffe
     elif monster_type == 3:
       string ='''
@@ -106,8 +108,9 @@ def monster_animation():
 
       '''
       print(string)
-      print("Läskiga leffe har dykt upp!")
-    
+      print("Läskiga Leffe har dykt upp!")
+      return 'Läskiga Leffe'
+
     #Monstret Bert
     elif monster_type == 4:
       string = '''
@@ -137,7 +140,7 @@ def monster_animation():
       '''
       print(string)
       print("Brandfarliga Bert har dykt upp!")
-
+      return 'Brandfarliga Bert'
 
 def laban():
   string = ''' 

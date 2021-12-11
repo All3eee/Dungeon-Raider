@@ -90,14 +90,15 @@ Laban: Jasså, så du heter {self.name}.
             if potion_choice <= len(potion_value_list) or potion_choice < 0:
                 health_increase = potion_value_list[potion_choice- 1]
                 self.hp = self.hp + health_increase
+                            
+                position = potion_position_in_inventory[potion_choice-1]
+                player_inventory.pop(position) #Tar bort potion från inventory
             else:
                 print("Det du angav existerar ej")
                 sleep(1)
             
                         
-            #Tar bort potion från inventory
-            position = potion_position_in_inventory[potion_choice-1]
-            player_inventory.pop(position)
+
                     
 
     def room_trap(self):
@@ -131,10 +132,14 @@ Laban: Jasså, så du heter {self.name}.
                     print("Du har inget vapen och måste slåss med händerna!")
                     return self.strength + rand.randint(-10,20)
                 else:     
-                    weapon_choice = int(input("Vilket nummer har vapnet som du vill använda? --> "))
-                    random_damage = rand.randint(1,10) - rand.randint(1,10)
-                    damage_of_weapon = sword_list[weapon_choice - 1] + self.strength + random_damage
-                    return damage_of_weapon
+                    while True:
+                        weapon_choice = input("Vilket nummer har vapnet som du vill använda? --> ")
+                        if weapon_choice > 0 or weapon_choice <= len(sword_list):
+                            random_damage = rand.randint(1,10) - rand.randint(1,10)
+                            damage_of_weapon = sword_list[weapon_choice - 1] + self.strength + random_damage
+                            return damage_of_weapon
+                        else:
+                            print("Det du angav existerar ej")
             if menu_choice == "69":
                 return 1000000
 
