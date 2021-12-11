@@ -519,7 +519,7 @@ def animation_door():
 
 
 #             Namn Strength HP MAX_HP LVL Lives Inventory
-Player1 = Player('x', 20, 200, 200, 10, None, player_inventory)
+Player1 = Player('x', 20, 200, 200, 0, None, player_inventory)
 
 #Main Program
 
