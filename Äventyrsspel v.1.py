@@ -2,10 +2,11 @@ import random as rand
 import sys
 from time import sleep
 from Animationer import *
+from Hänga_Gubbe import *
 
-#Variabel som används för att stänga av spelet helt
-end_game = False
-player_inventory = []
+
+end_game = False #Variabel som används för att stänga av spelet helt
+player_inventory = [] #Spelarens inventory
 
 class Player():
     def __init__(self, name, strength, hp, max_hp, lvl, lives, inventory):
@@ -20,22 +21,23 @@ class Player():
 
     def abilities(self):
         print(f'''
-        Strength: {self.strength}
+        Namn
+        Styrka: {self.strength}
         HP: {self.hp}
         MAX HP: {self.max_hp}
         Level: {self.lvl}
-        Lives: {self.lives}
-        
+        Liv: {self.lives}
         ''')
         input("\nTryck <Enter> för att stänga sidan")
 
     def difficulty(self):
-        print("Du kommer nu att få bestämma förinställningar")
+        print("Vad vill du ha för svårighetsgrad?")
         while True:
             difficulty = input('''
-                Svårighetsgrad
-        Normal[1]           Hardcore[2]
-        ---> ''')
+    
+    Normal[1]        
+    Hardcore[2]
+    ---> ''')
             if difficulty == '1':
                 self.lives = 3
                 break
@@ -46,7 +48,7 @@ class Player():
                 print("\nAnge [1] eller [2]")
 
     def set_character(self):
-        print("Laban: Vad heter du?")
+        print("\nLaban: Vad heter du?")
         self.name = input("Ange ditt namn ->: ")
         print(f'''
 Laban: Jasså, så du heter {self.name}.
@@ -66,12 +68,10 @@ Laban: Jasså, så du heter {self.name}.
                 sleep(1)
     
     def use_potion(self):
-        potion_value_list = []
-                    
-        #Används för att veta platserna för de olika potions
-        potion_position_in_inventory = []
-        number_of_potion = 1
-        number_in_inventory = 0
+        potion_value_list = [] #Lista för potions i inventoryt
+        potion_position_in_inventory = []  #Används för att veta platserna för de olika potions
+        number_of_potion = 1 #Används för rangordning
+        number_in_inventory = 0 #Används för att veta var potions är i inventory
         for i in player_inventory:
             if i.category == 'Potion':
                 print(f"{number_of_potion}.{i.name}  ---  +{i.strength} Health", sep =' ')
@@ -80,14 +80,20 @@ Laban: Jasså, så du heter {self.name}.
                 #Lägger till platserna för de olika potions i Player inventory
                 potion_position_in_inventory.append(number_in_inventory)
                 number_of_potion += 1
+            
             number_in_inventory +=1
         if number_of_potion == 1:
-            print("\nDu har inga potions i ditt inventory") 
+            print("\nDu har inga potions i ditt inventory")
             
         else:
             potion_choice = int(input("Vilket nummer har den potion som du vill använda? --> "))
-            health_increase = potion_value_list[potion_choice- 1]
-            self.hp = self.hp + health_increase
+            if potion_choice <= len(potion_value_list) or potion_choice < 0:
+                health_increase = potion_value_list[potion_choice- 1]
+                self.hp = self.hp + health_increase
+            else:
+                print("Det du angav existerar ej")
+                sleep(1)
+            
                         
             #Tar bort potion från inventory
             position = potion_position_in_inventory[potion_choice-1]
@@ -95,7 +101,8 @@ Laban: Jasså, så du heter {self.name}.
                     
 
     def room_trap(self):
-        print("Oh no! It's a trap")
+        sleep(1)
+        print("\nOh no! It's a trap")
         trap_damage = rand.randint(10,80)
         self.hp = self.hp - trap_damage
         sleep(1)
@@ -125,7 +132,7 @@ Laban: Jasså, så du heter {self.name}.
                     return self.strength + rand.randint(-10,20)
                 else:     
                     weapon_choice = int(input("Vilket nummer har vapnet som du vill använda? --> "))
-                    random_damage = rand.randint(1,20) - rand.randint(1,20)
+                    random_damage = rand.randint(1,10) - rand.randint(1,10)
                     damage_of_weapon = sword_list[weapon_choice - 1] + self.strength + random_damage
                     return damage_of_weapon
             if menu_choice == "69":
@@ -156,6 +163,8 @@ Laban: Jasså, så du heter {self.name}.
             print(f"Monstret har {monster} HP kvar")
             sleep(2)
             if monster <= 0:
+                if self.lvl == 10:
+                    break
                 print("\nDu besegrade monstret!")
                 sleep(1)
                 self.lvl = self.lvl +1
@@ -175,7 +184,7 @@ Laban: Jasså, så du heter {self.name}.
             if self.hp <= 0:
                 Player1.losing_lives()
                 if Player1.lives == 0:
-                    break
+                    return 'dead'
 
 class Item():
     def __init__(self, category, name, strength, attribute):
@@ -189,32 +198,28 @@ class Item():
 
     def add_items_in_inventory(self):
         print(f"\nDu har fått {self.name}")
-        
+        self.strength += rand.randint(1,20)
         if self.category == 'Potion':
-            #Health potions
-            if self.attribute == 'Health':
+            if self.attribute == 'Health': #Health potions
                 print(f"Som ger dig +{self.strength} HP när du dricker den")
-            #Strength potions
-            elif self.attribute == 'STR':
+            elif self.attribute == 'STR': #Strength potions
                 print(f"Som ger dig +{self.strength} extra styrka")
         
         elif self.category == 'Ring':
-            #Strength Rings
-            if self.attribute == 'STR':
+            if self.attribute == 'STR': #Strength Rings
                 print(f"Som ger dig +{self.strength} styrka")
-            #Health Ring
-            elif self.attribute == 'Health':
+            elif self.attribute == 'Health': #Health Ring
                 print(f"Som ger dig +{self.strength} extra på ditt MAX HP")
         
-        #Alla svärd
-        elif self.category == 'Sword':
+        elif self.category == 'Sword': #Alla svärd
             print(f"Med styrkan: {self.strength}")
         
         while True:
             if len(player_inventory) < 5:
                 choice_item = input(f'''
-[1] Om du vill kasta bort föremålet [2] Om du vill spara föremålet 
---->''')
+[1] Om du vill kasta bort föremålet 
+[2] Om du vill spara föremålet 
+---> ''')
                 if choice_item == '1':
                     print("Du kastade bort föremålet")
                     break
@@ -224,7 +229,8 @@ class Item():
                             Player1.max_hp += self.strength
                         elif self.attribute == "STR":
                             Player1.strength += self.strength
-                    return self
+                    player_inventory.append(self)
+                    break
         
             elif len(player_inventory) >= 5:
                 choice_item = input('''
@@ -258,7 +264,8 @@ Ar du saker pa att du vill byta ut detta item?
                                 Player1.max_hp += self.strength
                             elif self.attribute == "STR":
                                 Player1.strength += self.strength
-                        return self
+                        player_inventory.append(self)
+                        break
                     if if_sure == '2':
                         continue
 
@@ -270,8 +277,6 @@ Ar du saker pa att du vill byta ut detta item?
                 Player1.strength -= self.strength
                         
                   
-
-#Items i spelarens inventory
 
 # Category, Name, Strength/health
 item1 = Item("Sword", "Stick", 10, "STR")
@@ -286,35 +291,44 @@ item5 = Item("Potion", "Health Potion", 50, "Health")
 item7 = Item("Ring", "Health Ring", 50, "Health")
 item8 = Item("Potion", "Borogor", 100, "Health")
 
+all_items = [item1, item2, item3, item4, item5, item7, item8, item9, item10, item11, item12]
+#Item 6 existerar inte just nu.
+#Vid tilläg av item, lägg in det också i listan ovanför.
 
+
+#Random Item + Room chest
 def room_chest():
     print("Det är en kista!")
 
-    chest_item = rand.randint(1, 200)
-    if chest_item > 0 and chest_item <= 21:
-        appending_item = item1.add_items_in_inventory()
-    elif chest_item > 21 and chest_item <= 26:
-        appending_item = item2.add_items_in_inventory()
-    elif chest_item > 26 and chest_item <= 38:
-        appending_item = item3.add_items_in_inventory()
-    elif chest_item > 38 and chest_item <= 61:
-        appending_item = item4.add_items_in_inventory()
-    elif chest_item > 51 and chest_item <=76:
-        appending_item = item5.add_items_in_inventory()
-    elif chest_item > 76 and chest_item <= 100 :
-        appending_item = item12.add_items_in_inventory()
-    elif chest_item > 100 and chest_item <=120 :
-        appending_item = item7.add_items_in_inventory()
-    elif chest_item > 120 and chest_item <=140:
-        appending_item = item8.add_items_in_inventory()
-    elif chest_item > 140 and chest_item <=160 :
-        appending_item = item9.add_items_in_inventory()
-    elif chest_item > 160 and chest_item <=180 :
-        appending_item = item10.add_items_in_inventory()
-    elif chest_item > 180 and chest_item <=200 :
-        appending_item = item11.add_items_in_inventory()
-    
-    player_inventory.append(appending_item)
+    while True:
+        chest_item = rand.randint(1,5) #Slumpar de olika kategorier av föremål
+        category_items = [] #En lista för de föremål med kategorin som har slumpats fram
+        
+        if chest_item == 1: #20% för en ring
+            for item in all_items:
+                if item.category == 'Ring':
+                    category_items.append(item)
+        
+        elif chest_item == 2 or chest_item == 3: #40% för ett svärd
+            for item in all_items:
+                if item.category == 'Sword':
+                    category_items.append(item)        
+        
+        elif chest_item == 4 or chest_item == 5: #40% för potion
+            for item in all_items:
+                if item.category == 'Potion':
+                    category_items.append(item) 
+        
+        amount_in_list = len(category_items)-1 #Antal föremål med kategorin som har slumpats fram
+        random_item = rand.randint(0,amount_in_list)
+        if category_items[random_item] in player_inventory: #Om föremålet redan finns i inventoryt
+            pass 
+        else:  #Föremålet finns ej i inventory
+            category_items[random_item].add_items_in_inventory()
+            break
+
+
+
 
 def start_game():
     string ='''
@@ -428,9 +442,44 @@ def door_chance():
 
 def boss_monster():
     laban()
-    pass
+    
+    while True:
+        completion_or_death = hänga_gubbe()         #Från filen Hänga_Gubbe.py
+        if completion_or_death == 'dead':
+            Player1.hp = 0
+            Player1.losing_lives
+            if  Player1.lives == 0:
+                return 'dead'
+            else:
+                print("Du förlora ett liv, du får en chans till att köra hänga gubbe")
+        else:
+            break
+    
+    print("BOSSS FIGHT PÅ GÅNG")
+    sleep(1)
+    dead_or_win = Player1.room_monster()
+    if dead_or_win == 'dead':
+        return dead_or_win
+    
+    while True:
+        print("\nGör slut på Labans liv [1]")
+        print("Spara hans liv         [2]")
+        life_or_death = input('''
+        Vad väljer du?
+        ---> ''')
 
-   
+        if life_or_death == '1':
+            laban_death
+            laban()
+            return 'laban_dead'
+        elif life_or_death == '2':
+            laban_alive()
+            return 'laban_alive'
+        else:
+            print("Laban: DÖDAA MIG!!!")
+
+
+
 
 def animation_door():
     print(f'''
@@ -462,17 +511,16 @@ def animation_door():
 Player1 = Player('x', 20, 200, 200, 0, None, player_inventory)
 
 #Main Program
-title()
+
+title() #Från filen "Animationer"
 start_game()
+Prolog() #Från filen "Animationer"
 Player1.difficulty()
-
-
 Player1.set_character()
 
 while True:
     
     animation_door()
-
     given_input = the_room()
 
     if given_input == 'e':
@@ -493,16 +541,23 @@ while True:
             Player1.losing_lives()
             if Player1.lives <= 0:
                 end_game = True
-                print("LIVES LEFT: [0]")
-                print("GAME OVER!")
                 break
     elif given_input == "420":
         room_chest()
 
 
 if end_game == False:
-    boss_monster()
-    while True:
-        pass
+    dead_or_not = boss_monster()
+    if dead_or_not == 'dead':
+        end_game = True
+    else:
+        end_credit()
 
+if end_game == True:
+    print("LIVES LEFT: [0]")
+    print("GAME OVER!")
+
+
+    
+    
 
