@@ -147,25 +147,32 @@ Laban: Jasså, så du heter {self.name}.
 
     
     def room_monster(self):
-        monster = 120 + 10*self.lvl
-        monster_animation()
-        print(f"Monstret har {monster} HP")
+        
+        if self.lvl >= 10:
+            laban()
+            monster_hp = 500
+            monster_namn = 'Laban'
+        else: 
+            monster_namn = monster_animation()
+            monster_hp = 120 + 10*self.lvl
+            
+        print(f"{monster_namn} har {monster_hp} HP")
         sleep(1)
         while True:
             damage = Player1.battle_menu()
 
-            input("\nTryck <Enter> för att attackera monstret")
+            input(f"\nTryck <Enter> för att attackera {monster_namn}")
             sleep(1)
-            monster = monster - damage
-            print(f"\nMonstret tog {damage} damage")
-            if monster <= 0:
-                monster = 0
-            print(f"Monstret har {monster} HP kvar")
+            monster_hp = monster_hp - damage
+            print(f"\n{monster_namn} tog {damage} damage")
+            if monster_hp <= 0:
+                monster_hp = 0
+            print(f"{monster_namn} har {monster_hp} HP kvar")
             sleep(2)
-            if monster <= 0:
-                if self.lvl == 10:
+            if monster_hp <= 0:
+                if self.lvl >= 10:
                     break
-                print("\nDu besegrade monstret!")
+                print(f"\nDu besegrade {monster_namn}!")
                 sleep(1)
                 self.lvl = self.lvl +1
                 print("Du gick upp i LVL!")
@@ -473,8 +480,8 @@ def boss_monster():
         ---> ''')
 
         if life_or_death == '1':
-            laban_death
-            laban()
+            laban_death()
+            dead_laban()
             return 'laban_dead'
         elif life_or_death == '2':
             laban_alive()
@@ -512,7 +519,7 @@ def animation_door():
 
 
 #             Namn Strength HP MAX_HP LVL Lives Inventory
-Player1 = Player('x', 20, 200, 200, 0, None, player_inventory)
+Player1 = Player('x', 20, 200, 200, 10, None, player_inventory)
 
 #Main Program
 
@@ -526,7 +533,6 @@ while True:
     
     animation_door()
     given_input = the_room()
-
     if given_input == 'e':
         end_game = meny()
         if end_game == True:
@@ -538,6 +544,8 @@ while True:
             room_chest()
             input("\nTryck <Enter> för att fortsätta")
         elif room_type == 2:
+            if Player1.lvl >= 10:
+                break
             Player1.room_monster()
             input("\nTryck <Enter> för att fortsätta") 
         elif room_type == 3:

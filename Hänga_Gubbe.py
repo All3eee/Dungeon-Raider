@@ -6,7 +6,7 @@ def hänga_gubbe():
     print("Laban: AHA, trodde du verkligen att du skulle kunna rymma!!")
     sleep(3)
     print('''
-    Laban: Om du klarar Hänga gubbe så kanske jag dig ut!
+    Laban: Om du klarar Hänga gubbe så kanske jag låter dig komma ut!
     Laban: Om du inte klarar det, är det du som blir hängd!!
     ''')
     sleep(5)
@@ -42,3 +42,4 @@ def hänga_gubbe():
         if x == len(theword):
             print(ordet_understreck)
             print("Attans, du hade rätt, ordet var:", theword)
+            input("\nTryck <Enter> för att fortsätta")

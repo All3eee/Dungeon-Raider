@@ -160,7 +160,26 @@ def laban():
     sys.stdout.flush()
     sleep(.03)
 
- 
+def dead_laban():
+  string = ''' 
+    .-.
+   .'   `.
+   :x x   :
+   : -    `.
+  :         ``.
+ :             `.
+:  :         .   `.
+:   :          ` . `.
+ `.. :            `. ``;
+    `:;             `:'
+       :              `.
+        `.              `.     .
+          `'`'`'`---..,___`;:-'
+    '''
+  for char in string:
+    sys.stdout.write(char)
+    sys.stdout.flush()
+    sleep(.03) 
 
 def title():
   string = '''
