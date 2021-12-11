@@ -123,7 +123,7 @@ Laban: Jasså, så du heter {self.name}.
                 sword_list = []
                 for i in player_inventory:
                     if i.category == 'Sword':
-                        print(f"{number}.{i.name}  ---  +{i.strength} STR", sep =' ')
+                        print(f"{number}.{i.name}  ---  {i.strength} STR", sep =' ')
                         sword_list.append(i.strength)
                         number += 1
 
@@ -243,16 +243,16 @@ Ditt inventory är fullt
                     break
                 elif choice_item == '2':
                     show_inventory()
-                    item_number_switch = input('''
-Vilket nummer har det föremål som du vill ta bort?
-Gå tillbaka [G]
+                    item_number_switch = input(f'''
+Vilket nummer har det föremål som du vill ta bort [1], [2], [3], [4], [5]
+Tryck på för att gå till baka [G]
 ---> ''').lower()
                     if item_number_switch == 'g':
                         continue
                     else:
                         
                        if_sure = input('''
-Ar du saker pa att du vill byta ut detta item?
+Är du säker på att du vill byta ut detta item?
 [Ja] = 1
 [Nej] = 2
 --->''')
@@ -379,7 +379,10 @@ def show_inventory():
         if i == None:
             break
         if i.attribute == 'STR':
-            print(f"{number}.{i.name}  ---  +{i.strength} STR", sep =' ')
+            if i.category == 'Sword':
+                print(f"{number}.{i.name}  ---  {i.strength} STR", sep =' ')
+            else:
+                print(f"{number}.{i.name}  ---  +{i.strength} STR", sep =' ')
         elif i.attribute == 'Health':
             print(f"{number}.{i.name}  ---  +{i.strength} Health", sep =' ')
         number += 1
