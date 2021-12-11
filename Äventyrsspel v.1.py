@@ -87,7 +87,7 @@ Laban: Jasså, så du heter {self.name}.
             
         else:
             potion_choice = int(input("Vilket nummer har den potion som du vill använda? --> "))
-            if potion_choice <= len(potion_value_list) or potion_choice < 0:
+            if potion_choice <= len(potion_value_list) and potion_choice < 0:
                 health_increase = potion_value_list[potion_choice- 1]
                 self.hp = self.hp + health_increase
                             
@@ -134,12 +134,15 @@ Laban: Jasså, så du heter {self.name}.
                 else:     
                     while True:
                         weapon_choice = input("Vilket nummer har vapnet som du vill använda? --> ")
-                        if weapon_choice.isdigit == True:
+                        number_or_not = weapon_choice.isdigit
+                        if number_or_not == True:
                             weapon_choice = int(weapon_choice)
-                            if weapon_choice > 0 or weapon_choice <= len(sword_list):
+                            if weapon_choice > 0 and weapon_choice <= len(sword_list):
                                 random_damage = rand.randint(1,10) - rand.randint(1,10)
                                 damage_of_weapon = sword_list[weapon_choice - 1] + self.strength + random_damage
                                 return damage_of_weapon
+                            else:
+                                print("Det du angav existerar ej")
                         else:
                             print("Det du angav existerar ej")
             if menu_choice == "69":
