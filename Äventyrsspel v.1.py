@@ -134,7 +134,7 @@ Laban: Jasså, så du heter {self.name}.
                 else:     
                     while True:
                         weapon_choice = input("Vilket nummer har vapnet som du vill använda? --> ")
-                        number_or_not = weapon_choice.isdigit
+                        number_or_not = weapon_choice.isdigit()
                         if number_or_not == True:
                             weapon_choice = int(weapon_choice)
                             if weapon_choice > 0 and weapon_choice <= len(sword_list):
