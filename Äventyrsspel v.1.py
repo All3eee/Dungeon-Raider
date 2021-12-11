@@ -484,7 +484,7 @@ def boss_monster():
     
     while True:
         print("\nGör slut på Labans liv [1]")
-        print("Spara hans liv         [2]")
+        print("Skona Labans liv         [2]")
         life_or_death = input('''
         Vad väljer du?
         ---> ''')
