@@ -235,7 +235,8 @@ class Item():
             elif len(player_inventory) >= 5:
                 choice_item = input('''
 Ditt inventory är fullt
-[1] Om du vill kasta bort föremålet [2] Om du vill byta ut något av de items som du redan har
+[1] Om du vill kasta bort föremålet 
+[2] Om du vill byta ut något av de items som du redan har
 ---> ''')
                 if choice_item == '1':
                     print("Du kastade bort föremålet")
