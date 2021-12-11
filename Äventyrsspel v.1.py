@@ -547,7 +547,7 @@ while True:
                 end_game = True
                 break
     elif given_input == "420":
-        room_chest()
+        Player.room_monster()
 
 
 if end_game == False:
