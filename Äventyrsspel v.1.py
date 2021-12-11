@@ -245,7 +245,7 @@ Ditt inventory är fullt
                     show_inventory()
                     item_number_switch = input(f'''
 Vilket nummer har det föremål som du vill ta bort [1], [2], [3], [4], [5]
-Tryck på för att gå till baka [G]
+Tryck på för att gå tillbaka [G]
 ---> ''').lower()
                     if item_number_switch == 'g':
                         continue
