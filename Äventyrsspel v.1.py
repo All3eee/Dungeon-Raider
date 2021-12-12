@@ -9,35 +9,32 @@ end_game = False #Variabel som används för att stänga av spelet helt
 player_inventory = [] #Spelarens inventory
 
 class Player():
-    def __init__(self, name, strength, hp, max_hp, lvl, lives, inventory):
+    def __init__(self, name, strength, hp, reset_hp, lvl, lives):
         self.name = name
         self.strength = strength
         self.hp = hp
-        self.max_hp = max_hp
+        self.reset_hp = reset_hp
         self.lvl = lvl
         self.lives = lives
-        self.inventory = inventory
-        
 
     def abilities(self):
         print(f'''
-        Namn
-        Styrka: {self.strength}
-        HP: {self.hp}
-        MAX HP: {self.max_hp}
-        Level: {self.lvl}
-        Liv: {self.lives}
-        ''')
+Namn: {self.name}
+Styrka: {self.strength}
+Level: {self.lvl}
+Liv: {self.lives}
+HP: {self.hp}''')
+        if self.lives != 1:
+            print(f'HP efter död: {self.reset_hp}')
         input("\nTryck <Enter> för att stänga sidan")
 
     def difficulty(self):
-        print("Vad vill du ha för svårighetsgrad?")
+        print("\nVad vill du ha för svårighetsgrad?")
         while True:
             difficulty = input('''
-    
-    Normal[1]        
-    Hardcore[2]
-    ---> ''')
+Normal[1]        
+Hardcore[2]
+---> ''')
             if difficulty == '1':
                 self.lives = 3
                 break
@@ -59,11 +56,11 @@ Laban: Jasså, så du heter {self.name}.
         if self.hp <= 0:
             self.lives = self.lives -1
             if self.lives != 0:
-                self.hp = self.max_hp
+                self.hp = self.reset_hp
                 print(f'''
     Du dog
     Liv kvar: [{self.lives}]
-    {self.max_hp} hp återställs...
+    {self.reset_hp} hp återställs...
             ''')
                 sleep(1)
     
@@ -117,7 +114,7 @@ Laban: Jasså, så du heter {self.name}.
             menu_choice = input('''
 [1] Attackera
 [2] Använda potion
-[3] Spelare information
+[3] Information om spelare
 ---> ''')
             if menu_choice == "1":
                 number = 1
@@ -134,8 +131,7 @@ Laban: Jasså, så du heter {self.name}.
                 else:     
                     while True:
                         weapon_choice = input("Vilket nummer har vapnet som du vill använda? --> ")
-                        number_or_not = weapon_choice.isdigit()
-                        if number_or_not == True:
+                        if weapon_choice.isdigit() == True:
                             weapon_choice = int(weapon_choice)
                             if weapon_choice > 0 and weapon_choice <= len(sword_list):
                                 random_damage = rand.randint(1,10) - rand.randint(1,10)
@@ -160,11 +156,11 @@ Laban: Jasså, så du heter {self.name}.
         
         if self.lvl >= 10:
             laban()
-            monster_hp = 500
+            monster_hp = 500 #Labans HP är alltid 500 hp
             monster_namn = 'Laban'
         else: 
-            monster_namn = monster_animation()
-            monster_hp = 120 + 10*self.lvl
+            monster_namn = monster_animation() #Från filen "Animationer.py"
+            monster_hp = 120 + 10*self.lvl #HP på monstret ökar för varje level
             
         print(f"{monster_namn} har {monster_hp} HP")
         sleep(1)
@@ -243,7 +239,7 @@ class Item():
                 elif choice_item == '2':
                     if self.category == 'Ring':
                         if self.attribute == "Health":
-                            Player1.max_hp += self.strength
+                            Player1.reset_hp += self.strength
                         elif self.attribute == "STR":
                             Player1.strength += self.strength
                     player_inventory.append(self)
@@ -262,35 +258,37 @@ Ditt inventory är fullt
                     show_inventory()
                     item_number_switch = input(f'''
 Vilket nummer har det föremål som du vill ta bort [1], [2], [3], [4], [5]
-Tryck på för att gå tillbaka [G]
+Tryck på valfri knapp för att gå tillbaka [X]
 ---> ''').lower()
-                    if item_number_switch == 'g':
-                        continue
-                    else:
-                        
-                       if_sure = input('''
-Är du säker på att du vill byta ut detta item?
-[Ja] = 1
-[Nej] = 2
---->''')
-                    if if_sure == '1':
-                        item_number_switch = int(item_number_switch)
-                        player_inventory[item_number_switch-1].popping_item()
-                        player_inventory.pop(item_number_switch-1)
-                        if self.category == 'Ring':
-                            if self.attribute == "Health":
-                                Player1.max_hp += self.strength
-                            elif self.attribute == "STR":
-                                Player1.strength += self.strength
-                        player_inventory.append(self)
-                        break
-                    if if_sure == '2':
-                        continue
+                    if item_number_switch.isdigit == True:
+                        if item_number_switch > 0 and item_number_switch <=5:
+                            if_sure = input('''
+    Är du säker på att du vill byta ut detta item?
+    [Ja] = 1
+    [Nej] = 2
+    ---> ''')
+                            if if_sure == '1':
+                                item_number_switch = int(item_number_switch)
+                                player_inventory[item_number_switch-1].popping_item()
+                                player_inventory.pop(item_number_switch-1)
+                                if self.category == 'Ring':
+                                    if self.attribute == "Health":
+                                        Player1.reset_hp += self.strength
+                                    elif self.attribute == "STR":
+                                        Player1.strength += self.strength
+                                player_inventory.append(self)
+                                break
+                        else:
+                            print("Det du angav existerar ej")
 
     def popping_item(self):
+        '''
+        Funktionen tar emot föremålet som ska tas bort, om det är en ring så tas
+        ringens påverkan på strength/health bort från Player1
+        '''
         if self.category == 'Ring':
             if self.attribute == "Health":
-                Player1.max_hp -= self.strength
+                Player1.reset_hp -= self.strength
             elif self.attribute == "STR":
                 Player1.strength -= self.strength
                         
@@ -301,7 +299,7 @@ item1 = Item("Sword", "Stick", 10, "STR")
 item2 = Item("Sword", "Lightsaber", 200, "STR")
 item9 = Item("Sword", "Stone Sword", 40, "STR")
 item10 = Item("Sword", "Gold Sword", 60, "STR")
-item11 = Item("Sword", "Diamond", 70, "STR")
+item11 = Item("Sword", "Diamond Sword", 70, "STR")
 item12 = Item("Sword", "Machine gun", 300, "STR")
 item3 = Item("Ring", "Force Ring", 50, "STR")
 item4 = Item("Ring", "Ring of fire", 50, "STR")
@@ -346,51 +344,36 @@ def room_chest():
             break
 
 
-
-
-def start_game():
-    string ='''
------------------------------
-Välkommen till Dungeon Raider
------------------------------'''
-    for char in string:
-        sys.stdout.write(char)
-        sys.stdout.flush()
-        sleep(.03)
-    sleep(1)
-    input("\nTryck <Enter> för att starta spelet")
-
-
 def meny():
     while True:
         print('''\n
-    Ange [1] för egenskaper
+    Ange [1] för information om spelaren
     Ange [2] för inventory
     Ange [3] för att stänga meny
     Ange [4] för att avsluta spel
     ''')
         chosen_number = input("---> ")
-        if chosen_number == '1' or '2' or '3' or '4':
-            if chosen_number == '1':
-                Player1.abilities()
-            elif chosen_number == '2':
-                inventory_usage()
-            elif chosen_number == '3':
-                break
-            elif chosen_number == '4':
-                end = input("Är du säker på att du vill avsluta? [Ja]: ")
-                end = end.lower()
-                if end == "ja":
-                    print("programmet avslutas")
-                    sleep(0.5)
-                    print("3")
-                    sleep(0.5)
-                    print("2")
-                    sleep(0.5)
-                    print("1")
-                    return True
+        if chosen_number == '1':
+            Player1.abilities() #Visa information om spelaren
+        elif chosen_number == '2':
+            inventory_usage() # visar inventory etc.
+        elif chosen_number == '3':
+            break   # stänger meny 
+        elif chosen_number == '4': #Avsluta spel
+            end = input("Är du säker på att du vill avsluta? [Ja]: ")
+            end = end.lower() 
+            if end == "ja":
+                print("programmet avslutas")
+                sleep(0.5)
+                print("3")
+                sleep(0.5)
+                print("2")
+                sleep(0.5)
+                print("1")
+                return True
 
-def show_inventory():
+#Visar inventory
+def show_inventory(): 
     number = 1
     for i in player_inventory:
         if i == None:
@@ -404,6 +387,7 @@ def show_inventory():
             print(f"{number}.{i.name}  ---  +{i.strength} Health", sep =' ')
         number += 1
 
+#Användning av inventory i menyn
 def inventory_usage():
     while True:
         if len(player_inventory) > 0:
@@ -421,20 +405,22 @@ def inventory_usage():
         if choice_input == '1':
             item_number_switch = input('''
     Vilket nummer har det föremål som du vill ta bort?
-    Gå tillbaka [G]
+   Tryck på valfri knapp för att gå tillbaka [X]
     ---> ''').lower()
-            if item_number_switch == 'g':
-                continue
-            else:
-                if_sure = input('''
-    Ar du saker pa att du vill byta ut detta item?
-    [Ja] = 1
-    [Nej] = 2
-    --->''')
-            if if_sure == '1':
-                item_number_switch = int(item_number_switch)
-                player_inventory[item_number_switch-1].popping_item()
-                player_inventory.pop(item_number_switch-1)
+            if item_number_switch.isdigit == True:
+                if item_number_switch > 0 and item_number_switch <=len(player_inventory):
+                    if_sure = input('''
+        Är du saker pa att du vill byta ut detta item?
+        [Ja] = 1
+        [Nej] = 2
+        --->''')
+                    if if_sure == '1':
+                        item_number_switch = int(item_number_switch)
+                        player_inventory[item_number_switch-1].popping_item()
+                        player_inventory.pop(item_number_switch-1)
+
+                else:
+                    print("Det du angav existerar ej")
         elif choice_input == '2':
             Player1.use_potion()               
         elif choice_input == '3':
@@ -462,13 +448,13 @@ def door_chance():
 
 
 def boss_monster():
-    laban()
+    laban() #Från filen "Animationer.py"
     
     while True:
         completion_or_death = hänga_gubbe()         #Från filen Hänga_Gubbe.py
         if completion_or_death == 'dead':
             Player1.hp = 0
-            Player1.losing_lives
+            Player1.losing_lives()
             if  Player1.lives == 0:
                 return 'dead'
             else:
@@ -484,17 +470,17 @@ def boss_monster():
     
     while True:
         print("\nGör slut på Labans liv [1]")
-        print("Skona Labans liv         [2]")
+        print("Skona Labans liv       [2]")
         life_or_death = input('''
         Vad väljer du?
         ---> ''')
 
         if life_or_death == '1':
-            laban_death()
-            dead_laban()
+            laban_death() #Från filen "Animationer.py"
+            dead_laban() #Från filen "Animationer.py"
             return 'laban_dead'
         elif life_or_death == '2':
-            laban_alive()
+            laban_alive() #Från filen "Animationer.py"
             return 'laban_alive'
         else:
             print("Laban: DÖDAA MIG!!!")
@@ -528,14 +514,13 @@ def animation_door():
 
 
 
-#             Namn Strength HP MAX_HP LVL Lives Inventory
-Player1 = Player('x', 20, 200, 200, 0, None, player_inventory)
+#               Namn STR HP RESET_HP LVL Lives
+Player1 = Player('x', 20, 200, 200, 0, None)
 
 #Main Program
-
-title() #Från filen "Animationer"
-start_game()
-Prolog() #Från filen "Animationer"
+title() #Från filen "Animationer.py"
+start_game() #Från filen "Animationer.py"
+Prolog() #Från filen "Animationer.py"
 Player1.difficulty()
 Player1.set_character()
 
@@ -574,7 +559,7 @@ if end_game == False:
     if dead_or_not == 'dead':
         end_game = True
     else:
-        end_credit()
+        end_credit() #Från filen "Animationer.py"
 
 if end_game == True:
     print("LIVES LEFT: [0]")

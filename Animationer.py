@@ -21,6 +21,19 @@ def animation_dr():
     Meny [E]  
         ''')
 
+def start_game():
+    string ='''
+-----------------------------
+Välkommen till Dungeon Raider
+-----------------------------'''
+    for char in string:
+        sys.stdout.write(char)
+        sys.stdout.flush()
+        sleep(.03)
+    sleep(1)
+    input("\nTryck <Enter> för att starta spelet")
+
+
 def monster_animation():
     monster_type = rand.randint(1,4)
 
@@ -198,8 +211,8 @@ def title():
 def Prolog():
     while True:
       chosen_input = input('''
-      För att visa prolog [1]
-      För att skippa prolog [2]
+  För att visa prolog [1]
+  För att skippa prolog [2]
       ---> ''')
       
       if chosen_input == '2':
@@ -240,6 +253,7 @@ def Prolog():
             sleep(.03)
         sleep(1)
         break
+
 def laban_death():
   print("chop chop, *Laban dör*")
   string = '''
