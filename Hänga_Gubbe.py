@@ -45,5 +45,3 @@ Laban: Om du inte klarar det, är det du som blir hängd!!
             print(right_guessed_words)
             print("Attans, du hade rätt, ordet var:", theword)
             input("\nTryck <Enter> för att fortsätta")
-
-hänga_gubbe()
