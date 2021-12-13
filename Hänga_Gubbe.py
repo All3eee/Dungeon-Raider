@@ -36,12 +36,14 @@ Laban: Om du inte klarar det, är det du som blir hängd!!
                         amount_of_letters_right +=1
         else: 
             guesses -= 1
-            print(f"Du angav fel bokstav, {guesses} antal guesses kvar")
+            print(f"Du angav fel bokstav, {guesses} antal gissningar kvar")
             if guesses == 0:
-                print("Du har inga fler guesses, nu dör du")
+                print("Du har inga fler gissningar, nu dör du")
                 return 'dead'
         
         if amount_of_letters_right == len(theword): #Om man har haft rätt på samma antal ord som det är i ordet
             print(right_guessed_words)
             print("Attans, du hade rätt, ordet var:", theword)
             input("\nTryck <Enter> för att fortsätta")
+
+hänga_gubbe()
