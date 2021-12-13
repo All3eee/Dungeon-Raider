@@ -83,17 +83,19 @@ Laban: Jasså, så du heter {self.name}.
             print("\nDu har inga potions i ditt inventory")
             
         else:
-            potion_choice = int(input("Vilket nummer har den potion som du vill använda? --> "))
-            if potion_choice <= len(potion_value_list) and potion_choice < 0:
-                health_increase = potion_value_list[potion_choice- 1]
-                self.hp = self.hp + health_increase
-                            
-                position = potion_position_in_inventory[potion_choice-1]
-                player_inventory.pop(position) #Tar bort potion från inventory
+            potion_choice = input("Vilket nummer har den potion som du vill använda? --> ")
+            if potion_choice.isdigit() == True:
+                potion_choice = int(potion_choice)
+                if potion_choice <= len(potion_value_list) and potion_choice < 0:
+                    health_increase = potion_value_list[potion_choice- 1]
+                    self.hp = self.hp + health_increase
+                                
+                    position = potion_position_in_inventory[potion_choice-1]
+                    player_inventory.pop(position) #Tar bort potion från inventory
+                else:
+                    print("Det du angav existerar ej")
             else:
                 print("Det du angav existerar ej")
-                sleep(1)
-            
                         
 
                     
