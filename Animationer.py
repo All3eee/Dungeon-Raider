@@ -2,24 +2,6 @@ import sys
 from time import sleep
 import random as rand
 
-def animation_dr():
-    print('''
-      ,-' ;'! `-.         ,-' ;'! `-.         ,-' ;'! `-.
-     / :  ! :  . \       / :  ! :  . \       / :  ! :  . :
-    |_ ;    :  ;  |     |_ ;    :  ;  |     |_ ;    :  ;  |
-    (| .  : (  !  |     (| .  : (  !  |     (| .  : (  !  | 
-    |"    [V]    "|     |"    [M]    "|     |"    [H]    "|
-    |  :  ; ' (_) l     |  :  ; ' (_) l     |  :  ; ' (_) l
-    |  :    .     |     |  :    .     |     |  :    .     |
-    || .  . :  :  |     || .  . :  :  |     || .  . :  :  |
-    |" ,  | .  .  |     |" ,  | .  .  |     |" ,  | .  .  |
-    |__-__;---.___|     |__-__;---.___|     |__-__;---.___|
-    
-    ''')
-    print('''
-    Vänster dörr [V], Mitten dörr [M], Höger dörr [H]    
-    Meny [E]  
-        ''')
 
 def start_game():
     string ='''
@@ -35,6 +17,9 @@ Välkommen till Dungeon Raider
 
 
 def monster_animation():
+    '''
+    slumpar ett tal, för att sedan printa ett visst monster, + returnar namnet på monstret
+    '''
     monster_type = rand.randint(1,4)
 
     #Monstret Jörgen
@@ -171,7 +156,7 @@ def laban():
         `.              `.     .
           `'`'`'`---..,___`;:-'
     '''
-  for char in string:
+  for char in string: #Skriver ut en bokstav i taget
     sys.stdout.write(char)
     sys.stdout.flush()
     sleep(.03)
@@ -209,11 +194,14 @@ def title():
   sleep(1)
 
 def Prolog():
+    '''
+    Val om man vill se prolog eller ej, om man vill skrivs hela prologen ut
+    '''
     while True:
       chosen_input = input('''
   För att visa prolog [1]
   För att skippa prolog [2]
-      ---> ''')
+  ---> ''')
       
       if chosen_input == '2':
         break
@@ -281,7 +269,20 @@ def laban_alive():
     sys.stdout.write(char)
     sys.stdout.flush()
     sleep(.03)
-  sleep(1)  
+  sleep(1) 
+
+def hanging_man():
+  string = '''
+      _______
+     |/      |
+     |      (_)
+     |      \|/
+     |       |
+     |     _/ \_
+     |
+    _|___
+    '''
+  print(string)
 
 def end_credit():
   string = '''
@@ -300,3 +301,4 @@ def end_credit():
     sys.stdout.flush()
     sleep(.09)
   sleep(1) 
+
