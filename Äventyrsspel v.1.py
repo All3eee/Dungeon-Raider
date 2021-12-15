@@ -9,7 +9,56 @@ end_game = False #Variabel som används för att stänga av spelet helt
 player_inventory = [] #Spelarens inventory
 
 class Player():
+    '''
+    En klass för att representera spelaren/ personen
+    
+    ...
+    
+    Attribut
+    --------
+    name : str
+        namn på spelaren
+    strength : int
+        styrkan som spelaren har (vapen exkluderat)
+    hp : int
+        hp som spelaren har
+    reset_hp : int
+        hp som spelaren får efter att ha dött
+    lvl : int
+        nivå/level som spelaren är på
+    lives : int
+        antal liv som spelaren har kvar
+
+    Metoder
+    -------
+    Sammfattning av de olika metoder
+    abilities():
+        Skriver ut de olika attributer som spelaren har
+
+    difficulty():
+        
+
+    '''
+    
     def __init__(self, name, strength, hp, reset_hp, lvl, lives):
+        """
+        Alla nödvändiga attributer som behövs för spelar objektet
+
+        Parametrar
+        ----------
+            name : str
+                namn på spelaren
+            strength : int
+                styrkan som spelaren har (vapen exkluderat)
+            hp : int
+                hp som spelaren har
+            reset_hp : int
+                hp som spelaren får efter att ha dött
+            lvl : int
+                nivå/level som spelaren är på
+            lives : int
+                antal liv som spelaren har kvar
+        """
         self.name = name
         self.strength = strength
         self.hp = hp
@@ -53,6 +102,7 @@ Laban: Jasså, så du heter {self.name}.
         ''')
 
     def losing_lives(self):
+
         if self.hp <= 0:
             self.lives = self.lives -1
             if self.lives != 0:
@@ -170,12 +220,12 @@ Laban: Jasså, så du heter {self.name}.
         print(f"{monster_namn} har {monster_hp} HP")
         sleep(1)
         while True:
-            damage = Player1.battle_menu()
+            damage_on_monster = Player1.battle_menu()
 
             input(f"\nTryck <Enter> för att attackera {monster_namn}")
             sleep(1)
-            monster_hp = monster_hp - damage
-            print(f"\n{monster_namn} tog {damage} damage")
+            monster_hp = monster_hp - damage_on_monster
+            print(f"\n{monster_namn} tog {damage_on_monster} damage")
             if monster_hp <= 0:
                 monster_hp = 0
             print(f"{monster_namn} har {monster_hp} HP kvar")
@@ -192,13 +242,13 @@ Laban: Jasså, så du heter {self.name}.
                 sleep(2)
                 break
             
-            #Den slumpade skadan från monstret ökar desto högre level spelaren har
+            #Den slumpade skadan från monstret ökar desto högre level spelaren är
             damage1 = rand.randint(2*self.lvl,20 + 25*self.lvl) 
             self.hp = self.hp - damage1 
             sleep(1)
             print(f"\nDu tog {damage1} damage")
-            if self.hp <= 0:
-                self.hp = 0
+            if self.hp <= 0: 
+                self.hp = 0 #För att inte visa negativ hp
             print(f"Du har {self.hp} Hp kvar")
             sleep(1)
             if self.hp <= 0: #Om spelaren har dött av monstret
