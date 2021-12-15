@@ -39,7 +39,7 @@ Laban: Om du inte klarar det, är det du som blir hängd!!
                 for letter_position in range(len(the_word)): #Kollar om det finns fler av samma bokstav i ordet
                     if angiven_bokstav == the_word[letter_position]:
                         right_guessed_words.pop(letter_position)  #Tar bort understreck
-                        right_guessed_words.insert(letter_position, angiven_bokstav) #Lägger till bokstav
+                        right_guessed_words.insert(letter_position, angiven_bokstav) #Lägger till bokstav vid en specifik
                         amount_of_letters_right +=1 # +1 rätt bokstav
         else: 
             guesses -= 1

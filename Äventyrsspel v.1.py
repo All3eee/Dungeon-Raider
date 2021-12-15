@@ -344,25 +344,6 @@ Tryck på valfri knapp för att gå tillbaka [X]
             elif self.attribute == "STR": #Om attribute är 'STR'
                 Player1.strength -= self.strength  #Tar bort extra styrkan som ringen ger
                         
-                  
-
-# Category, Name, Strength/health,
-item1 = Item("Sword", "Stick", 10, "STR")
-item2 = Item("Sword", "Lightsaber", 200, "STR")
-item9 = Item("Sword", "Stone Sword", 40, "STR")
-item10 = Item("Sword", "Gold Sword", 60, "STR")
-item11 = Item("Sword", "Diamond Sword", 70, "STR")
-item12 = Item("Sword", "Machine gun", 300, "STR")
-item3 = Item("Ring", "Force Ring", 50, "STR")
-item4 = Item("Ring", "Ring of fire", 50, "STR")
-item5 = Item("Potion", "Health Potion", 50, "Health")
-item7 = Item("Ring", "Health Ring", 50, "Health")
-item8 = Item("Potion", "Borogor", 100, "Health")
-
-all_items = [item1, item2, item3, item4, item5, item7, item8, item9, item10, item11, item12]
-#Item 6 existerar inte just nu.
-#Vid tilläg av item, lägg också in det i listan ovanför.
-
 
 #Random Item + Room chest
 def room_chest():
@@ -552,9 +533,10 @@ def boss_monster():
             print("Laban: DÖDAA MIG!!!")
 
 
-
-
 def animation_door():
+    '''
+    printar tre dörrar + spelarens liv och hp.
+    '''
     print(f'''
       ,-' ;'! `-.         ,-' ;'! `-.         ,-' ;'! `-.
      / :  ! :  . \       / :  ! :  . \       / :  ! :  . :
@@ -582,6 +564,25 @@ def animation_door():
 
 #               Namn STR HP RESET_HP LVL Lives
 Player1 = Player('x', 20, 200, 200, 0, None)
+
+# Category, Name, Strength/health,
+item1 = Item("Sword", "Stick", 10, "STR")
+item2 = Item("Sword", "Lightsaber", 200, "STR")
+item9 = Item("Sword", "Stone Sword", 40, "STR")
+item10 = Item("Sword", "Gold Sword", 60, "STR")
+item11 = Item("Sword", "Diamond Sword", 70, "STR")
+item12 = Item("Sword", "Machine gun", 300, "STR")
+item3 = Item("Ring", "Force Ring", 50, "STR")
+item4 = Item("Ring", "Ring of fire", 50, "STR")
+item5 = Item("Potion", "Health Potion", 50, "Health")
+item7 = Item("Ring", "Health Ring", 50, "Health")
+item8 = Item("Potion", "Borogor", 100, "Health")
+
+all_items = [item1, item2, item3, item4, item5, item7, item8, item9, item10, item11, item12]
+#Item 6 existerar inte just nu.
+#Vid tilläg av item, lägg också in det i listan ovanför.
+
+
 
 #--------------Main Program------------------
 def main():
