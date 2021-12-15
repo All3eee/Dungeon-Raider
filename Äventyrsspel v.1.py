@@ -29,15 +29,6 @@ class Player():
     lives : int
         antal liv som spelaren har kvar
 
-    Metoder
-    -------
-    Sammfattning av de olika metoder
-    abilities():
-        Skriver ut de olika attributer som spelaren har
-
-    difficulty():
-        
-
     '''
     
     def __init__(self, name, strength, hp, reset_hp, lvl, lives):
@@ -592,57 +583,57 @@ def animation_door():
 #               Namn STR HP RESET_HP LVL Lives
 Player1 = Player('x', 20, 200, 200, 0, None)
 
-#Main Program
-title() #Från filen "Animationer.py"
-start_game() #Från filen "Animationer.py"
-Prolog() #Från filen "Animationer.py"
-Player1.difficulty() #Bestämmer antal liv
-Player1.set_character() #Bestämmer namn på spelaren
+#--------------Main Program------------------
+def main():
+    
+    title() #Från filen "Animationer.py"
+    start_game() #Från filen "Animationer.py"
+    Prolog() #Från filen "Animationer.py"
+    Player1.difficulty() #Bestämmer antal liv
+    Player1.set_character() #Bestämmer namn på spelaren
 
-while True:
-    
-    animation_door()
-    given_input = the_room()
-    
-    if given_input == 'e': #Öppnar meny
-        end_game = meny()
-        if end_game == True:
-            break        
-    
-    #Vid val av en dörr
-    elif given_input == 'v' or given_input == 'm' or given_input == 'h': 
-        room_type = door_chance() #Slumpar mellan de tre olika dörrar
-        if room_type == 1: #Rum med en kista
-            room_chest() 
-            input("\nTryck <Enter> för att fortsätta")
+    while True:
+        animation_door()
+        given_input = the_room()
         
-        elif room_type == 2: #Rum med ett monster
-            if Player1.lvl >= 10: #Om spelaren är level 10 startar boss fighten när en monster dörr öppnas
-                dead_or_not = boss_monster()
-                if dead_or_not == 'dead':
+        if given_input == 'e': #Öppnar meny
+            end_game = meny()
+            if end_game == True:
+                break        
+        
+        #Vid val av en dörr
+        elif given_input == 'v' or given_input == 'm' or given_input == 'h': 
+            room_type = door_chance() #Slumpar mellan de tre olika dörrar
+            if room_type == 1: #Rum med en kista
+                room_chest() 
+                input("\nTryck <Enter> för att fortsätta")
+            
+            elif room_type == 2: #Rum med ett monster
+                if Player1.lvl >= 10: #Om spelaren är level 10 startar boss fighten när en monster dörr öppnas
+                    dead_or_not = boss_monster()
+                    if dead_or_not == 'dead':
+                        end_game = True
+                        break
+                    else:
+                        end_credit() #Från filen "Animationer.py"
+                
+                Player1.room_monster() 
+                input("\nTryck <Enter> för att fortsätta") 
+            
+            elif room_type == 3: #Rum med en fälla
+                Player1.room_trap()
+                if Player1.lives <= 0:
                     end_game = True
                     break
-                else:
-                    end_credit() #Från filen "Animationer.py"
-            
-            Player1.room_monster() 
-            input("\nTryck <Enter> för att fortsätta") 
-        
-        elif room_type == 3: #Rum med en fälla
-            Player1.room_trap()
-            if Player1.lives <= 0:
-                end_game = True
-                break
-    elif given_input == "420":
-        room_chest()
-        # Player1.room_monster()
+        elif given_input == "420":
+            room_chest()
+            # Player1.room_monster()
 
+    if end_game == True:
+        print("LIVES LEFT: [0]")
+        print("GAME OVER!")
 
-if end_game == True:
-    print("LIVES LEFT: [0]")
-    print("GAME OVER!")
-
-
+main()
     
     
 
