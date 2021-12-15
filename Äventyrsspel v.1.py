@@ -270,6 +270,7 @@ Vilket nummer har det föremål som du vill ta bort [1], [2], [3], [4], [5]
 Tryck på valfri knapp för att gå tillbaka [X]
 ---> ''').lower()
                     if item_number_switch.isdigit == True: #Kollar om det är en siffra
+                        item_number_switch = int(item_number_switch) #Gör om string till integer
                         if item_number_switch > 0 and item_number_switch <=5: #Kollar om föremålet som blivit angiven finns
                             if_sure = input('''
     Är du säker på att du vill byta ut detta item?
