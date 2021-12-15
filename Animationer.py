@@ -195,7 +195,7 @@ def title():
 
 def Prolog():
     '''
-    Val om man vill se prolog eller ej, om man vill skrivs hela prologen ut
+    Ber om en input, antingen 1 eller 2, skriver ut hela prolog om inputen är 1
     '''
     while True:
       chosen_input = input('''
