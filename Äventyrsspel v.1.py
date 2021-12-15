@@ -86,7 +86,7 @@ Laban: Jasså, så du heter {self.name}.
             potion_choice = input("Vilket nummer har den potion som du vill använda? --> ")
             if potion_choice.isdigit() == True: #Om potion_choice är en siffra
                 potion_choice = int(potion_choice) 
-                if potion_choice <= len(potion_value_list) and potion_choice < 0: 
+                if potion_choice <= len(potion_value_list) and potion_choice > 0: 
                     health_increase = potion_value_list[potion_choice- 1] #Tar ut effekten på den valda potion
                     self.hp = self.hp + health_increase #ökar hp med potionen
                                 
@@ -415,7 +415,7 @@ def inventory_usage():
     Tryck på [1] för att ta bort föremål
     Tryck på [2] för att använda potion
     Tryck på [3] för att återvända till meny
-        ''')
+    ---> ''')
         if choice_input == '1': #Ta bort ett föremål
             item_number_switch = input('''
     Vilket nummer har det föremål som du vill ta bort?
