@@ -310,7 +310,7 @@ Ditt inventory är fullt
 Vilket nummer har det föremål som du vill ta bort [1], [2], [3], [4], [5]
 Tryck på valfri knapp för att gå tillbaka [X]
 ---> ''').lower()
-                    if item_number_switch.isdigit == True: #Kollar om det är en siffra
+                    if item_number_switch.isdigit() == True: #Kollar om det är en siffra
                         item_number_switch = int(item_number_switch) #Gör om string till integer
                         if item_number_switch > 0 and item_number_switch <=5: #Kollar om föremålet som blivit angiven finns
                             if_sure = input('''
@@ -442,9 +442,9 @@ def inventory_usage():
         if choice_input == '1': #Ta bort ett föremål
             item_number_switch = input('''
     Vilket nummer har det föremål som du vill ta bort?
-   Tryck på valfri knapp för att gå tillbaka [X]
+    Tryck på valfri knapp för att gå tillbaka [X]
     ---> ''').lower()
-            if item_number_switch.isdigit == True: #Om inputen är en siffra
+            if item_number_switch.isdigit() == True: #Om inputen är en siffra
                 if item_number_switch > 0 and item_number_switch <=len(player_inventory): #Kollar om spelaren anget rätt siffra
                     if_sure = input('''
         Är du saker pa att du vill ta bort detta item?
