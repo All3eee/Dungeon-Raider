@@ -159,7 +159,7 @@ def laban():
   for char in string: #Skriver ut en bokstav i taget
     sys.stdout.write(char)
     sys.stdout.flush()
-    sleep(.03)
+    sleep(.01)
 
 def dead_laban():
   string = ''' 
@@ -243,15 +243,17 @@ def Prolog():
         break
 
 def laban_death():
-  print("chop chop, *Laban dör*")
+  print("*SWISH*")
+  sleep(1)
+  print("*Laban dör*")
   string = '''
-  YOu WoN tHe gAMe
   
-  Dock
-  Eftersom att du döda laban, tog du över hans roll som spöke
-  
-  *Långsamt förvandlas till ett spöke*
-            
+    "Jag glömde säga en sak...", yttrar Laban sina sista andetag.
+    "Genom att döda den tidigare mästaren tar du över förbannelsen"
+  Du kollar på dina händer, du kan urskilja en viss transparans.
+  Du kännar din kropp bli mer och mer tyngdlös, dina fötter lämnar
+  marken. Förvandligen är fullständig.
+
   '''
   for char in string:
     sys.stdout.write(char)
@@ -261,7 +263,7 @@ def laban_death():
 
 def laban_alive():
   string ='''
-  Thank you, for not killing me, saviour, *Laban rethinks his life*
+  Du tar tag i laban och hjälper honom 
   
   Du lyckades ta dig ut!!
   '''

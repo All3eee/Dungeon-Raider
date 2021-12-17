@@ -5,11 +5,13 @@ def hänga_gubbe():
     '''
     Klassisk hänga gubbe
     '''
-    print("Laban: AHA, trodde du verkligen att du skulle kunna rymma!!")
-    sleep(3)
     print('''
-Laban: Om du klarar Hänga gubbe så kanske jag låter dig komma ut!
-Laban: Om du inte klarar det, är det du som blir hängd!!
+Laban: Det enda sättet tar dig härifrån helskinnad är om
+       du lyckas lista ut det hemliga lösenordet, då bryts
+       förbannelsen och jag kan inte längre hindra dig från
+       att rymma.
+Laban: Om du inte klarar av detta, förvandlas du också till 
+       ett spöka
     ''')
     sleep(5)
     print('''
