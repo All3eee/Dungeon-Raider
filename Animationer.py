@@ -1,3 +1,6 @@
+#Den fil är en samling för alla olika bilder/ animationer som används i programmet
+#Det är här som de flesta texter som används i spelet ligger samlad i.
+
 import sys
 from time import sleep
 import random as rand
@@ -16,15 +19,42 @@ Välkommen till Dungeon Raider
     input("\nTryck <Enter> för att starta spelet")
 
 
-def monster_animation():
-    '''
-    slumpar ett tal, för att sedan printa ett visst monster, + returnar namnet på monstret
-    '''
-    monster_type = rand.randint(1,4)
+def animation_door(player_lives, player_hp):
+  '''
+  printar tre dörrar + spelarens liv och hp.
+  '''
+  print(f'''
+      ,-' ;'! `-.         ,-' ;'! `-.         ,-' ;'! `-.
+     / :  ! :  . \       / :  ! :  . \       / :  ! :  . :
+    |_ ;    :  ;  |     |_ ;    :  ;  |     |_ ;    :  ;  |
+    (| .  : (  !  |     (| .  : (  !  |     (| .  : (  !  | 
+    |"    [V]    "|     |"    [M]    "|     |"    [H]    "|
+    |  :  ; ' (_) l     |  :  ; ' (_) l     |  :  ; ' (_) l
+    |  :    .     |     |  :    .     |     |  :    .     |
+    || .  . :  :  |     || .  . :  :  |     || .  . :  :  |
+    |" ,  | .  .  |     |" ,  | .  .  |     |" ,  | .  .  |
+    |__-__;---.___|     |__-__;---.___|     |__-__;---.___|
+                
+                ------------------------
+                |        LIV:{player_lives}         |
+                |        HP: {player_hp}       |
+                ------------------------
+    ''')
+  print('''
+    Vänster dörr [V], Mitten dörr [M], Höger dörr [H]    
+    Meny [E]  
+    ''')
+    
 
-    #Monstret Jörgen
-    if monster_type == 1:
-      string = """
+def monster_animation():
+  '''
+  slumpar ett tal, för att sedan printa ett visst monster, + returnar namnet på monstret
+  '''
+  monster_type = rand.randint(1,4)
+
+  #Monstret Jörgen
+  if monster_type == 1:
+    string = """
         .-----:
        /       |
    __ /   .-.  .|
@@ -42,13 +72,13 @@ def monster_animation():
 \       \  /`
       \(
                 """
-      print(string)
-      print("Djuriga Jörgen har dykt upp!")
-      return 'Djuriga Jörgen'
+    print(string)
+    print("Djuriga Jörgen har dykt upp!")
+    return 'Djuriga Jörgen'
     
-    #Mumin
-    elif monster_type == 2:
-      string = '''
+  #Mumin
+  elif monster_type == 2:
+    string = '''
                 .   ,
                .';_.';
               .       `.
@@ -70,13 +100,13 @@ def monster_animation():
           `.   `,      `.  .'
             ".-'         `' 
       '''
-      print(string)
-      print("Maffiga Mumin har dykt upp!")
-      return 'Maffiga Mumin'
+    print(string)
+    print("Maffiga Mumin har dykt upp!")
+    return 'Maffiga Mumin'
 
-    #Monstret leffe
-    elif monster_type == 3:
-      string ='''
+  #Monstret leffe
+  elif monster_type == 3:
+    string ='''
                _.---._
              .'       `.
              :)       (:
@@ -105,13 +135,13 @@ def monster_animation():
           / /           \ \      
 
       '''
-      print(string)
-      print("Läskiga Leffe har dykt upp!")
-      return 'Läskiga Leffe'
+    print(string)
+    print("Läskiga Leffe har dykt upp!")
+    return 'Läskiga Leffe'
 
-    #Monstret Bert
-    elif monster_type == 4:
-      string = '''
+  #Monstret Bert
+  elif monster_type == 4:
+    string = '''
                    (    )
                   ((((()))
                   |o\ /o)|
@@ -136,9 +166,9 @@ def monster_animation():
                           _/,/'
                         /,/,"
       '''
-      print(string)
-      print("Brandfarliga Bert har dykt upp!")
-      return 'Brandfarliga Bert'
+    print(string)
+    print("Brandfarliga Bert har dykt upp!")
+    return 'Brandfarliga Bert'
 
 def laban():
   string = ''' 
@@ -272,6 +302,38 @@ def laban_alive():
     sys.stdout.flush()
     sleep(.03)
   sleep(1) 
+
+def text_for_hangman(player_name):
+  print(f"Laban: Grattis {player_name}!")
+  string = f'''
+  Du har lyckats med något som 
+  ingen har lyckats med på 10 år. När jag var 11 dök jag
+  upp här precis som du, när jag nådde nivå 10 återvände
+  jag tillbaka till mitt hem. Jag hade varit borta i 
+  flera dagar. När jag nådde dörren hörde jag hur min 
+  familj skrattade och hade kul, som om ingenting hade
+  hänt. Då insåg jag att ingen egentligen brydde sig om
+  mig. Jag bestämde mig sedan för att återvända hit. Idag
+  är jag 21 år gammal i människoår, mitt ultimata mål i 
+  livet är att inte låta någon ta sig härifrån vid liv,
+  ingen skall få uppleva lyckan jag aldrig fick känna.'''
+  
+  for char in string:
+    sys.stdout.write(char)
+    sys.stdout.flush()
+    sleep(.03)
+  sleep(1)
+  
+  
+  print('''
+Laban: Det enda sättet tar dig härifrån helskinnad är om
+       du lyckas lista ut det hemliga lösenordet, då bryts
+       förbannelsen och jag kan inte längre hindra dig från
+       att rymma.
+Laban: Om du inte klarar av detta, förvandlas du också till 
+       ett spöka
+    ''')
+  sleep(5)
 
 def hanging_man():
   string = '''

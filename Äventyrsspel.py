@@ -500,30 +500,13 @@ def door_chance():
 
 
 def boss_monster():
+    
     laban() #Från filen "Animationer.py"
     
+    text_for_hangman(Player1.name)
+   
     while True:
-        
-        print(f"Laban: Grattis {}!")
-        string = f'''
-            Du har lyckats med något som 
-           ingen har lyckats med på 10 år. När jag var 11 dök jag
-           upp här precis som du, när jag nådde nivå 10 återvände
-           jag tillbaka till mitt hem. Jag hade varit borta i 
-           flera dagar. När jag nådde dörren hörde jag hur min 
-           familj skrattade och hade kul, som om ingenting hade
-           hänt. Då insåg jag att ingen egentligen brydde sig om
-           mig. Jag bestämde mig sedan för att återvända hit. Idag
-           är jag 21 år gammal i människoår, mitt ultimata mål i 
-           livet är att inte låta någon ta sig härifrån vid liv,
-           ingen skall få uppleva lyckan jag aldrig fick känna.
-    '''
-        for char in string:
-            sys.stdout.write(char)
-            sys.stdout.flush()
-            sleep(.03)
-        sleep(1)
-        completion_or_death = hänga_gubbe()  #Från filen Hänga_Gubbe.py
+        completion_or_death = hänga_gubbe()  #Hänga Gubbe sätts igång; Från filen Hänga_Gubbe.py
         if completion_or_death == 'dead':
             hanging_man() #Från filen "Animationer.py"
             Player1.hp = 0 #Spelarens hp sätts till 0 pga av att spelaren blev hängd
@@ -532,6 +515,7 @@ def boss_monster():
                 return 'dead'
             else:
                 print("Du förlora ett liv, du får en chans till att köra hänga gubbe")
+                continue
         else:
             break
     
@@ -559,35 +543,6 @@ def boss_monster():
             print("Laban: DÖDAA MIG!!!")
 
 
-def animation_door():
-    '''
-    printar tre dörrar + spelarens liv och hp.
-    '''
-    print(f'''
-      ,-' ;'! `-.         ,-' ;'! `-.         ,-' ;'! `-.
-     / :  ! :  . \       / :  ! :  . \       / :  ! :  . :
-    |_ ;    :  ;  |     |_ ;    :  ;  |     |_ ;    :  ;  |
-    (| .  : (  !  |     (| .  : (  !  |     (| .  : (  !  | 
-    |"    [V]    "|     |"    [M]    "|     |"    [H]    "|
-    |  :  ; ' (_) l     |  :  ; ' (_) l     |  :  ; ' (_) l
-    |  :    .     |     |  :    .     |     |  :    .     |
-    || .  . :  :  |     || .  . :  :  |     || .  . :  :  |
-    |" ,  | .  .  |     |" ,  | .  .  |     |" ,  | .  .  |
-    |__-__;---.___|     |__-__;---.___|     |__-__;---.___|
-                
-                ------------------------
-                |        LIV:{Player1.lives}         |
-                |        HP: {Player1.hp}       |
-                ------------------------
-    ''')
-    print('''
-    Vänster dörr [V], Mitten dörr [M], Höger dörr [H]    
-    Meny [E]  
-        ''')
-    
-
-boss_monster()
-
 #               Namn STR HP RESET_HP LVL Lives
 Player1 = Player('x', 20, 200, 200, 0, None)
 
@@ -609,7 +564,6 @@ all_items = [item1, item2, item3, item4, item5, item7, item8, item9, item10, ite
 #Vid tilläg av item, lägg också in det i listan ovanför.
 
 
-
 #--------------Main Program------------------
 def main():
     
@@ -618,9 +572,8 @@ def main():
     Prolog() #Från filen "Animationer.py"
     Player1.difficulty() #Bestämmer antal liv
     Player1.set_character() #Bestämmer namn på spelaren
-
     while True:
-        animation_door()
+        animation_door(Player1.lives, Player1.hp)
         given_input = the_room()
         
         if given_input == 'e': #Öppnar meny

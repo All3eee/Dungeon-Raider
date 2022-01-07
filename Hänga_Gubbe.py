@@ -1,3 +1,5 @@
+#Den här filen innehåller spelet Hänga Gubbe
+
 import random as rand
 from time import sleep
 
@@ -5,15 +7,7 @@ def hänga_gubbe():
     '''
     Klassisk hänga gubbe
     '''
-    print('''
-Laban: Det enda sättet tar dig härifrån helskinnad är om
-       du lyckas lista ut det hemliga lösenordet, då bryts
-       förbannelsen och jag kan inte längre hindra dig från
-       att rymma.
-Laban: Om du inte klarar av detta, förvandlas du också till 
-       ett spöka
-    ''')
-    sleep(5)
+
     print('''
     Hänga Gubbe
     ''')
