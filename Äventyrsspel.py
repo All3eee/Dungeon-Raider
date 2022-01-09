@@ -550,7 +550,7 @@ def boss_monster():
 #               Namn STR HP RESET_HP LVL Lives
 Player1 = Player('x', 20, 200, 200, 0, None)
 
-# Category, Name, Strength/health,      Durability
+#          Category, Name, Strength/health, Durability
 item1 = Item("Sword", "Stick", 10, "STR", 10)
 item2 = Item("Sword", "Lightsaber", 200, "STR", 2)
 item9 = Item("Sword", "Stone Sword", 40, "STR", 4)
@@ -618,6 +618,3 @@ def main():
         print("GAME OVER!")
 
 main()
-    
-    
-
