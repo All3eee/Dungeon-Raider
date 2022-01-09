@@ -1,5 +1,5 @@
-#Den fil är en samling för alla olika bilder/ animationer som används i programmet
-#Det är här som de flesta texter som används i spelet ligger samlad i.
+#Denna fil är en samling för alla olika bilder/ animationer som används i programmet
+#Det är här som de flesta texter som används i spelet ligger samlade i.
 
 import sys
 from time import sleep
