@@ -256,6 +256,10 @@ class Item():
         self.durability = durability
 
     def lose_durability(self, position_in_inventory):
+        '''
+        Funktionen tar emot positionen för svärdet i inventory i form av en integer.
+        Durbailityn subtraheras med 1 och om durabilityn är 0 tas den bort från listan inventory
+        '''
         self.durability -=1
         if self.durability <= 0:
             player_inventory.pop(position_in_inventory)
