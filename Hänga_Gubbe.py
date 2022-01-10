@@ -1,7 +1,6 @@
 #Den här filen innehåller spelet Hänga Gubbe
 
 import random as rand
-from time import sleep
 
 def hänga_gubbe():
     '''
@@ -15,7 +14,7 @@ def hänga_gubbe():
     word_list = ["spel","labyrint","äpple", "skelett", "hänga", "banan", 'spöke', 'monster', 'äventyrsspel', 'föremål', 'borogor', 'svärd', 'ring', 'programmering'
     ,'hej', 'brandfarlig', 'läskig', 'djurig', 'maffig', 'spindelmannen', 'spoiler', 'tjock', "gubbe", 'python', 'klass']
     
-    random_number = rand.randint(0,len(word_list)-1)  #0 till listans längd ger möjlighet att lägga till ord utan problem
+    random_number = rand.randint(0,len(word_list))
     the_word = word_list[random_number] #Slumpad siffra tar ut ett ord ur listan som theword är lika med
 
     right_guessed_words = [] #Lista över de rätt gissade bokstäver
@@ -48,8 +47,7 @@ def hänga_gubbe():
                 if guesses == 0:
                     print("Du har inga fler gissningar, nu dör du")
                     return 'dead'
-        
-        if amount_of_letters_right == len(the_word): #Om man har haft rätt på samma antal bokstäver som det är i ordet
-            print('\n',*right_guessed_words, sep =' ') #Tar bort ' ' i listan och printar gissade ordet
-            print("Attans, du hade rätt, ordet var:", the_word)
-            input("\nTryck <Enter> för att fortsätta")
+                       
+    print('\n',*right_guessed_words, sep =' ') #Tar bort ' ' i listan och printar gissade ordet
+    print("Attans, du hade rätt, ordet var:", the_word)
+    input("\nTryck <Enter> för att fortsätta")
