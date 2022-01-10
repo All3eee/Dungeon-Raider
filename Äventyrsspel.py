@@ -5,9 +5,6 @@ from Animationer import *
 from Hänga_Gubbe import *
 
 
-end_game = False #Variabel som används för att stänga av spelet helt
-
-
 class Player():
     '''
     En klass för att representera spelaren/ personen
@@ -579,6 +576,7 @@ all_items = [item1, item2, item3, item4, item5, item7, item8, item9, item10, ite
 
 #--------------Main Program------------------
 def main():
+    end_game = False #Variabel som används för att stänga av spelet helt
     
     title() #Från filen "Animationer.py"
     start_game() #Från filen "Animationer.py"
@@ -590,8 +588,8 @@ def main():
         given_input = the_room()
         
         if given_input == 'e': #Öppnar meny
-            end_game = meny()
-            if end_game == True:
+            quit_game = meny()
+            if quit_game == True:
                 break        
         
         #Vid val av en dörr
