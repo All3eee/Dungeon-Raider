@@ -121,7 +121,6 @@ Laban: Jasså, så du heter {self.name}.
         self.losing_lives() #Om spelaren förlorar liv eller ej
 
     def room_monster(self):
-        
         if self.lvl >= 10: #Vid level 10 slåss monstret mot laban
             laban()
             monster_hp = 500 #Labans HP är alltid 500 hp
@@ -131,7 +130,7 @@ Laban: Jasså, så du heter {self.name}.
             monster_hp = 120 + 10*self.lvl #HP på monstret ökar för varje level
             
         print(f"{monster_namn} har {monster_hp} HP")
-        sleep(1)
+        
         while True:
             damage_on_monster = self.battle_menu()
 
@@ -221,6 +220,7 @@ Laban: Jasså, så du heter {self.name}.
 [2] Använda potion
 [3] Information om spelare
 ---> ''')
+            clear()
             if menu_choice == "1":
                 number = 1 #Används för rangordning
                 sword_list_strength = [] #List för de olika svärd i inventory
@@ -231,12 +231,9 @@ Laban: Jasså, så du heter {self.name}.
                         sword_list.append(i)
                         sword_list_strength.append(i.strength) #Lägger till föremålets STR i listan
                         number += 1
-                sleep(2)
-                clear()
+                
                 if number == 1:
                     print("Du har inget vapen och måste slåss med händerna!")
-                    sleep(1)
-                    clear()
                     return self.strength + rand.randint(-5,5) #Random extra damage
                 else:     
                     while True:
@@ -309,6 +306,54 @@ Laban: Jasså, så du heter {self.name}.
                 print(f"{number}.{item.name}  ---  +{item.strength} Health", sep =' ')
             number += 1
 
+        #Användning av inventory i menyn
+    def inventory_usage(self):
+    
+        while True:
+            if len(self.player_inventory) <= 0: #Om spelarens inventory är tom
+                print("Det är tomt i ditt inventory")
+                input("\nTryck <Enter> för att återvända till menyn")
+                clear()
+                break
+        
+            self.show_inventory() #Visar inventory
+            choice_input = input('''
+    Tryck på [1] för att ta bort föremål
+    Tryck på [2] för att använda potion
+    Tryck på [3] för att återvända till meny
+    ---> ''')
+            sleep(1)
+            clear()
+            if choice_input == '1': #Ta bort ett föremål
+                item_number_switch = input('''
+    Vilket nummer har det föremål som du vill ta bort?
+    Tryck på valfri knapp för att gå tillbaka [X]
+    ---> ''').lower()
+                sleep(1)
+                clear()
+                if item_number_switch.isdigit() == True: #Om inputen är en siffra
+                    item_number_switch = int(item_number_switch) #Gör om inputen till en integer
+                    if item_number_switch > 0 and item_number_switch <=len(self.player_inventory): #Kollar om spelaren anget rätt siffra
+                        if_sure = input('''
+Är du saker pa att du vill ta bort detta item?
+[Ja] = 1
+[Nej] = 2
+--->''')
+                        sleep(1)
+                        clear()
+                        if if_sure == '1': #Spelaren är säker på sitt val
+                            self.player_inventory[item_number_switch-1].popping_item() #Tar bort eventuella effekter som föremålet har på strength eller reset_hp
+                            self.player_inventory.pop(item_number_switch-1) #Tar bort föremålet som spelaren valt ut
+
+                    else: 
+                        print("Det du angav existerar ej")
+            elif choice_input == '2':
+                self.use_potion()               
+            elif choice_input == '3':
+                break
+
+
+
     def abilities(self):
         
         print(f'''
@@ -320,6 +365,7 @@ HP: {self.hp}''')
         if self.lives != 1:
             print(f'HP efter död: {self.reset_hp}')
         input("\nTryck <Enter> för att stänga sidan")
+        clear()
 
     
     def use_potion(self):
@@ -470,6 +516,7 @@ Tryck på valfri knapp för att gå tillbaka [X]
 
 def meny():
     while True:
+        clear()
         print('''\n
     Ange [1] för information om spelaren
     Ange [2] för inventory
@@ -480,7 +527,7 @@ def meny():
         if chosen_number == '1':
             Player1.abilities() #Visar information om spelaren
         elif chosen_number == '2':
-            inventory_usage() # Visar inventory etc.
+            Player1.inventory_usage() # Visar inventory etc.
         elif chosen_number == '3':
             break   # stänger menyn
         elif chosen_number == '4': #Avsluta spel
@@ -496,44 +543,6 @@ def meny():
                 print("1")
                 return True
 
-#Användning av inventory i menyn
-def inventory_usage():
-    
-    while True:
-        if len(Player1.player_inventory) <= 0: #Om spelarens inventory är tom
-            print("Det är tomt i ditt inventory")
-            input("\nTryck <Enter> för att återvända till menyn")
-            break
-        
-        Player1.show_inventory() #Visar inventory
-        choice_input = input('''
-    Tryck på [1] för att ta bort föremål
-    Tryck på [2] för att använda potion
-    Tryck på [3] för att återvända till meny
-    ---> ''')
-        if choice_input == '1': #Ta bort ett föremål
-            item_number_switch = input('''
-    Vilket nummer har det föremål som du vill ta bort?
-    Tryck på valfri knapp för att gå tillbaka [X]
-    ---> ''').lower()
-            if item_number_switch.isdigit() == True: #Om inputen är en siffra
-                item_number_switch = int(item_number_switch) #Gör om inputen till en integer
-                if item_number_switch > 0 and item_number_switch <=len(Player1.player_inventory): #Kollar om spelaren anget rätt siffra
-                    if_sure = input('''
-Är du saker pa att du vill ta bort detta item?
-[Ja] = 1
-[Nej] = 2
---->''')
-                    if if_sure == '1': #Spelaren är säker på sitt val
-                        Player1.player_inventory[item_number_switch-1].popping_item() #Tar bort eventuella effekter som föremålet har på strength eller reset_hp
-                        Player1.player_inventory.pop(item_number_switch-1) #Tar bort föremålet som spelaren valt ut
-
-                else: 
-                    print("Det du angav existerar ej")
-        elif choice_input == '2':
-            Player1.use_potion()               
-        elif choice_input == '3':
-            break
 
 
 def the_room():
@@ -601,13 +610,12 @@ def main():
     sleep(1)
     clear()
     Player1.set_character() #Bestämmer namn på spelaren
-    
+    sleep(2)
     while True:
-        sleep(3)
         clear()
         animation_door(Player1.lives, Player1.hp)
         given_input = the_room()
-        sleep(2)
+        sleep(1)
         clear()
         if given_input == 'e': #Öppnar meny
             quit_game = meny()
@@ -625,7 +633,7 @@ def main():
             
             elif room_type == 2: #Rum med ett monster
                 if Player1.lvl >= 10: #Om spelaren är level 10 startar boss fighten när en monster dörr öppnas
-                    dead_or_not = boss_monster()
+                    dead_or_not = Player1.boss_monster()
                     if dead_or_not == 'dead':
                         end_game = True
                         break
