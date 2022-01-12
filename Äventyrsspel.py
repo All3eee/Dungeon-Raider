@@ -20,7 +20,7 @@ class Player():
 
     '''
     
-    def __init__(self, name, strength, hp, reset_hp, lvl, lives):
+    def __init__(self, name, strength, hp, max_hp, lvl, lives):
         """
         Alla nödvändiga attributer som behövs för spelar objektet
 
@@ -32,8 +32,8 @@ class Player():
                 styrkan som spelaren har (vapen exkluderat)
             hp : int
                 hp som spelaren har
-            reset_hp : int
-                hp som spelaren får efter att ha dött
+            max_hp : int
+                Maximala hp som spelaren har
             lvl : int
                 nivå/level som spelaren är på
             lives : int
@@ -42,11 +42,10 @@ class Player():
         self.name = name
         self.strength = strength
         self.hp = hp
-        self.reset_hp = reset_hp #reset_hp bestämmer hur mycket hp spelaren får efter död.
+        self.max_hp = max_hp
         self.lvl = lvl
         self.lives = lives
         self.player_inventory = [] #Spelarens inventory
-
 
     def difficulty(self):
         '''
@@ -279,11 +278,11 @@ Laban: Jasså, så du heter {self.name}.
         if self.hp <= 0:
             self.lives = self.lives -1
             if self.lives != 0:
-                self.hp = self.reset_hp
+                self.hp = self.max_hp
                 print(f'''
     Du dog
     Liv kvar: [{self.lives}]
-    {self.reset_hp} hp återställs...
+    {self.max_hp} hp återställs...
             ''')
                 sleep(1)
     
@@ -342,7 +341,7 @@ Laban: Jasså, så du heter {self.name}.
                         sleep(1)
                         clear()
                         if if_sure == '1': #Spelaren är säker på sitt val
-                            self.player_inventory[item_number_switch-1].popping_item() #Tar bort eventuella effekter som föremålet har på strength eller reset_hp
+                            self.player_inventory[item_number_switch-1].popping_item() #Tar bort eventuella effekter som föremålet har på strength eller maximala hp
                             self.player_inventory.pop(item_number_switch-1) #Tar bort föremålet som spelaren valt ut
 
                     else: 
@@ -361,13 +360,10 @@ Namn: {self.name}
 Styrka: {self.strength}
 Level: {self.lvl}
 Liv: {self.lives}
-HP: {self.hp}''')
-        if self.lives != 1:
-            print(f'HP efter död: {self.reset_hp}')
-        input("\nTryck <Enter> för att stänga sidan")
-        clear()
+HP: {self.hp}
+MAX HP: {self.max_hp}''')
 
-    
+
     def use_potion(self):
         potion_value_list = [] #Lista för potions i inventoryt
         potion_position_in_inventory = []  #Används för att veta platserna för de olika potions
@@ -392,21 +388,27 @@ HP: {self.hp}''')
                 potion_choice = int(potion_choice) 
                 if potion_choice <= len(potion_value_list) and potion_choice > 0: 
                     health_increase = potion_value_list[potion_choice- 1] #Tar ut effekten på den valda potion
-                    self.hp = self.hp + health_increase #ökar hp med potionen
-                                
+                    
+                    self.add_health(health_increase)
+
                     position = potion_position_in_inventory[potion_choice-1]
                     self.player_inventory.pop(position) #Tar bort potion från inventory efter användning
-                    print("*Drinking Noises*")
                 else:
                     print("Det du angav existerar ej")
             else:
                 print("Det du angav existerar ej")
-                        
+    
+
+    def add_health(self, health_increase):
+        if self.hp + health_increase > self.max_hp: #För att inte få högre en än max hp
+            self.hp = self.max_hp
+        else:
+            self.hp = self.hp + health_increase #ökar hp med potionen
+        print("*Drinking Noises*")
+        sleep(1)
  
 
     
-
-
 class Item():
     def __init__(self, category, name, strength, attribute, durability):
         self.category = category
@@ -447,32 +449,39 @@ class Item():
         
         while True:
             if len(Player1.player_inventory) < 5: #Inventory har plats för föremålet
-                choice_item = input(f'''
-[1] Om du vill kasta bort föremålet 
-[2] Om du vill spara föremålet 
+                if self.category == 'Potion':
+                    print('\n[0] Om du vill dricka föremålet')
+                choice_item = input(f'''[1] Om du vill spara föremålet 
+[2] Om du vill kasta bort föremålet
 ---> ''')
-                if choice_item == '1': #Kasta föremålet
+                if choice_item == '2': #Kasta föremålet
                     print("Du kastade bort föremålet")
                     break
-                elif choice_item == '2': #Om man vill spara föremålet
+                elif choice_item == '1': #Om man vill spara föremålet
                     if self.category == 'Ring': 
                         if self.attribute == "Health":
-                            Player1.reset_hp += self.strength #Lägger till effekten från ringen
+                            Player1.max_hp += self.strength #Lägger till effekten från ringen
                         elif self.attribute == "STR":
                             Player1.strength += self.strength #Lägger till effekten från ringen
                     Player1.player_inventory.append(self) #Lägger till föremål i inventory
                     break
-        
+                elif choice_item == '0':
+                    Player1.add_health(self.strength)
+                    break
+                else: 
+                    print("Det du angav existerar ej")
+                    continue
+            
             elif len(Player1.player_inventory) >= 5: #Det är fullt i spelarens inventory
                 choice_item = input('''
 Ditt inventory är fullt
-[1] Om du vill kasta bort föremålet 
-[2] Om du vill byta ut något av de items som du redan har
+[1] Om du vill byta ut något av de items som du redan har
+[2] Om du vill kasta bort föremålet 
 ---> ''')
-                if choice_item == '1':
+                if choice_item == '2':
                     print("Du kastade bort föremålet")
                     break
-                elif choice_item == '2':
+                elif choice_item == '1':
                     Player1.show_inventory() #Visar spelarens inventory
                     item_number_switch = input(f'''
 Vilket nummer har det föremål som du vill ta bort [1], [2], [3], [4], [5]
@@ -493,7 +502,7 @@ Tryck på valfri knapp för att gå tillbaka [X]
                                 
                                 if self.category == 'Ring': 
                                     if self.attribute == "Health":
-                                        Player1.reset_hp += self.strength #Ökar spelarens hp som spelaren får efter död
+                                        Player1.max_hp += self.strength #Ökar spelarens hp som spelaren får efter död
                                     elif self.attribute == "STR":
                                         Player1.strength += self.strength #Ökar spelarens strength
                                 Player1.player_inventory.append(self) #Lägger till föremålet i spelarens inventory
@@ -508,7 +517,7 @@ Tryck på valfri knapp för att gå tillbaka [X]
         '''
         if self.category == 'Ring':
             if self.attribute == "Health": #Om attribute är 'Health'
-                Player1.reset_hp -= self.strength  #Tar bort extra reset_hp som ringen ger
+                Player1.max_hp -= self.strength  #Tar bort extra max hp som ringen ger
             elif self.attribute == "STR": #Om attribute är 'STR'
                 Player1.strength -= self.strength  #Tar bort extra styrkan som ringen ger
                         
@@ -576,7 +585,7 @@ def door_chance():
 
 
 
-#               Namn STR HP RESET_HP LVL Lives
+#                Namn/STR/HP/Max HP/LVL/Lives
 Player1 = Player('x', 20, 200, 200, 0, None)
 
 #          Category, Name, Strength/health, Durability
