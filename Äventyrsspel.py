@@ -410,7 +410,35 @@ MAX HP: {self.max_hp}''')
 
     
 class Item():
+    '''
+    En klass för att representera de olika föremål
+
+    De olika metoder:
+
+    __init__()
+    lose_durability()
+    add_items_in_inventory()
+    popping_item()
+
+    '''
+    
     def __init__(self, category, name, strength, attribute, durability):
+        """
+        Alla nödvändiga attributer
+
+        Parametrar
+        ----------
+            category : str
+                Typ av föremål
+            name : str
+                Namnet på föremålet
+            strength : int
+                styrkan eller health effekt beroende på item
+            attribute : str
+                variabel som används för att särskilja items med health eller styrke effekt
+            durability : int
+                Antal gånger som föremålet är använt innan den går sönder (endast för catergory 'Sword')
+        """
         self.category = category
         self.name = name
         self.strength = strength
@@ -523,6 +551,9 @@ Tryck på valfri knapp för att gå tillbaka [X]
                         
 
 
+#-----Funktioner-----#
+
+#Menyval
 def meny():
     while True:
         clear()
@@ -558,7 +589,7 @@ def the_room():
     '''
     Spelaren skriver in ett värde, 
     om inputen är v, m, eller h, printas det att en dörr öppnas  och returnerar chosen_input
-    Om spelaren skriver in 'e' returneras det värdet också,
+    Om spelaren skriver in 'e' returneras det värdet också, Det returnerade värdet är en string
     '''
     
     while True:
@@ -585,14 +616,16 @@ def door_chance():
 
 
 
-#                Namn/STR/HP/Max HP/LVL/Lives
+#---------------- Objekt -----------------#
+
+#                Namn,STR,HP,Max HP,LVL,Lives
 Player1 = Player('x', 20, 200, 200, 0, None)
 
 #          Category, Name, Strength/health, Durability
 item1 = Item("Sword", "Stick", 10, "STR", 10)
 item2 = Item("Sword", "Lightsaber", 200, "STR", 2)
-item9 = Item("Sword", "Stone Sword", 40, "STR", 4)
-item10 = Item("Sword", "Gold Sword", 60, "STR", 3)
+item9 = Item("Sword", "Stone Sword", 40, "STR", 5)
+item10 = Item("Sword", "Gold Sword", 60, "STR", 4)
 item11 = Item("Sword", "Diamond Sword", 70, "STR", 3)
 item12 = Item("Sword", "Machine gun", 300, "STR", 1)
 item3 = Item("Ring", "Force Ring", 25, "STR", None)
@@ -601,12 +634,14 @@ item5 = Item("Potion", "Health Potion", 50, "Health", None)
 item7 = Item("Ring", "Health Ring", 50, "Health", None)
 item8 = Item("Potion", "Borogor", 80, "Health",None)
 
+#Lista för alla items
 all_items = [item1, item2, item3, item4, item5, item7, item8, item9, item10, item11, item12]
 #Item 6 existerar inte just nu.
 #Vid tilläg av item, lägg också in det i listan ovanför.
 
 
-#--------------Main Program------------------
+
+#--------------Main Program------------------#
 def main():
     end_game = False #Variabel som används för att stänga av spelet helt
     
