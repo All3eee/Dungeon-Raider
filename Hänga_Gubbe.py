@@ -8,7 +8,7 @@ def hänga_gubbe():
     '''
 
     print('''
-    Hänga Gubbe
+---- Hänga Gubbe ----
     ''')
    
     word_list = ["spel","labyrint","äpple", "skelett", "hänga", "banan", 'spöke', 'monster', 'äventyrsspel', 'föremål', 'borogor', 'svärd', 'ring', 'programmering'

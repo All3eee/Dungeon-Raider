@@ -613,13 +613,12 @@ def main():
     title() #Från filen "Animationer.py"
     start_game() #Från filen "Animationer.py"
     Prolog() #Från filen "Animationer.py"
-    sleep(4)
     clear()
     Player1.difficulty() #Bestämmer antal liv
-    sleep(1)
+    sleep(0.2)
     clear()
     Player1.set_character() #Bestämmer namn på spelaren
-    sleep(2)
+    sleep(2.5)
     while True:
         clear()
         animation_door(Player1.lives, Player1.hp)

@@ -246,7 +246,7 @@ def Prolog():
       blir det tillräckligt ljust för att kunna skymta en siluett.
           "Är jag trots allt inte ensam här nere?"
           "Hallå? Vem är där?", lyckas du få ut med ett föträngt utrop.
-          "Mitt namn är laban, du hör inte hemma här", säger den okända
+          "Mitt namn är Laban, du hör inte hemma här", säger den okända
       rösten som tycks tillhöra en pojke i tonåren.
           "Hur hamnade jag här?", säger du.
           "Under flertal decennier har människor som du, dykt upp i våran
@@ -269,13 +269,14 @@ def Prolog():
             sys.stdout.write(char)
             sys.stdout.flush()
             sleep(.03)
-        sleep(1)
+        sleep(1)    
+        input("\nTryck <Enter> för att se Labans fråga")
         break
 
 def laban_death():
   print("*SWISH*")
   sleep(1)
-  print("*Laban dör*")
+  
   string = '''
   
     "Jag glömde säga en sak...", yttrar Laban sina sista andetag.
@@ -289,6 +290,8 @@ def laban_death():
     sys.stdout.write(char)
     sys.stdout.flush()
     sleep(.03)
+  sleep(1)
+  print("*Laban dör*")
   sleep(1)
 
 def laban_alive():
@@ -331,7 +334,7 @@ Laban: Det enda sättet tar dig härifrån helskinnad är om
        förbannelsen och jag kan inte längre hindra dig från
        att rymma.
 Laban: Om du inte klarar av detta, förvandlas du också till 
-       ett spöka
+       ett spöke
     ''')
   sleep(5)
 
