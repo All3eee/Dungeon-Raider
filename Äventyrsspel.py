@@ -245,7 +245,7 @@ Laban: Jasså, så du heter {self.name}.
                                 damage_of_weapon = sword_list_strength[weapon_choice - 1] + self.strength
                                 
                                 choosen_weapon = sword_list[weapon_choice - 1] #Det valda vapnet (objekt)
-                                position_in_inventory = 0
+                                position_in_inventory = -1  #Eftersom rangordningen är förskjuten i en lista dvs, börjar på 0
                                 for the_weapon in self.player_inventory:
                                     if the_weapon == choosen_weapon:
                                         position_in_inventory += 1
