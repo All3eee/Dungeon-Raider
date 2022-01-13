@@ -18,7 +18,7 @@ def hänga_gubbe():
     the_word = word_list[random_number] #Slumpad siffra tar ut ett ord ur listan som theword är lika med
 
     right_guessed_words = [] #Lista över de rätt gissade bokstäver
-    guesses = 10 
+    guesses = 12
     amount_of_letters_right = 0
     
     the_word = the_word.upper() #Gör ordet till stora bokstäver

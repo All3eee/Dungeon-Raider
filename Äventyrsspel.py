@@ -1,5 +1,4 @@
 import random as rand
-import sys
 from time import sleep
 from Animationer import *
 from Hänga_Gubbe import *
@@ -224,11 +223,11 @@ Laban: Jasså, så du heter {self.name}.
                 number = 1 #Används för rangordning
                 sword_list_strength = [] #List för de olika svärd i inventory
                 sword_list = []
-                for i in self.player_inventory:
-                    if i.category == 'Sword': #Om kategorin är ett svärd
-                        print(f"{number}.{i.name}  ---  {i.strength} STR --- Durability: {i.durability}", sep =' ') #Skriver ut föremålet
-                        sword_list.append(i)
-                        sword_list_strength.append(i.strength) #Lägger till föremålets STR i listan
+                for item in self.player_inventory:
+                    if item.category == 'Sword': #Om kategorin är ett svärd
+                        print(f"{number}.{item.name}  ---  {item.effect} STR --- Durability: {item.durability}", sep =' ') #Skriver ut föremålet
+                        sword_list.append(item)
+                        sword_list_strength.append(item.effect) #Lägger till föremålets STR i listan
                         number += 1
                 
                 if number == 1:
@@ -265,7 +264,7 @@ Laban: Jasså, så du heter {self.name}.
                 self.use_potion() #Använda potion
                     
             elif menu_choice == "3":
-                self.abilities() #Visar information om spelaren
+                self.player_information() #Visar information om spelaren
                 continue
 
     
@@ -291,19 +290,19 @@ Laban: Jasså, så du heter {self.name}.
     def show_inventory(self):
         print('------ INVENTORY ------')
         number = 1 #Nummer som används för nummerordning
-        for item in Player1.player_inventory: 
+        for item in self.player_inventory: 
             if item == None: #Om spelarens inventory är tomt
                 break
             
             if item.attribute == 'STR': #Om föremålet har har attribute 'STR'
                 if item.category == 'Sword': #Om föremålet är ett svärd
-                    print(f"{number}.{item.name}  ---  {item.strength} STR --- Durability: {item.durability}", sep =' ')
+                    print(f"{number}.{item.name}  ---  {item.effect} STR --- Durability: {item.durability}", sep =' ')
                 
-                else: #Om föremålet är ringar, skillnaden med den ovanför är + tecknet framför item.strength
-                    print(f"{number}.{item.name}  ---  +{item.strength} STR", sep =' ') 
+                else: #Om föremålet är ringar, skillnaden med den ovanför är + tecknet framför item.effect
+                    print(f"{number}.{item.name}  ---  +{item.effect} STR", sep =' ') 
             
             elif item.attribute == 'Health': #Om föremålet har attribute 'Health'
-                print(f"{number}.{item.name}  ---  +{item.strength} Health", sep =' ')
+                print(f"{number}.{item.name}  ---  +{item.effect} Health", sep =' ')
             number += 1
 
         #Användning av inventory i menyn
@@ -354,7 +353,7 @@ Laban: Jasså, så du heter {self.name}.
 
 
 
-    def abilities(self):
+    def player_information(self):
         
         print(f'''
 Namn: {self.name}
@@ -370,10 +369,10 @@ MAX HP: {self.max_hp}''')
         potion_position_in_inventory = []  #Används för att veta platserna för de olika potions
         number_of_potion = 1 #Används för rangordning
         number_in_inventory = 0 #Används för att veta var potions är i inventory
-        for i in self.player_inventory:
-            if i.category == 'Potion':
-                print(f"{number_of_potion}.{i.name}  ---  +{i.strength} Health", sep =' ')
-                potion_value_list.append(i.strength) #Lägger in effekten på de olika potions
+        for item in self.player_inventory:
+            if item.category == 'Potion':
+                print(f"{number_of_potion}.{item.name}  ---  +{item.effect} Health", sep =' ')
+                potion_value_list.append(item.effect) #Lägger in effekten på de olika potions
                             
                 #Lägger till platserna för de olika potions i Player inventory
                 potion_position_in_inventory.append(number_in_inventory)
@@ -423,7 +422,7 @@ class Item():
 
     '''
     
-    def __init__(self, category, name, strength, attribute, durability):
+    def __init__(self, category, name, effect, attribute, durability):
         """
         Alla nödvändiga attributer
 
@@ -433,7 +432,7 @@ class Item():
                 Typ av föremål
             name : str
                 Namnet på föremålet
-            strength : int
+            effect : int
                 styrkan eller health effekt beroende på item
             attribute : str
                 variabel som används för att särskilja items med health eller styrke effekt
@@ -442,7 +441,7 @@ class Item():
         """
         self.category = category
         self.name = name
-        self.strength = strength
+        self.effect = effect
         self.attribute = attribute
         self.durability = durability
 
@@ -459,22 +458,22 @@ class Item():
 
     def add_items_in_inventory(self):
         print(f"\nDu har fått {self.name}")
-        self.strength += rand.randint(1,20) #Slumpad bonus strength/ health effekt på föremålet.
+        self.effect += rand.randint(1,20) #Slumpad bonus strength/ health effekt på föremålet.
         
         if self.category == 'Potion': #Om kategorin är potion
             if self.attribute == 'Health': #Health potions
-                print(f"Som ger dig +{self.strength} HP när du dricker den")
+                print(f"Som ger dig +{self.effect} HP när du dricker den")
             elif self.attribute == 'STR': #Strength potions
-                print(f"Som ger dig +{self.strength} extra styrka")
+                print(f"Som ger dig +{self.effect} extra styrka")
         
         elif self.category == 'Ring': #Om det är en ring
             if self.attribute == 'STR': #Strength Rings
-                print(f"Som ger dig +{self.strength} styrka")
+                print(f"Som ger dig +{self.effect} styrka")
             elif self.attribute == 'Health': #Health Ring
-                print(f"Som ger dig +{self.strength} extra på ditt MAX HP")
+                print(f"Som ger dig +{self.effect} extra på ditt MAX HP")
         
         elif self.category == 'Sword': #Alla svärd
-            print(f"Med styrkan: {self.strength}")
+            print(f"Med styrkan: {self.effect}")
         
         while True:
             if len(Player1.player_inventory) < 5: #Inventory har plats för föremålet
@@ -489,13 +488,13 @@ class Item():
                 elif choice_item == '1': #Om man vill spara föremålet
                     if self.category == 'Ring': 
                         if self.attribute == "Health":
-                            Player1.max_hp += self.strength #Lägger till effekten från ringen
+                            Player1.max_hp += self.effect #Lägger till effekten från ringen
                         elif self.attribute == "STR":
-                            Player1.strength += self.strength #Lägger till effekten från ringen
+                            Player1.strength += self.effect #Lägger till effekten från ringen
                     Player1.player_inventory.append(self) #Lägger till föremål i inventory
                     break
                 elif choice_item == '0':
-                    Player1.add_health(self.strength)
+                    Player1.add_health(self.effect)
                     break
                 else: 
                     print("Det du angav existerar ej")
@@ -531,9 +530,9 @@ Tryck på valfri knapp för att gå tillbaka [X]
                                 
                                 if self.category == 'Ring': 
                                     if self.attribute == "Health":
-                                        Player1.max_hp += self.strength #Ökar spelarens hp som spelaren får efter död
+                                        Player1.max_hp += self.effect #Ökar spelarens hp som spelaren får efter död
                                     elif self.attribute == "STR":
-                                        Player1.strength += self.strength #Ökar spelarens strength
+                                        Player1.strength += self.effect #Ökar spelarens strength
                                 Player1.player_inventory.append(self) #Lägger till föremålet i spelarens inventory
                                 break
                         else:
@@ -546,9 +545,12 @@ Tryck på valfri knapp för att gå tillbaka [X]
         '''
         if self.category == 'Ring':
             if self.attribute == "Health": #Om attribute är 'Health'
-                Player1.max_hp -= self.strength  #Tar bort extra max hp som ringen ger
+                Player1.max_hp -= self.effect #Tar bort extra max hp som ringen ger
+                if Player1.hp >= Player1.max_hp:
+                    Player1.hp == Player1.max_hp  
             elif self.attribute == "STR": #Om attribute är 'STR'
-                Player1.strength -= self.strength  #Tar bort extra styrkan som ringen ger
+                Player1.strength -= self.effect  #Tar bort extra styrkan som ringen ger
+            
                         
 
 
@@ -566,7 +568,7 @@ def meny():
     ''')
         chosen_number = input("---> ")
         if chosen_number == '1':
-            Player1.abilities() #Visar information om spelaren
+            Player1.player_information() #Visar information om spelaren
         elif chosen_number == '2':
             Player1.inventory_usage() # Visar inventory etc.
         elif chosen_number == '3':
@@ -622,7 +624,7 @@ def door_chance():
 #                Namn,STR,HP,Max HP,LVL,Lives
 Player1 = Player('x', 20, 200, 200, 0, None)
 
-#          Category, Name, Strength/health, Durability
+#          Category, Name, Effect, Durability
 item1 = Item("Sword", "Stick", 10, "STR", 10)
 item2 = Item("Sword", "Lightsaber", 200, "STR", 2)
 item9 = Item("Sword", "Stone Sword", 40, "STR", 5)
