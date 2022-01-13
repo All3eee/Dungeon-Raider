@@ -287,7 +287,7 @@ Laban: Jasså, så du heter {self.name}.
                 sleep(1)
     
         #Visar inventory
-    def show_inventory():
+    def show_inventory(self):
         print('------ INVENTORY ------')
         number = 1 #Nummer som används för nummerordning
         for item in Player1.player_inventory: 
@@ -400,7 +400,7 @@ MAX HP: {self.max_hp}''')
     
 
     def add_health(self, health_increase):
-        if self.hp + health_increase > self.max_hp: #För att inte få högre en än max hp
+        if self.hp + health_increase >= self.max_hp: #För att inte få högre en än max hp
             self.hp = self.max_hp
         else:
             self.hp = self.hp + health_increase #ökar hp med potionen
