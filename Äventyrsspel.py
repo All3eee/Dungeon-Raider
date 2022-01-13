@@ -154,7 +154,7 @@ Laban: Jasså, så du heter {self.name}.
                 break
             
             #Den slumpade skadan från monstret ökar desto högre level spelaren är
-            damage1 = rand.randint(2*self.lvl,20 + 25*self.lvl) 
+            damage1 = rand.randint(2*self.lvl,20 + 20*self.lvl) 
             self.hp = self.hp - damage1 
             print(f"\nDu tog {damage1} damage")
             if self.hp <= 0: 
