@@ -366,7 +366,7 @@ Liv: {self.lives}
 HP: {self.hp}
 MAX HP: {self.max_hp}''')
 
-    input("\nTryck <Enter> för att fortsätta")
+        input("\nTryck <Enter> för att fortsätta")
 
 
     def use_potion(self):
@@ -427,7 +427,7 @@ class Item():
 
     '''
     
-    def __init__(self, category, name, effect, attribute, durability):
+    def __init__(self, category, name, effect, attribute, durability, reset_durability):
         """
         Alla nödvändiga attributer
 
@@ -443,12 +443,15 @@ class Item():
                 variabel som används för att särskilja items med health eller styrke effekt
             durability : int
                 Antal gånger som föremålet är använt innan den går sönder (endast för catergory 'Sword')
+            reset_durability: int
+                Används för att återställa self.durability
         """
         self.category = category
         self.name = name
         self.effect = effect
         self.attribute = attribute
         self.durability = durability
+        self.reset_durability = reset_durability
 
     #Förlorar durability
     def lose_durability(self, position_in_inventory):
@@ -459,6 +462,7 @@ class Item():
         self.durability -=1
         if self.durability <= 0:
             Player1.player_inventory.pop(position_in_inventory)
+            self.durability = self.reset_durability
     
 
     def add_items_in_inventory(self):
@@ -630,17 +634,17 @@ def door_chance():
 Player1 = Player('x', 20, 200, 200, 0, None)
 
 #          Category, Name, Effect, Durability
-item1 = Item("Sword", "Stick", 10, "STR", 10)
-item2 = Item("Sword", "Lightsaber", 200, "STR", 2)
-item9 = Item("Sword", "Stone Sword", 40, "STR", 5)
-item10 = Item("Sword", "Gold Sword", 60, "STR", 4)
-item11 = Item("Sword", "Diamond Sword", 70, "STR", 3)
-item12 = Item("Sword", "Machine gun", 300, "STR", 1)
-item3 = Item("Ring", "Force Ring", 25, "STR", None)
-item4 = Item("Ring", "Ring of fire", 25, "STR", None)
-item5 = Item("Potion", "Health Potion", 50, "Health", None)
-item7 = Item("Ring", "Health Ring", 50, "Health", None)
-item8 = Item("Potion", "Borogor", 80, "Health",None)
+item1 = Item("Sword", "Stick", 10, "STR", 10, 10)
+item2 = Item("Sword", "Lightsaber", 200, "STR", 2, 2)
+item9 = Item("Sword", "Stone Sword", 40, "STR", 5, 5)
+item10 = Item("Sword", "Gold Sword", 60, "STR", 4, 4)
+item11 = Item("Sword", "Diamond Sword", 70, "STR", 3, 3)
+item12 = Item("Sword", "Machine gun", 300, "STR", 1, 1)
+item3 = Item("Ring", "Force Ring", 25, "STR", None, None)
+item4 = Item("Ring", "Ring of fire", 25, "STR", None, None)
+item5 = Item("Potion", "Health Potion", 50, "Health", None, None)
+item7 = Item("Ring", "Health Ring", 50, "Health", None, None)
+item8 = Item("Potion", "Borogor", 80, "Health",None, None)
 
 #Lista för alla items
 all_items = [item1, item2, item3, item4, item5, item7, item8, item9, item10, item11, item12]
