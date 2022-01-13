@@ -302,7 +302,10 @@ Laban: Jasså, så du heter {self.name}.
                     print(f"{number}.{item.name}  ---  +{item.effect} STR", sep =' ') 
             
             elif item.attribute == 'Health': #Om föremålet har attribute 'Health'
-                print(f"{number}.{item.name}  ---  +{item.effect} Health", sep =' ')
+                if item.category == 'Ring':
+                    print(f"{number}.{item.name}  ---  +{item.effect} MAX HP", sep =' ')
+                else:
+                    print(f"{number}.{item.name}  ---  +{item.effect} Health", sep =' ')
             number += 1
 
         #Användning av inventory i menyn
@@ -362,6 +365,8 @@ Level: {self.lvl}
 Liv: {self.lives}
 HP: {self.hp}
 MAX HP: {self.max_hp}''')
+
+    input("\nTryck <Enter> för att fortsätta")
 
 
     def use_potion(self):
@@ -470,7 +475,7 @@ class Item():
             if self.attribute == 'STR': #Strength Rings
                 print(f"Som ger dig +{self.effect} styrka")
             elif self.attribute == 'Health': #Health Ring
-                print(f"Som ger dig +{self.effect} extra på ditt MAX HP")
+                print(f"Som ger dig +{self.effect} på ditt MAX HP")
         
         elif self.category == 'Sword': #Alla svärd
             print(f"Med styrkan: {self.effect}")
