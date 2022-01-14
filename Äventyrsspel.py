@@ -509,7 +509,7 @@ class Item():
             if self.attribute == 'STR': #Strength Rings
                 print(f"Som ger dig +{self.effect} styrka")
             elif self.attribute == 'Health': #Health Ring
-                print(f"Som ger dig +{self.effect} på ditt MAX HP")
+                print(f"Som ökar ditt MAX HP med {self.effect} hp")
         
         elif self.category == 'Sword': #Alla svärd
             print(f"Med styrkan: {self.effect} --- Durability:{self.durability}")
@@ -525,13 +525,7 @@ class Item():
                     print("Du kastade bort föremålet")
                     break
                 elif choice_item == '1': #Om man vill spara föremålet
-                    if self.category == 'Ring': 
-                        if self.attribute == "Health":
-                            Player1.max_hp += self.effect #Lägger till effekten från ringen
-                        elif self.attribute == "STR":
-                            Player1.strength += self.effect #Lägger till effekten från ringen
-                    Player1.player_inventory.append(self) #Lägger till föremål i inventory
-                    break
+                    pass #Resten av koden finns längre ned
                 elif choice_item == '0' and self.category =='Potion':
                     Player1.add_health(self.effect)
                     break
@@ -572,16 +566,23 @@ Tryck på valfri knapp för att gå tillbaka [X]
                                 Player1.player_inventory[item_number_switch-1].popping_item() #Tar bort effekt som föremålet eventuellt har
                                 Player1.player_inventory.pop(item_number_switch-1) #Tar bort föremålet ur inventoryt
                                 
-                                if self.category == 'Ring': 
-                                    if self.attribute == "Health":
-                                        Player1.max_hp += self.effect #Ökar spelarens hp som spelaren får efter död
-                                        Player1.hp += self.effect 
-                                    elif self.attribute == "STR":
-                                        Player1.strength += self.effect #Ökar spelarens strength
-                                Player1.player_inventory.append(self) #Lägger till föremålet i spelarens inventory
-                                break
                         else:
                             print("Det du angav existerar ej")
+                            continue
+                    else:
+                        print("Det du angav existerar ej")
+                        continue
+            
+            if if_sure == '1' or choice_item == '1': #Skriver denna här för att annars skulle den behövas på två ställen
+                if self.category == 'Ring': 
+                    if self.attribute == "Health":
+                        Player1.max_hp += self.effect #Ökar spelarens hp som spelaren får efter död
+                        Player1.hp += self.effect 
+                    elif self.attribute == "STR":
+                        Player1.strength += self.effect #Ökar spelarens strength
+                Player1.player_inventory.append(self) #Lägger till föremålet i spelarens inventory
+                break
+
 
     def popping_item(self):
         '''
