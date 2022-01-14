@@ -237,7 +237,7 @@ Laban: Jasså, så du heter {self.name}.
                 sword_list_strength = [] #List för de olika svärd i inventory
                 sword_list = []
 
-                print(f'\nStyrka från ringar: {self.strength}')
+                print(f'\nStyrka från ringar: {self.strength-20}')
                 print(f'Styrka från händer läggs på, när man använder ett vapen')
                 for item in self.player_inventory:
                     if item.category == 'Sword': #Om kategorin är ett svärd
@@ -253,7 +253,7 @@ Laban: Jasså, så du heter {self.name}.
                 else:     
                     print(f"{number}.Händer  --- 20 STR", sep =' ') #Skriver ut föremålet
                     sword_list.append('Händer')
-                    sword_list_strength.append(0)
+                    sword_list_strength.append(20)
                     
                     while True:
                         weapon_choice = input("Vilket nummer har vapnet som du vill använda? --> ")
