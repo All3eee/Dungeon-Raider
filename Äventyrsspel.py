@@ -253,7 +253,7 @@ Laban: Jasså, så du heter {self.name}.
                 else:     
                     print(f"{number}.Händer  --- 20 STR", sep =' ') #Skriver ut föremålet
                     sword_list.append('Händer')
-                    sword_list_strength.append(20)
+                    sword_list_strength.append(0) #Styrkan från händerna finns redan i self.strength
                     
                     while True:
                         weapon_choice = input("Vilket nummer har vapnet som du vill använda? --> ")
