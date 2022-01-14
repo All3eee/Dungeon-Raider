@@ -79,6 +79,10 @@ Laban: Jasså, så du heter {self.name}.
 
     #Random Item + Room chest
     def room_chest(self):
+        '''
+    Denna metod avgör vilket item du får från en kista genom att först välja kategori
+    och sedan ett item från den kategorin.
+        '''
         print("Det är en kista!")
 
         while True:
@@ -111,15 +115,19 @@ Laban: Jasså, så du heter {self.name}.
     
     #Rummet med en fälla
     def room_trap(self):
+        '''
+    Den här funktionen används när spelaren öppnar ett rum med en fälla. Funktionen gör så att skadan man tar från
+    fällan är proportionelig mot spelaren LVL.
+        '''
         print("\nOh no! It's a trap")
-        trap_damage = rand.randint(10,60) #Slumpat damage
+        trap_damage = rand.randint(self.lvl,7*self.lvl) #Slumpat damage baserat på spelarens lvl
         self.hp = self.hp - trap_damage
         print(f"Du tog {trap_damage} skada")
         sleep(1)
         self.losing_lives() #Om spelaren förlorar liv eller ej
 
     def room_monster(self):
-        if self.lvl >= 10: #Vid level 10 slåss monstret mot laban
+        if self.lvl >= 10: #Vid level 10 slåss spelaren mot laban
             laban()
             monster_hp = 500 #Labans HP är alltid 500 hp
             monster_namn = 'Laban'
@@ -154,7 +162,7 @@ Laban: Jasså, så du heter {self.name}.
                 break
             
             #Den slumpade skadan från monstret ökar desto högre level spelaren är
-            damage1 = rand.randint(2*self.lvl,20 + 20*self.lvl) 
+            damage1 = rand.randint(2*self.lvl,20 + 18*self.lvl) 
             self.hp = self.hp - damage1 
             print(f"\nDu tog {damage1} damage")
             if self.hp <= 0: 
@@ -212,6 +220,11 @@ Laban: Jasså, så du heter {self.name}.
     
     #Meny före strid
     def battle_menu(self):
+        '''
+    Denna funktion används i samband med att du möter ett monster som du ska döda. 
+    Funttionen printar en meny där spelaren får välja mellan 3 olika alternativ om
+    vad man vill göra. Du kan attackera monstret, använda en potion eller se information om spelaren.
+        '''
         while True:
             menu_choice = input('''
 [1] Attackera
@@ -223,6 +236,8 @@ Laban: Jasså, så du heter {self.name}.
                 number = 1 #Används för rangordning
                 sword_list_strength = [] #List för de olika svärd i inventory
                 sword_list = []
+
+                print(f'Styrka från dina armar och ringar: {self.strength}')
                 for item in self.player_inventory:
                     if item.category == 'Sword': #Om kategorin är ett svärd
                         print(f"{number}.{item.name}  ---  {item.effect} STR --- Durability: {item.durability}", sep =' ') #Skriver ut föremålet
@@ -232,8 +247,13 @@ Laban: Jasså, så du heter {self.name}.
                 
                 if number == 1:
                     print("Du har inget vapen och måste slåss med händerna!")
-                    return self.strength + rand.randint(-5,5) #Random extra damage
+                    return self.strength
+    
                 else:     
+                    print(f"{number}.Händer  --- 20 STR", sep =' ') #Skriver ut föremålet
+                    sword_list.append('Händer')
+                    sword_list_strength.append(0)
+                    
                     while True:
                         weapon_choice = input("Vilket nummer har vapnet som du vill använda? --> ")
                         if weapon_choice.isdigit() == True: #Kollar om inputen är siffror
@@ -244,13 +264,15 @@ Laban: Jasså, så du heter {self.name}.
                                 damage_of_weapon = sword_list_strength[weapon_choice - 1] + self.strength
                                 
                                 choosen_weapon = sword_list[weapon_choice - 1] #Det valda vapnet (objekt)
-                                position_in_inventory = 0  
-                                for the_weapon in self.player_inventory:
-                                    if the_weapon == choosen_weapon:
-                                        break
-                                    position_in_inventory += 1
-                                choosen_weapon.lose_durability(position_in_inventory)
-                                
+                                position_in_inventory = 0
+                                if choosen_weapon == 'Händer':
+                                    pass
+                                else:      
+                                    for the_weapon in self.player_inventory:
+                                        if the_weapon == choosen_weapon:
+                                            break
+                                        position_in_inventory += 1
+                                    choosen_weapon.lose_durability(position_in_inventory)
                                 return damage_of_weapon
                             else:
                                 print("Det du angav existerar ej")
@@ -288,6 +310,10 @@ Laban: Jasså, så du heter {self.name}.
     
         #Visar inventory
     def show_inventory(self):
+        '''
+        Denna metod printar en lista med dem föremål som du har i ditt inventory. Spelarens föremål
+        printas i en numrerad lista samt att varje enskilt föremål har information om deras olika egenskaper.
+        '''
         print('------ INVENTORY ------')
         number = 1 #Nummer som används för nummerordning
         for item in self.player_inventory: 
@@ -388,7 +414,11 @@ MAX HP: {self.max_hp}''')
             print("\nDu har inga potions i ditt inventory")
             
         else:
-            potion_choice = input("Vilket nummer har den potion som du vill använda? --> ")
+            potion_choice = input('''
+Vilket nummer har den potion som du vill använda? -->
+Tryck på valfri knapp för att gå tillbaka [X]
+---> ''')
+
             if potion_choice.isdigit() == True: #Om potion_choice är en siffra
                 potion_choice = int(potion_choice) 
                 if potion_choice <= len(potion_value_list) and potion_choice > 0: 
@@ -482,7 +512,7 @@ class Item():
                 print(f"Som ger dig +{self.effect} på ditt MAX HP")
         
         elif self.category == 'Sword': #Alla svärd
-            print(f"Med styrkan: {self.effect}")
+            print(f"Med styrkan: {self.effect} --- Durability:{self.durability}")
         
         while True:
             if len(Player1.player_inventory) < 5: #Inventory har plats för föremålet
@@ -502,7 +532,7 @@ class Item():
                             Player1.strength += self.effect #Lägger till effekten från ringen
                     Player1.player_inventory.append(self) #Lägger till föremål i inventory
                     break
-                elif choice_item == '0':
+                elif choice_item == '0' and self.category =='Potion':
                     Player1.add_health(self.effect)
                     break
                 else: 
@@ -510,13 +540,18 @@ class Item():
                     continue
             
             elif len(Player1.player_inventory) >= 5: #Det är fullt i spelarens inventory
+                print("\n--- Ditt inventory är fullt ---")
+                if self.category == 'Potion':
+                    print('[0] Om du vill dricka föremålet')
                 choice_item = input('''
-Ditt inventory är fullt
 [1] Om du vill byta ut något av de items som du redan har
 [2] Om du vill kasta bort föremålet 
 ---> ''')
                 if choice_item == '2':
                     print("Du kastade bort föremålet")
+                    break
+                elif choice_item == '0' and self.category =='Potion':
+                    Player1.add_health(self.effect)
                     break
                 elif choice_item == '1':
                     Player1.show_inventory() #Visar spelarens inventory
@@ -540,6 +575,7 @@ Tryck på valfri knapp för att gå tillbaka [X]
                                 if self.category == 'Ring': 
                                     if self.attribute == "Health":
                                         Player1.max_hp += self.effect #Ökar spelarens hp som spelaren får efter död
+                                        Player1.hp += self.effect 
                                     elif self.attribute == "STR":
                                         Player1.strength += self.effect #Ökar spelarens strength
                                 Player1.player_inventory.append(self) #Lägger till föremålet i spelarens inventory
@@ -633,22 +669,23 @@ def door_chance():
 #                Namn,STR,HP,Max HP,LVL,Lives
 Player1 = Player('x', 20, 200, 200, 0, None)
 
-#          Category, Name, Effect, Durability
+#         Category, Name, Effect, Attribute, Durability x2
 item1 = Item("Sword", "Stick", 10, "STR", 10, 10)
 item2 = Item("Sword", "Lightsaber", 200, "STR", 2, 2)
 item9 = Item("Sword", "Stone Sword", 40, "STR", 5, 5)
 item10 = Item("Sword", "Gold Sword", 60, "STR", 4, 4)
 item11 = Item("Sword", "Diamond Sword", 70, "STR", 3, 3)
 item12 = Item("Sword", "Machine gun", 300, "STR", 1, 1)
+item8 = Item("Potion", "Borogor", 80, "Health",None, None)
+item5 = Item("Potion", "Health Potion", 50, "Health", None, None)
+item6 = Item("Potion", "Slurp Juice", 60, "Health", None, None)
+item7 = Item("Ring", "Health Ring", 50, "Health", None, None)
 item3 = Item("Ring", "Force Ring", 25, "STR", None, None)
 item4 = Item("Ring", "Ring of fire", 25, "STR", None, None)
-item5 = Item("Potion", "Health Potion", 50, "Health", None, None)
-item7 = Item("Ring", "Health Ring", 50, "Health", None, None)
-item8 = Item("Potion", "Borogor", 80, "Health",None, None)
+item13 = Item("Ring", "Shield", 30, "Health", None, None) 
 
 #Lista för alla items
-all_items = [item1, item2, item3, item4, item5, item7, item8, item9, item10, item11, item12]
-#Item 6 existerar inte just nu.
+all_items = [item1, item2, item3, item4, item5, item6, item7, item8, item9, item10, item11, item12, item13]
 #Vid tilläg av item, lägg också in det i listan ovanför.
 
 
@@ -694,6 +731,7 @@ def main():
                         break
                     else:
                         end_credit() #Från filen "Animationer.py"
+                        break 
                 
                 dead_or_not = Player1.room_monster() 
                 if dead_or_not == 'dead':

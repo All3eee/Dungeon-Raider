@@ -5,7 +5,8 @@ import random as rand
 
 def hänga_gubbe():
     '''
-    Denna funktion blir kallad från filen 'Äventyrsspel.py'. FÖRKLARING HÄR
+    Denna funktion blir kallad från filen 'Äventyrsspel.py'. Programmet slumpar ett tal mellan 0 och ord listans längd.
+    
     '''
    
     word_list = ["spel","labyrint","äpple", "skelett", "hänga", "banan", 'spöke', 'monster', 'äventyrsspel', 'föremål', 'borogor', 'svärd', 'ring', 'programmering'

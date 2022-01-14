@@ -279,7 +279,7 @@ def laban_death():
   
   string = '''
   
-    "Jag glömde säga en sak...", yttrar Laban sina sista andetag.
+    "Jag glömde säga en sak...", yttrar Laban i sina sista andetag.
     "Genom att döda den tidigare mästaren tar du över förbannelsen"
   Du kollar på dina händer, du kan urskilja en viss transparans.
   Du kännar din kropp bli mer och mer tyngdlös, dina fötter lämnar
@@ -296,9 +296,12 @@ def laban_death():
 
 def laban_alive():
   string ='''
-  Du tar tag i laban och hjälper honom 
+  Du ser ner på  marken, i stället för ett spöke ligger där en pojke.
+  Du hjälper honom på fötterna.
+    "Hur ska jag någonsin kunna tacka dig för att ha brutit förbannelsen!"
+  säger laban med ett stort leende på läpparna. Tillsammans går Laban och
+  du mot ljuset, fria från den mörka undervärlden, fria från smärta.
   
-  Du lyckades ta dig ut!!
   '''
   for char in string:
     sys.stdout.write(char)
@@ -334,7 +337,7 @@ Laban: Det enda sättet tar dig härifrån helskinnad är om
        förbannelsen och jag kan inte längre hindra dig från
        att rymma.
 Laban: Om du inte klarar av detta, förvandlas du också till 
-       ett spöke
+       ett spöke, som jag.
     ''')
   sleep(5)
 
