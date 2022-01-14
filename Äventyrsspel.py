@@ -237,7 +237,8 @@ Laban: Jasså, så du heter {self.name}.
                 sword_list_strength = [] #List för de olika svärd i inventory
                 sword_list = []
 
-                print(f'Styrka från dina armar och ringar: {self.strength}')
+                print(f'\nStyrka från ringar: {self.strength}')
+                print(f'Styrka från händer läggs på, när man använder ett vapen')
                 for item in self.player_inventory:
                     if item.category == 'Sword': #Om kategorin är ett svärd
                         print(f"{number}.{item.name}  ---  {item.effect} STR --- Durability: {item.durability}", sep =' ') #Skriver ut föremålet
