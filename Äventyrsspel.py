@@ -112,7 +112,7 @@ Laban: Jasså, så du heter {self.name}.
     #Rummet med en fälla
     def room_trap(self):
         print("\nOh no! It's a trap")
-        trap_damage = rand.randint(30,80) #Slumpat damage
+        trap_damage = rand.randint(10,60) #Slumpat damage
         self.hp = self.hp - trap_damage
         print(f"Du tog {trap_damage} skada")
         sleep(1)
