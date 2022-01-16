@@ -6,7 +6,12 @@ import random as rand
 def hänga_gubbe():
     '''
     Denna funktion blir kallad från filen 'Äventyrsspel.py'. Programmet slumpar ett tal mellan 0 och ord listans längd.
-    
+    Ordet plockas ut ur listan 'word_list' och läggs i variablen 'the_word'. 
+    I listan rigth_guessed_words läggs lika många understreck som det är i 'the_word'.
+    Spelaren gissar på en bokstav (datatyp: string). Om spelaren inte redan angett bokstaven så kommer
+    en for-loop att starta, för varje gång som bokstaven är i 'the_word' så läggs den till i 'right_guessed_words',
+    Om spelaren gissar rätt ord, bryts loopen och inget returneras, och om spelaren inte har några gissningar kvar,
+    då blir 'dead' som är en string returnerad.
     '''
    
     word_list = ["spel","labyrint","äpple", "skelett", "hänga", "banan", 'spöke', 'monster', 'äventyrsspel', 'föremål', 'borogor', 'svärd', 'ring', 'programmering'
@@ -43,13 +48,13 @@ def hänga_gubbe():
             for letter_position in range(len(the_word)): #Kollar om det finns fler av samma bokstav i ordet
                 if guessed_letter == the_word[letter_position]:
                         right_guessed_words.pop(letter_position)  #Tar bort understreck
-                        right_guessed_words.insert(letter_position, guessed_letter) #Lägger till bokstav vid en specifik
+                        right_guessed_words.insert(letter_position, guessed_letter) #Lägger till bokstav vid ett specifikt ställe
                         amount_of_letters_right +=1 # +1 rätt bokstav
                         amount_of_times_in_word += 1
             
             if amount_of_times_in_word == 0: #Om antalet gånger i ordet är lika med 0
                 guesses -= 1
-                print(f"Du angav fel bokstav, {guesses} antal gissningar kvar")
+                print(f"Du angav fel bokstav, du har {guesses} antal gissningar som du kan ha fel på kvar")
                 if guesses == 0:
                     print("Du har inga fler gissningar, nu dör du")
                     return 'dead'
