@@ -48,8 +48,8 @@ class Player():
 
     def difficulty(self):
         '''
-    Den här funktionen frågar spelaren vilken svårighetsgrad de vill spela på och 
-    ger den ett eller tre liv beroende på svaret.
+    Den här metoden frågar spelaren vilken svårighetsgrad de vill spela på och 
+    ger den ett eller tre liv beroende på svaret. (Siffra som en string)
         '''
         print("\nVad vill du ha för svårighetsgrad?")
         while True:
@@ -68,7 +68,7 @@ Hardcore[2]
 
     def set_character(self):
         '''
-    Denna funktion gör så att spelaren får ge namn till sin karaktär (objektet Player1).
+    Denna metod gör så att spelaren får ge namn (string) till sin karaktär (objektet Player1).
         '''
         print("\nLaban: Vad heter du?")
         self.name = input("Ange ditt namn ->: ")
@@ -116,7 +116,7 @@ Laban: Jasså, så du heter {self.name}.
     #Rummet med en fälla
     def room_trap(self):
         '''
-    Den här funktionen används när spelaren öppnar ett rum med en fälla. Funktionen gör så att skadan man tar från
+    Den här metoden används när spelaren öppnar ett rum med en fälla. Funktionen gör så att skadan man tar från
     fällan är proportionelig mot spelaren LVL.
         '''
         print("\nOh no! It's a trap")
@@ -384,6 +384,9 @@ Laban: Jasså, så du heter {self.name}.
 
 
     def player_information(self):
+        '''
+        Metoden tar emot objektet 'Player1' och skriver ut olika attributer som Player1 (spelaren) har.
+        '''
         
         print(f'''
 Namn: {self.name}
@@ -436,6 +439,11 @@ Tryck på valfri knapp för att gå tillbaka [X]
     
 
     def add_health(self, health_increase):
+        '''
+        Parametrar: self (objekt) & health_increase (int)
+        Om self.hp (int) adderat med health_increase (int) är större än self.max_hp (int) så är self.hp
+        lika med self.max_hp annars adderas health_increase på self.hp
+        '''
         if self.hp + health_increase >= self.max_hp: #För att inte få högre en än max hp
             self.hp = self.max_hp
         else:
@@ -454,6 +462,7 @@ class Item():
     __init__()
     lose_durability()
     add_items_in_inventory()
+    add_item_effect()
     popping_item()
 
     '''
@@ -487,8 +496,8 @@ class Item():
     #Förlorar durability
     def lose_durability(self, position_in_inventory):
         '''
-        Funktionen tar emot positionen för svärdet i inventory i form av en integer.
-        Durbailityn subtraheras med 1 och om durabilityn är 0 tas den bort från listan inventory
+        Funktionen tar emot objeketet, och positionen för svärdet i inventory i form av en integer.
+        Objeketets attribut 'Durbaility' subtraheras med 1 och om durabilityn är 0 tas den bort från listan inventory
         '''
         self.durability -=1
         if self.durability <= 0:
