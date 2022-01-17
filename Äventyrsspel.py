@@ -351,8 +351,6 @@ Laban: Jasså, så du heter {self.name}.
     Tryck på [2] för att använda potion
     Tryck på [3] för att återvända till meny
     ---> ''')
-            sleep(1)
-            clear()
             if choice_input == '1': #Ta bort ett föremål
                 item_number_switch = input('''
     Vilket nummer har det föremål som du vill ta bort?
@@ -380,6 +378,8 @@ Laban: Jasså, så du heter {self.name}.
                 self.use_potion()               
             elif choice_input == '3':
                 break
+            sleep(1)
+            clear()
 
 
 
