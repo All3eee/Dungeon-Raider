@@ -362,7 +362,7 @@ Laban: Jasså, så du heter {self.name}.
                     item_number_switch = int(item_number_switch) #Gör om inputen till en integer
                     if item_number_switch > 0 and item_number_switch <=len(self.player_inventory): #Kollar om spelaren anget rätt siffra
                         if_sure = input('''
-Är du saker pa att du vill ta bort detta item?
+Är du saker på att du vill ta bort detta item?
 [Ja] = 1
 [Nej] = 2
 --->''')
@@ -619,7 +619,7 @@ Nej [2]
             if self.attribute == "Health": #Om attribute är 'Health'
                 Player1.max_hp -= self.effect #Tar bort extra max hp som ringen ger
                 if Player1.hp >= Player1.max_hp:
-                    Player1.hp == Player1.max_hp  
+                    Player1.hp = Player1.max_hp  
             elif self.attribute == "STR": #Om attribute är 'STR'
                 Player1.strength -= self.effect  #Tar bort extra styrkan som ringen ger
             
@@ -712,9 +712,9 @@ item4 = Item("Ring", "Ring of fire", 25, "STR", None, None)
 item13 = Item("Ring", "Shield", 30, "Health", None, None) 
 
 #Lista för alla items
-all_items = [item1, item2, item3, item4, item5, item6, item7, item8, item9, item10, item11, item12, item13]
+#all_items = [item1, item2, item3, item4, item5, item6, item7, item8, item9, item10, item11, item12, item13]
 #Vid tilläg av item, lägg också in det i listan ovanför.
-
+all_items = [item7,item13,item5,item1,item10,item11]
 
 
 #--------------Main Program------------------#
