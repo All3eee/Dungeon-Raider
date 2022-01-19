@@ -536,6 +536,7 @@ class Item():
                     if potion.category == 'Potion':
                         potion_in_inventory = True
                         print('[3] Om du vill dricka en potion från ditt inventory')
+                        break
                 
                 choice_item = input('---> ')
                 
@@ -569,6 +570,7 @@ class Item():
                     if potion.category == 'Potion':
                         potion_in_inventory = True
                         print('[3] Om du vill dricka en potion från ditt inventory')
+                        break
 
                 choice_item = input('---> ')
                 if choice_item == '2':
