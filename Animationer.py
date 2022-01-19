@@ -170,7 +170,7 @@ def monster_animation():
     print("Brandfarliga Bert har dykt upp!")
     return 'Brandfarliga Bert'
   
-  #Häxan Sur Tant
+  #Häxan Surtant
   elif monster_type == 5:
     string = '''
       -. -. `.  / .-' _.'  _
@@ -193,8 +193,8 @@ def monster_animation():
 ( ( ( ) ( ) ) ( ) ) ( ) ) ) ( ) )
       '''
     print(string)
-    print('Häxan Sur Tant har dykt upp!')
-    return 'Häxan Sur Tant'
+    print('Häxan Surtant har dykt upp!')
+    return 'Häxan Surtant'
 
 def laban():
   string = ''' 

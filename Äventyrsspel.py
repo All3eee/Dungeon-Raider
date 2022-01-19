@@ -570,8 +570,8 @@ Tryck på valfri knapp för att gå tillbaka [X]
                         if item_number_switch > 0 and item_number_switch <=5: #Kollar om föremålet som blivit angiven finns
                             if_sure = input('''
 Är du säker på att du vill byta ut detta item?
-[Ja] = 1
-[Nej] = 2
+Ja  [1]
+Nej [2]
 ---> ''')
                             if if_sure == '1': #Spelaren är säker på sitt val
                                 item_number_switch = int(item_number_switch)
