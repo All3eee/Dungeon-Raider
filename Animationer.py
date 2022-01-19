@@ -50,7 +50,7 @@ def monster_animation():
   '''
   slumpar ett tal, för att sedan printa ett visst monster, + returnar namnet på monstret
   '''
-  monster_type = rand.randint(1,4)
+  monster_type = rand.randint(1,5)
 
   #Monstret Jörgen
   if monster_type == 1:
@@ -169,6 +169,32 @@ def monster_animation():
     print(string)
     print("Brandfarliga Bert har dykt upp!")
     return 'Brandfarliga Bert'
+  
+  #Häxan Sur Tant
+  elif monster_type == 5:
+    string = '''
+      -. -. `.  / .-' _.'  _
+     .--`. `. `| / __.-- _' `
+    '.-.  \  \ |  /   _.' `_
+    .-. \  `  || |  .' _.-' `.
+  .' _ \ '  -    -'  - ` _.-.
+   .' `.  ____  | ____ _.-.`-
+ .' .-. ><(@)> ) ( <(@)>< .-.`.
+   (("`(   -   | |   -   )'"))
+  / \\#)\    (.(_).)    /(#//
+ ' / ) ((  /   | |   \  )) (`.`.
+ .'  (.) \ .md88o88bm. / (.) \)
+   / /| / \ `Y88888Y' / \ | \ 
+ .' / O  / `.   -   .' \  O \ \\
+  / /(O)/ /| `.___.' | \\(O) 
+   / / / / |  |   |  |\  \  \ 
+   / / // /|  |   |  |  \  \ \  
+ _.--/--/'( ) ) ( ) ) )`\-\-\-._
+( ( ( ) ( ) ) ( ) ) ( ) ) ) ( ) )
+      '''
+    print(string)
+    print('Häxan Sur Tant har dykt upp!')
+    return 'Häxan Sur Tant'
 
 def laban():
   string = ''' 
