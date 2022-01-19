@@ -50,7 +50,7 @@ def monster_animation():
   '''
   slumpar ett tal, för att sedan printa ett visst monster, + returnar namnet på monstret
   '''
-  monster_type = rand.randint(1,5)
+  monster_type = rand.randint(1,6)
 
   #Monstret Jörgen
   if monster_type == 1:
