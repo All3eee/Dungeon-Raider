@@ -561,8 +561,7 @@ class Item():
                 print("\n--- Ditt inventory är fullt ---")
                 if self.category == 'Potion':
                     print('[0] Om du vill dricka föremålet')
-                print('''
-[1] Om du vill byta ut något av de items som du redan har
+                print('''[1] Om du vill byta ut något av de items som du redan har
 [2] Om du vill kasta bort föremålet 
 ''')
                 potion_in_inventory = False
