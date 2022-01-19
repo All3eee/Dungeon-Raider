@@ -529,8 +529,16 @@ class Item():
                 if self.category == 'Potion':
                     print('\n[0] Om du vill dricka föremålet')
                 choice_item = input(f'''[1] Om du vill spara föremålet 
-[2] Om du vill kasta bort föremålet
----> ''')
+[2] Om du vill kasta bort föremålet''')
+                
+                potion_in_inventory = False
+                for potion in Player1.player_inventory: #Skriver ut om spelaren har en potion i inventory
+                    if potion.category == 'Potion':
+                        potion_in_inventory = True
+                        print('[3] Om du vill dricka en potion från ditt inventory')
+                
+                choice_item = input('---> ')
+                
                 if choice_item == '2': #Kasta föremålet
                     print("Du kastade bort föremålet")
                     break
@@ -541,6 +549,9 @@ class Item():
                 elif choice_item == '0' and self.category =='Potion':
                     Player1.add_health(self.effect)
                     break
+                elif choice_item == '3' and potion_in_inventory == True:
+                    Player1.use_potion()
+                    continue
                 else: 
                     print("Det du angav existerar ej")
                     continue
@@ -549,16 +560,26 @@ class Item():
                 print("\n--- Ditt inventory är fullt ---")
                 if self.category == 'Potion':
                     print('[0] Om du vill dricka föremålet')
-                choice_item = input('''
+                print('''
 [1] Om du vill byta ut något av de items som du redan har
 [2] Om du vill kasta bort föremålet 
----> ''')
+''')
+                potion_in_inventory = False
+                for potion in Player1.player_inventory: #Skriver ut om spelaren har en potion i inventory
+                    if potion.category == 'Potion':
+                        potion_in_inventory = True
+                        print('[3] Om du vill dricka en potion från ditt inventory')
+
+                choice_item = input('---> ')
                 if choice_item == '2':
                     print("Du kastade bort föremålet")
                     break
                 elif choice_item == '0' and self.category =='Potion':
                     Player1.add_health(self.effect)
                     break
+                elif choice_item == '3' and potion_in_inventory == True:
+                    Player1.use_potion()
+                    continue
                 elif choice_item == '1':
                     Player1.show_inventory() #Visar spelarens inventory
                     item_number_switch = input(f'''
