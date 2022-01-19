@@ -195,6 +195,34 @@ def monster_animation():
     print(string)
     print('Häxan Surtant har dykt upp!')
     return 'Häxan Surtant'
+  
+  #Fasansfulla Frank
+  elif monster_type == 6:
+    string = '''
+             \                  /
+    _________))                ((__________
+   /.-------./\\    \    /    //\.---------|
+  //#######//##\\   ))  ((   //##\\########\\
+ //#######//###((  ((    ))  ))###\\########\\
+((#######((#####\\  \\  //  //#####))########))
+ \##' `###\######\\  \)(/  //######/####' `##/
+  )'    ``#)'  `##\`->oo<-'/##'  `(#''     `(
+          (       ``\`..'/''       )
+                     \""(
+                      `- )
+                      / /
+                     ( /
+                     /\| 
+                    (  \ 
+                        )
+                       /
+                      (
+                      ` 
+    '''
+    print(string)
+    print('Fasansfulla Frank har dykt upp!')
+    return 'Fasansfulla Frank'
+
 
 def laban():
   string = ''' 
