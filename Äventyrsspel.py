@@ -712,9 +712,9 @@ item4 = Item("Ring", "Ring of fire", 25, "STR", None, None)
 item13 = Item("Ring", "Shield", 30, "Health", None, None) 
 
 #Lista för alla items
-#all_items = [item1, item2, item3, item4, item5, item6, item7, item8, item9, item10, item11, item12, item13]
+all_items = [item1, item2, item3, item4, item5, item6, item7, item8, item9, item10, item11, item12, item13]
 #Vid tilläg av item, lägg också in det i listan ovanför.
-all_items = [item7,item13,item5,item1,item10,item11]
+
 
 
 #--------------Main Program------------------#
