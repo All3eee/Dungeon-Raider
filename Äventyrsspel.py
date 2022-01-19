@@ -528,7 +528,7 @@ class Item():
             if len(Player1.player_inventory) < 5: #Inventory har plats för föremålet
                 if self.category == 'Potion':
                     print('\n[0] Om du vill dricka föremålet')
-                choice_item = input(f'''[1] Om du vill spara föremålet 
+                print('''[1] Om du vill spara föremålet 
 [2] Om du vill kasta bort föremålet''')
                 
                 potion_in_inventory = False
