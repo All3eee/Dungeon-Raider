@@ -48,8 +48,9 @@ class Player():
 
     def difficulty(self):
         '''
-    Den här metoden frågar spelaren vilken svårighetsgrad de vill spela på och 
-    ger den ett eller tre liv beroende på svaret. (Siffra som en string)
+        Parameter: Self
+        Den här metoden frågar spelaren vilken svårighetsgrad de vill spela på och 
+        ger den ett eller tre liv beroende på svaret. (Siffra som en string)
         '''
         print("\nVad vill du ha för svårighetsgrad?")
         while True:
@@ -68,6 +69,7 @@ Hardcore[2]
 
     def set_character(self):
         '''
+    Parameter: Self    
     Denna metod gör så att spelaren får ge namn (string) till sin karaktär (objektet Player1).
         '''
         print("\nLaban: Vad heter du?")
@@ -80,6 +82,7 @@ Laban: Jasså, så du heter {self.name}.
     #Random Item + Room chest
     def room_chest(self):
         '''
+    Parameter: Self
     Denna metod avgör vilket item du får från en kista genom att först välja kategori
     och sedan ett item från den kategorin.
         '''
@@ -126,6 +129,7 @@ Laban: Jasså, så du heter {self.name}.
         sleep(1)
         self.losing_lives() #Om spelaren förlorar liv eller ej
 
+    #Monster fight rummet
     def room_monster(self):
         if self.lvl >= 10: #Vid level 10 slåss spelaren mot laban
             laban()
@@ -145,7 +149,7 @@ Laban: Jasså, så du heter {self.name}.
             clear()
             monster_hp = monster_hp - damage_on_monster
             print(f"\n{monster_namn} tog {damage_on_monster} damage")
-            if monster_hp <= 0:
+            if monster_hp <= 0: #För att inte visa negativt hp
                 monster_hp = 0
             print(f"{monster_namn} har {monster_hp} HP kvar")
         
@@ -496,13 +500,15 @@ class Item():
     #Förlorar durability
     def lose_durability(self, position_in_inventory):
         '''
-        Funktionen tar emot objeketet, och positionen för svärdet i inventory i form av en integer.
-        Objeketets attribut 'Durbaility' subtraheras med 1 och om durabilityn är 0 tas den bort från listan inventory
+        Parametrar: Self, postion_in_inventory
+        Meotden tar emot objeketet, och positionen för svärdet i inventory i form av en integer.
+        Objeketets attribut 'Durbaility' subtraheras med 1 och om durabilityn är 0 tas den bort från listan 'inventory'
+        genom att använda postion_in_inventory som är positionen för objektet i inventoryt
         '''
-        self.durability -=1
+        self.durability -=1 #Förlora en durability
         if self.durability <= 0:
-            Player1.player_inventory.pop(position_in_inventory)
-            self.durability = self.reset_durability
+            Player1.player_inventory.pop(position_in_inventory) #Tar bort föremålet ur spelaren inventory
+            self.durability = self.reset_durability #Durabilityn blir återställd
     
 
     #Lägga till items i inventory
@@ -602,6 +608,11 @@ Nej [2]
             
     #Lägga till Ring effekt        
     def add_item_effect(self):
+        '''
+        Parameter: Self
+        Metoden tar emot objektet i form av self och ändrar olika attributer i objektet 
+        beroende på om self.category är lika med en 'Ring' eller inte.
+        '''
         if self.category == 'Ring': 
             if self.attribute == "Health":
                 Player1.max_hp += self.effect #Ökar spelarens hp som spelaren får efter död
@@ -613,7 +624,7 @@ Nej [2]
     #Tar bort effekt från Ring
     def popping_item(self):
         '''
-        Funktionen tar emot föremålet som ska tas bort ur spelarens inventory, om det är en ring så tas
+        Metoden tar emot föremålet som ska tas bort ur spelarens inventory, om det är en ring så tas
         ringens påverkan på strength/health bort från spelaren
         '''
         if self.category == 'Ring':
@@ -631,6 +642,11 @@ Nej [2]
 
 #Menyval
 def meny():
+    '''
+    Funktionen tar inte emot något argument. Funktionen används som
+    en meny för att sedan kalla på andra metoder beroende på vad man väljer för input (str)
+    Om spelaren väljer att avsluta spelet returneras True (boolean)
+    '''
     while True:
         clear()
         print('''\n
