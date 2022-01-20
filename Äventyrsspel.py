@@ -683,7 +683,7 @@ def the_room():
 
 def door_chance():
     '''
-    returnerar ett slumpat värde mellan 1 och 3
+    returnerar ett slumpat värde mellan 1 och 3 (int)
     '''
     door_type = rand.randint(1,3)
     return door_type
