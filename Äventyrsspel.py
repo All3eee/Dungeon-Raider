@@ -335,7 +335,7 @@ Laban: Jasså, så du heter {self.name}.
                     print(f"{number}.{item.name}  ---  +{item.effect} Health", sep =' ')
             number += 1
 
-        #Användning av inventory i menyn
+    #Användning av inventory i menyn
     def inventory_usage(self):
     
         while True:
@@ -382,7 +382,7 @@ Laban: Jasså, så du heter {self.name}.
             clear()
 
 
-
+    #Spelarens information
     def player_information(self):
         '''
         Metoden tar emot objektet 'Player1' och skriver ut olika attributer som Player1 (spelaren) har.
@@ -398,7 +398,7 @@ MAX HP: {self.max_hp}''')
 
         input("\nTryck <Enter> för att fortsätta")
 
-
+    #Använda potions
     def use_potion(self):
         potion_value_list = [] #Lista för potions i inventoryt
         potion_position_in_inventory = []  #Används för att veta platserna för de olika potions
@@ -437,7 +437,7 @@ Tryck på valfri knapp för att gå tillbaka [X]
             else:
                 print("Det du angav existerar ej")
     
-
+    #Lägga till HP
     def add_health(self, health_increase):
         '''
         Parametrar: self (objekt) & health_increase (int)
@@ -505,6 +505,7 @@ class Item():
             self.durability = self.reset_durability
     
 
+    #Lägga till items i inventory
     def add_items_in_inventory(self):
         print(f"\nDu har fått {self.name}")
         self.effect += rand.randint(1,20) #Slumpad bonus strength/ health effekt på föremålet.
@@ -599,7 +600,7 @@ Nej [2]
                         print("Det du angav existerar ej")
                         continue
             
-            
+    #Lägga till Ring effekt        
     def add_item_effect(self):
         if self.category == 'Ring': 
             if self.attribute == "Health":
@@ -609,7 +610,7 @@ Nej [2]
                 Player1.strength += self.effect #Ökar spelarens strength
     
 
-
+    #Tar bort effekt från Ring
     def popping_item(self):
         '''
         Funktionen tar emot föremålet som ska tas bort ur spelarens inventory, om det är en ring så tas
@@ -659,7 +660,7 @@ def meny():
                 return True
 
 
-
+#Val framför dörrarna
 def the_room():
     '''
     Spelaren skriver in ett värde, 
@@ -668,7 +669,7 @@ def the_room():
     '''
     
     while True:
-        chosen_input = input("Ange här --> ")
+        chosen_input = input("Ange här --> ") 
         chosen_input = chosen_input.lower()
         if chosen_input == 'v':
             print("Vänster dörr öppnas")
@@ -681,6 +682,7 @@ def the_room():
         if chosen_input == "420": #Bypass för att få en kista direkt, inte menad att användas
             return chosen_input
 
+#Slumpad Dörr
 def door_chance():
     '''
     returnerar ett slumpat värde mellan 1 och 3 (int)
