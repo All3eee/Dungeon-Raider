@@ -4,19 +4,30 @@ from Animationer import *
 from Hänga_Gubbe import *
 from os import system
 
-#Rensar konsol
-def clear():
-  '''
-  Denna funktion rensar konsolen så att den inte blir klottrig.
-  '''
-  system("cls || clear")
 
 
 class Player():
     '''
     En klass för att representera spelaren/ personen
     
+     De olika metoder:
 
+    __init__()
+    difficulty()
+    set_character()
+    room_chest()
+    room_trap()
+    room_monster()
+    boss_monster()
+    battle_menu()
+    losing_lives()
+    show_inventory()
+    inventory_usage()
+    player_information()
+    use_potion()
+    add_health()
+    delete_item
+    
     '''
     
     def __init__(self, name, strength, hp, max_hp, lvl, lives):
@@ -37,6 +48,8 @@ class Player():
                 nivå/level som spelaren är på
             lives : int
                 antal liv som spelaren har kvar
+            player_inventory: list
+                lista med spelarens föremål
         """
         self.name = name
         self.strength = strength
@@ -48,7 +61,7 @@ class Player():
 
     def difficulty(self):
         '''
-        Parameter: Self
+        Parameter: Self (objekt)
         Den här metoden frågar spelaren vilken svårighetsgrad de vill spela på och 
         ger den ett eller tre liv beroende på svaret. (Siffra som en string)
         '''
@@ -69,8 +82,8 @@ Hardcore[2]
 
     def set_character(self):
         '''
-    Parameter: Self    
-    Denna metod gör så att spelaren får ge namn (string) till sin karaktär (objektet Player1).
+        Parameter: Self (objekt)    
+        Denna metod gör så att spelaren får ge namn (string) till sin karaktär (objektet Player1).
         '''
         print("\nLaban: Vad heter du?")
         self.name = input("Ange ditt namn ->: ")
@@ -82,9 +95,9 @@ Laban: Jasså, så du heter {self.name}.
     #Random Item + Room chest
     def room_chest(self):
         '''
-    Parameter: Self
-    Denna metod avgör vilket item du får från en kista genom att först välja kategori
-    och sedan ett item från den kategorin.
+        Parameter: Self (objekt)
+        Denna metod avgör vilket item du får från en kista genom att först välja kategori
+        och sedan ett item från den kategorin.
         '''
         print("Det är en kista!")
 
@@ -119,8 +132,9 @@ Laban: Jasså, så du heter {self.name}.
     #Rummet med en fälla
     def room_trap(self):
         '''
-    Den här metoden används när spelaren öppnar ett rum med en fälla. Funktionen gör så att skadan man tar från
-    fällan är proportionelig mot spelaren LVL.
+        Parameter: self (objekt)
+        Den här metoden används när spelaren öppnar ett rum med en fälla. Funktionen gör så att skadan man tar från
+        fällan är proportionelig mot spelaren LVL.
         '''
         print("\nOh no! It's a trap")
         trap_damage = rand.randint(self.lvl,7*self.lvl) #Slumpat damage baserat på spelarens lvl
@@ -131,6 +145,16 @@ Laban: Jasså, så du heter {self.name}.
 
     #Monster fight rummet
     def room_monster(self):
+        '''
+        Parameter: Self (objekt)
+        Denna metod kollar först om det är laban spelaren ska möta eller ett vanligt monster sedan
+        kollar den vad monster_hp ska vara baserat på self_lvl och printar monstrets namn och hp.
+        Efter det så startar fighting loopen. Där läggs spelarens ringar, bas-skada (20) och skadan från 
+        eventuella vapen man väljer ihop och dras från monster_hp. Om monstret överlevde så dras sedan monstrets 
+        slumpade skada (som är baserad på self.lvl) från self_hp och loopen börjar om. Om monstret dog så ökar
+        self.lvl med 1 och ett medelande som informerar spelaren printas.
+
+        '''
         if self.lvl >= 10: #Vid level 10 slåss spelaren mot laban
             laban()
             monster_hp = 500 #Labans HP är alltid 500 hp
@@ -179,10 +203,16 @@ Laban: Jasså, så du heter {self.name}.
 
     #Boss monster                
     def boss_monster(self):
+        '''
+        Parameter: Self (objekt)
+        Denna metod till en början startar spelet 'hänga gubbe' som är i en annan fil. Om spelaren har noll liv kvar
+        efter att ha kört hänga gubbe så returneras 'string' (str). Om spelaren överlever hänga gubbe, kallas en metod. Om spelaren har dött i self.room_monster(), 
+        då returneras dead_or_win, dvs 'dead' (str). Spelaren får sedan ett val, beroende på vad spelaren väljer ges det olika dialoger. 
+        '''
     
         laban() #Från filen "Animationer.py"
         
-        text_for_hangman(self.name)
+        text_for_hangman(self.name) #Spelarens namn är med i dialogen
     
         while True:
             completion_or_death = hänga_gubbe()  #Hänga Gubbe sätts igång; Från filen Hänga_Gubbe.py
@@ -214,10 +244,10 @@ Laban: Jasså, så du heter {self.name}.
             if life_or_death == '1':
                 laban_death() #Från filen "Animationer.py"
                 dead_laban() #Från filen "Animationer.py"
-                return 'laban_dead'
+                break
             elif life_or_death == '2':
                 laban_alive() #Från filen "Animationer.py"
-                return 'laban_alive'
+                break
             else:
                 print("Laban: DÖDAA MIG!!!")
 
@@ -225,9 +255,12 @@ Laban: Jasså, så du heter {self.name}.
     #Meny före strid
     def battle_menu(self):
         '''
-    Denna funktion används i samband med att du möter ett monster som du ska döda. 
-    Funttionen printar en meny där spelaren får välja mellan 3 olika alternativ om
-    vad man vill göra. Du kan attackera monstret, använda en potion eller se information om spelaren.
+        Parametrar: self (objekt)
+        Denna funktion används i samband med att du möter ett monster som du ska döda. 
+        Funttionen printar en meny där spelaren får välja mellan 3 olika alternativ om
+        vad man vill göra. Du kan attackera monstret, använda en potion eller se information om spelaren.
+        Om spelaren väljer att attackera monstret så kommer det i slutändan att returneras damage_of_weapon, dvs skada som spelaren
+        kommer att göra på monstret. Om det är tomt i self.inventory returneras spelarens styrka
         '''
         while True:
             menu_choice = input('''
@@ -298,9 +331,10 @@ Laban: Jasså, så du heter {self.name}.
     #Förlust av liv
     def losing_lives(self):
         '''
-    Den här funktionen kollar om obejektet Player1 från klassen 'Player' 
-    har 0 eller mindre hp och tar då bort ett liv och återställer spelarens
-    hp om spelaren fortfarande har liv kvar.
+        Parametrar: self (objekt)
+        Den här metoden kollar om obejektet Player1 från klassen 'Player' 
+        har 0 eller mindre hp och tar då bort ett liv och återställer spelarens
+        hp om spelaren fortfarande har liv kvar.
         '''
         if self.hp <= 0:
             self.lives = self.lives -1
@@ -316,6 +350,7 @@ Laban: Jasså, så du heter {self.name}.
         #Visar inventory
     def show_inventory(self):
         '''
+        Parametrar: self (objekt)
         Denna metod printar en lista med dem föremål som du har i ditt inventory. Spelarens föremål
         printas i en numrerad lista samt att varje enskilt föremål har information om deras olika egenskaper.
         '''
@@ -341,7 +376,12 @@ Laban: Jasså, så du heter {self.name}.
 
     #Användning av inventory i menyn
     def inventory_usage(self):
-    
+        '''
+        Parametrar: self (objekt)
+        Denna metod står för inventoryts interkationsmeny, den undersöker om inventoryt
+        är tomt eller inte sedan printar den ut inventoryt tillsammans med en rad olika
+        interaktionsalternativ.
+        '''
         while True:
             if len(self.player_inventory) <= 0: #Om spelarens inventory är tom
                 print("Det är tomt i ditt inventory")
@@ -362,22 +402,7 @@ Laban: Jasså, så du heter {self.name}.
     ---> ''').lower()
                 sleep(1)
                 clear()
-                if item_number_switch.isdigit() == True: #Om inputen är en siffra
-                    item_number_switch = int(item_number_switch) #Gör om inputen till en integer
-                    if item_number_switch > 0 and item_number_switch <=len(self.player_inventory): #Kollar om spelaren anget rätt siffra
-                        if_sure = input('''
-Är du saker på att du vill ta bort detta item?
-[Ja] = 1
-[Nej] = 2
---->''')
-                        sleep(1)
-                        clear()
-                        if if_sure == '1': #Spelaren är säker på sitt val
-                            self.player_inventory[item_number_switch-1].popping_item() #Tar bort eventuella effekter som föremålet har på strength eller maximala hp
-                            self.player_inventory.pop(item_number_switch-1) #Tar bort föremålet som spelaren valt ut
-
-                    else: 
-                        print("Det du angav existerar ej")
+                self.delete_item(item_number_switch)
             elif choice_input == '2':
                 self.use_potion()               
             elif choice_input == '3':
@@ -389,6 +414,7 @@ Laban: Jasså, så du heter {self.name}.
     #Spelarens information
     def player_information(self):
         '''
+        Parameter: Self (objekt)
         Metoden tar emot objektet 'Player1' och skriver ut olika attributer som Player1 (spelaren) har.
         '''
         
@@ -404,6 +430,15 @@ MAX HP: {self.max_hp}''')
 
     #Använda potions
     def use_potion(self):
+        '''
+        Parameter: self (objekt)
+        När spelaren har valt att använda en potion så printar denna metod en lista på 
+        alla potions tillsamans med siffror som representerar ordningen och låter sedan 
+        spelaren välja vilken de vill använda eller om de vill gå tillbaka till menyn. 
+        Om valet var giltigt så används drycken som valdes och dens effekt läggs till 
+        på self_hp med add_health-metoden. Om spelaren inte har några potions så printas 
+        istället medelandet "Du har inga potions i ditt inventory".
+        '''
         potion_value_list = [] #Lista för potions i inventoryt
         potion_position_in_inventory = []  #Används för att veta platserna för de olika potions
         number_of_potion = 1 #Används för rangordning
@@ -454,6 +489,40 @@ Tryck på valfri knapp för att gå tillbaka [X]
             self.hp = self.hp + health_increase #ökar hp med potionen
         print("*Drinking Noises*")
         sleep(1)
+    
+    
+    #Tar bort föremål
+    def delete_item(self,item_number):
+        '''
+        Parametrar: self (objekt) & item_number (str)
+        Metoden kontroller om siffran är giltig, och om den är det tas föremålet bort från objektets (self) inventory
+        Antingen om item_number inte är ett heltal eller om item_number är utanför det bestämda området av siffror så returneras False.
+        Om spelaren är säker på sitt val returneras True annars returneras False. 
+        '''
+        if item_number.isdigit() == True: #Om inputen är en siffra
+            item_number = int(item_number) #Gör om inputen till en integer
+            if item_number > 0 and item_number <=len(self.player_inventory): #Kollar om spelaren anget rätt siffra
+                if_sure = input('''
+Är du saker på ditt val?
+Ja  [1]
+Nej [2]
+--->''')
+                sleep(1)
+                clear()
+                if if_sure == '1': #Spelaren är säker på sitt val
+                    self.player_inventory[item_number-1].popping_item() #Tar bort eventuella effekter som föremålet har på strength eller maximala hp
+                    self.player_inventory.pop(item_number-1) #Tar bort föremålet som spelaren valt ut
+                    return True
+                else:
+                    return False
+            else:
+                print("Det du angav existerar ej")
+                return False
+        else: 
+            print("Det du angav existerar ej")
+            return False
+            
+                        
  
 
     
@@ -573,39 +642,28 @@ class Item():
                     print("Du kastade bort föremålet")
                     break
                 elif choice_item == '0' and self.category =='Potion':
-                    Player1.add_health(self.effect)
+                    Player1.add_health(self.effect) #Lägger på health effekt
                     break
-                elif choice_item == '3' and potion_in_inventory == True:
-                    Player1.use_potion()
+                
+                #Dricka potion ur inventory
+                elif choice_item == '3' and potion_in_inventory == True: #Om spelaren har en potion i sitt invetory
+                    Player1.use_potion() #Använda potion
                     continue
+                
+                #Byta ut något ur inventory
                 elif choice_item == '1':
                     Player1.show_inventory() #Visar spelarens inventory
                     item_number_switch = input(f'''
-Vilket nummer har det föremål som du vill ta bort [1], [2], [3], [4], [5]
+Vilket nummer har det föremål som du vill byta ut [1], [2], [3], [4], [5]
 Tryck på valfri knapp för att gå tillbaka [X]
----> ''').lower()
-                    if item_number_switch.isdigit() == True: #Kollar om det är en siffra
-                        item_number_switch = int(item_number_switch) #Gör om string till integer
-                        if item_number_switch > 0 and item_number_switch <=5: #Kollar om föremålet som blivit angiven finns
-                            if_sure = input('''
-Är du säker på att du vill byta ut detta item?
-Ja  [1]
-Nej [2]
 ---> ''')
-                            if if_sure == '1': #Spelaren är säker på sitt val
-                                item_number_switch = int(item_number_switch)
-                                Player1.player_inventory[item_number_switch-1].popping_item() #Tar bort effekt som föremålet eventuellt har
-                                Player1.player_inventory.pop(item_number_switch-1) #Tar bort föremålet ur inventoryt
-                                self.add_item_effect()
-                                Player1.player_inventory.append(self) #Lägger till föremålet i spelarens inventory
-                                break
-                        else:   
-                            print("Det du angav existerar ej")
-                            continue
-                    else:
-                        print("Det du angav existerar ej")
-                        continue
-            
+                    
+                    change_item = Player1.delete_item(item_number_switch)
+                    if change_item == True:
+                        self.add_item_effect()
+                        Player1.player_inventory.append(self) #Lägger till föremålet i spelarens inventory
+                        break
+                    
     #Lägga till Ring effekt        
     def add_item_effect(self):
         '''
@@ -624,6 +682,7 @@ Nej [2]
     #Tar bort effekt från Ring
     def popping_item(self):
         '''
+        Parameter: Self
         Metoden tar emot föremålet som ska tas bort ur spelarens inventory, om det är en ring så tas
         ringens påverkan på strength/health bort från spelaren
         '''
@@ -634,11 +693,22 @@ Nej [2]
                     Player1.hp = Player1.max_hp  
             elif self.attribute == "STR": #Om attribute är 'STR'
                 Player1.strength -= self.effect  #Tar bort extra styrkan som ringen ger
-            
-                        
+    
+    
+    
 
 
 #-----Funktioner-----#
+
+
+#Rensar konsol
+def clear():
+  '''
+  Denna funktion rensar konsolen så att den inte blir klottrig.
+  '''
+  system("cls || clear")
+
+
 
 #Menyval
 def meny():
@@ -660,12 +730,14 @@ def meny():
             Player1.player_information() #Visar information om spelaren
         elif chosen_number == '2':
             Player1.inventory_usage() # Visar inventory etc.
-        elif chosen_number == '3':
-            break   # stänger menyn
+        elif chosen_number == '3': #Stänger Meny
+            break   
         elif chosen_number == '4': #Avsluta spel
-            end = input("Är du säker på att du vill avsluta? [Ja]: ")
-            end = end.lower() 
-            if end == "ja":
+            end = input('''Är du säker på att du vill avsluta? 
+Ja     [1]
+Avbryt [2]
+---> ''')
+            if end == "1":
                 print("programmet avslutas")
                 sleep(0.5)
                 print("3")
@@ -679,8 +751,8 @@ def meny():
 #Val framför dörrarna
 def the_room():
     '''
-    Spelaren skriver in ett värde, 
-    om inputen är v, m, eller h, printas det att en dörr öppnas  och returnerar chosen_input
+    Ingen Parameter
+    Spelaren skriver in ett värde, om inputen är v, m, eller h, printas det att en dörr öppnas  och returnerar chosen_input
     Om spelaren skriver in 'e' returneras det värdet också, Det returnerade värdet är en string
     '''
     

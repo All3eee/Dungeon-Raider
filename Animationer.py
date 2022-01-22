@@ -21,6 +21,7 @@ Välkommen till Dungeon Raider
 
 def animation_door(player_lives, player_hp):
   '''
+  Parametrar: player_lives (int) & player_hp (int).
   printar tre dörrar + spelarens liv och hp.
   '''
   print(f'''
@@ -48,7 +49,9 @@ def animation_door(player_lives, player_hp):
 
 def monster_animation():
   '''
-  slumpar ett tal, för att sedan printa ett visst monster, + returnar namnet på monstret
+  Inga parametrar.
+  Slumpar ett tal, för att sedan printa ett visst monster, 
+  returnar namnet på monstret.
   '''
   monster_type = rand.randint(1,7)
 
@@ -253,8 +256,11 @@ def monster_animation():
     print('Dino Danne har dykt upp!')
     return 'Dino Danne'
 
-
+#Laban
 def laban():
+  '''
+  Skriver ut laban
+  '''
   string = ''' 
     .-.
    .'   `.
@@ -275,7 +281,11 @@ def laban():
     sys.stdout.flush()
     sleep(.01)
 
+#Död laban
 def dead_laban():
+  '''
+  Skriver ut en död laban
+  '''
   string = ''' 
     .-.
    .'   `.
@@ -297,6 +307,9 @@ def dead_laban():
     sleep(.03) 
 
 def title():
+  '''
+  Skriver ut 'DUNGEON RAIDER'
+  '''
   string = '''
 
 ██████████████████████████▀████████████████████████████████████████████████████████
@@ -357,7 +370,9 @@ def Prolog():
         input("\nTryck <Enter> för att se Labans fråga")
         break
 
+#Spelaren dödar laban
 def laban_death():
+
   print("*SWISH*")
   sleep(1)
   
@@ -378,6 +393,8 @@ def laban_death():
   print("*Laban dör*")
   sleep(1)
 
+
+#Spelaren dödar ej laban
 def laban_alive():
   string ='''
   Du ser ner på  marken, i stället för ett spöke ligger där en pojke.
@@ -393,7 +410,13 @@ def laban_alive():
     sleep(.03)
   sleep(1) 
 
+#Hänga Gubbe
 def text_for_hangman(player_name):
+  '''
+  Parameter: player_name (str)
+  Spelarens namn tar emot som ett argument som ska sedan skrivas
+  ut med resten av dialogen. Inget returneras
+  '''
   print(f"Laban: Grattis {player_name}!")
   string = f'''
   Du har lyckats med något som 
@@ -425,6 +448,7 @@ Laban: Om du inte klarar av detta, förvandlas du också till
     ''')
   sleep(5)
 
+
 def hanging_man():
   string = '''
       _______
@@ -437,6 +461,7 @@ def hanging_man():
     _|___
     '''
   print(string)
+
 
 def end_credit():
   string = '''
