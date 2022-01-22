@@ -5,6 +5,7 @@ import random as rand
 
 def hänga_gubbe():
     '''
+    Ingen Parameter.
     Denna funktion blir kallad från filen 'Äventyrsspel.py'. Programmet slumpar ett tal mellan 0 och ord listans längd.
     Ordet plockas ut ur listan 'word_list' och läggs i variablen 'the_word'. 
     I listan rigth_guessed_words läggs lika många understreck som det är i 'the_word'.
