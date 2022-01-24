@@ -13,7 +13,7 @@ class Player():
      De olika metoder:
 
     __init__()
-    difficulty()
+    difficulty()        
     set_character()
     room_chest()
     room_trap()
@@ -26,7 +26,7 @@ class Player():
     player_information()
     use_potion()
     add_health()
-    delete_item
+    delete_item()
     
     '''
     
@@ -61,7 +61,7 @@ class Player():
 
     def difficulty(self):
         '''
-        Parameter: Self (objekt)
+        Parameter: Self (objekt).
         Den här metoden frågar spelaren vilken svårighetsgrad de vill spela på och 
         ger den ett eller tre liv beroende på svaret. (Siffra som en string)
         '''
@@ -82,7 +82,7 @@ Hardcore[2]
 
     def set_character(self):
         '''
-        Parameter: Self (objekt)    
+        Parameter: Self (objekt).   
         Denna metod gör så att spelaren får ge namn (string) till sin karaktär (objektet Player1).
         '''
         print("\nLaban: Vad heter du?")
@@ -95,7 +95,7 @@ Laban: Jasså, så du heter {self.name}.
     #Random Item + Room chest
     def room_chest(self):
         '''
-        Parameter: Self (objekt)
+        Parameter: Self (objekt).
         Denna metod avgör vilket item du får från en kista genom att först välja kategori
         och sedan ett item från den kategorin.
         '''
@@ -132,9 +132,9 @@ Laban: Jasså, så du heter {self.name}.
     #Rummet med en fälla
     def room_trap(self):
         '''
-        Parameter: self (objekt)
-        Den här metoden används när spelaren öppnar ett rum med en fälla. Funktionen gör så att skadan man tar från
-        fällan är proportionelig mot spelaren LVL.
+        Parameter: self (objekt).
+        Den här metoden används när spelaren öppnar ett rum med en fälla. Metoden gör så att skadan man tar från
+        fällan är proportionelig mot spelarens LVL.
         '''
         print("\nOh no! It's a trap")
         trap_damage = rand.randint(self.lvl,7*self.lvl) #Slumpat damage baserat på spelarens lvl
@@ -146,7 +146,7 @@ Laban: Jasså, så du heter {self.name}.
     #Monster fight rummet
     def room_monster(self):
         '''
-        Parameter: Self (objekt)
+        Parameter: Self (objekt).
         Denna metod kollar först om det är laban spelaren ska möta eller ett vanligt monster sedan
         kollar den vad monster_hp ska vara baserat på self_lvl och printar monstrets namn och hp.
         Efter det så startar fighting loopen. Där läggs spelarens ringar, bas-skada (20) och skadan från 
@@ -205,7 +205,7 @@ Laban: Jasså, så du heter {self.name}.
     #Boss monster                
     def boss_monster(self):
         '''
-        Parameter: Self (objekt)
+        Parameter: Self (objekt).
         Denna metod till en början startar spelet 'hänga gubbe' som är i en annan fil. Om spelaren har noll liv kvar
         efter att ha kört hänga gubbe så returneras 'string' (str). Om spelaren överlever hänga gubbe, kallas en metod. Om spelaren har dött i self.room_monster(), 
         då returneras dead_or_win, dvs 'dead' (str). Spelaren får sedan ett val, beroende på vad spelaren väljer ges det olika dialoger. 
@@ -256,8 +256,8 @@ Laban: Jasså, så du heter {self.name}.
     #Meny före strid
     def battle_menu(self):
         '''
-        Parametrar: self (objekt)
-        Denna funktion används i samband med att du möter ett monster som du ska döda. 
+        Parameter: self (objekt).
+        Denna metod används i samband med att du möter ett monster som du ska döda. 
         Funttionen printar en meny där spelaren får välja mellan 3 olika alternativ om
         vad man vill göra. Du kan attackera monstret, använda en potion eller se information om spelaren.
         Om spelaren väljer att attackera monstret så kommer det i slutändan att returneras damage_of_weapon (int), 
@@ -332,7 +332,7 @@ Laban: Jasså, så du heter {self.name}.
     #Förlust av liv
     def losing_lives(self):
         '''
-        Parametrar: self (objekt)
+        Parameter: self (objekt).
         Den här metoden kollar om obejektet Player1 från klassen 'Player' 
         har 0 eller mindre hp och tar då bort ett liv och återställer spelarens
         hp om spelaren fortfarande har liv kvar.
@@ -351,7 +351,7 @@ Laban: Jasså, så du heter {self.name}.
         #Visar inventory
     def show_inventory(self):
         '''
-        Parametrar: self (objekt)
+        Parameter: self (objekt).
         Denna metod printar en lista med dem föremål som du har i ditt inventory. Spelarens föremål
         printas i en numrerad lista samt att varje enskilt föremål har information om deras olika egenskaper.
         '''
@@ -378,7 +378,7 @@ Laban: Jasså, så du heter {self.name}.
     #Användning av inventory i menyn
     def inventory_usage(self):
         '''
-        Parametrar: self (objekt)
+        Parametrar: self (objekt).
         Denna metod står för inventoryts interkationsmeny, den undersöker om inventoryt
         är tomt eller inte sedan printar den ut inventoryt tillsammans med en rad olika
         interaktionsalternativ.
@@ -415,7 +415,7 @@ Laban: Jasså, så du heter {self.name}.
     #Spelarens information
     def player_information(self):
         '''
-        Parameter: Self (objekt)
+        Parameter: Self (objekt).
         Metoden tar emot objektet 'Player1' och skriver ut olika attributer som Player1 (spelaren) har.
         '''
         
@@ -480,8 +480,8 @@ Tryck på valfri knapp för att gå tillbaka [X]
     #Lägga till HP
     def add_health(self, health_increase):
         '''
-        Parametrar: self (objekt) & health_increase (int)
-        Om self.hp (int) adderat med health_increase (int) är större än self.max_hp (int) så är self.hp
+        Parametrar: self (objekt) & health_increase (int).
+        Om self.hp (int) adderat med health_increase (int) är större än self.max_hp (int), så är self.hp
         lika med self.max_hp annars adderas health_increase på self.hp
         '''
         if self.hp + health_increase >= self.max_hp: #För att inte få högre en än max hp
@@ -495,10 +495,10 @@ Tryck på valfri knapp för att gå tillbaka [X]
     #Tar bort föremål
     def delete_item(self,item_number):
         '''
-        Parametrar: self (objekt) & item_number (str)
-        Metoden kontroller om siffran är giltig, och om den är det tas föremålet bort från objektets (self) inventory
-        Antingen om item_number inte är ett heltal eller om item_number är utanför det bestämda området av siffror så returneras False (boolean).
-        Om spelaren är säker på sitt val returneras True (boolean) annars returneras False (boolean). 
+        Parametrar: self (objekt) & item_number (str).
+        Metoden kontroller om siffran är giltig, och om den är det tas föremålet bort från Spelarens (self) inventory.
+        Antingen om item_number inte är ett heltal eller om item_number är utanför det bestämda området av siffror så returneras False (bool).
+        Om spelaren är säker på sitt val returneras True (bool) annars returneras False (bool). 
         '''
         if item_number.isdigit() == True: #Om inputen är en siffra
             item_number = int(item_number) #Gör om inputen till en integer
@@ -679,7 +679,7 @@ Tryck på valfri knapp för att gå tillbaka [X]
 ---> ''')
                     
                     change_item = Player1.delete_item(item_number_switch)
-                    if change_item == True: #Om spelaren bytt item
+                    if change_item == True:
                         self.add_item_effect()
                         Player1.player_inventory.append(self) #Lägger till föremålet i spelarens inventory
                         break
@@ -823,6 +823,7 @@ item13 = Item("Ring", "Shield", 30, "Health", None, None)
 
 #Lista för alla items
 all_items = [item1, item2, item3, item4, item5, item6, item7, item8, item9, item10, item11, item12, item13]
+
 
 
 
