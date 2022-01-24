@@ -679,7 +679,7 @@ Tryck på valfri knapp för att gå tillbaka [X]
 ---> ''')
                     
                     change_item = Player1.delete_item(item_number_switch)
-                    if change_item == True:
+                    if change_item == True: #Om spelaren bytt item
                         self.add_item_effect()
                         Player1.player_inventory.append(self) #Lägger till föremålet i spelarens inventory
                         break
