@@ -51,7 +51,7 @@ def monster_animation():
   '''
   Inga parametrar.
   Slumpar ett tal, för att sedan printa ett visst monster, 
-  returnar namnet på monstret.
+  returnar namnet på monstret (str).
   '''
   monster_type = rand.randint(1,7)
 
@@ -372,7 +372,9 @@ def Prolog():
 
 #Spelaren dödar laban
 def laban_death():
-
+  '''
+  En dialog printas
+  '''
   print("*SWISH*")
   sleep(1)
   
@@ -396,6 +398,9 @@ def laban_death():
 
 #Spelaren dödar ej laban
 def laban_alive():
+  '''
+  En dialog printas
+  '''
   string ='''
   Du ser ner på  marken, i stället för ett spöke ligger där en pojke.
   Du hjälper honom på fötterna.
@@ -435,21 +440,25 @@ def text_for_hangman(player_name):
     sys.stdout.write(char)
     sys.stdout.flush()
     sleep(.03)
-  sleep(1)
+  sleep(3)
   
   
   print('''
 Laban: Det enda sättet tar dig härifrån helskinnad är om
        du lyckas lista ut det hemliga lösenordet, då bryts
        förbannelsen och jag kan inte längre hindra dig från
-       att rymma.
-Laban: Om du inte klarar av detta, förvandlas du också till 
-       ett spöke, som jag.
-    ''')
+       att rymma. ''')
+  sleep(5)
+  print('''
+       Om du inte klarar av detta, förvandlas du också till 
+       ett spöke, som jag.''')
   sleep(5)
 
 
 def hanging_man():
+  '''
+  Skriver ut en bild på en hängd gubbe
+  '''
   string = '''
       _______
      |/      |
@@ -464,6 +473,9 @@ def hanging_man():
 
 
 def end_credit():
+  '''
+  Skriver ut eftertext
+  '''
   string = '''
   Tack för att du spelade detta spel!!
 
