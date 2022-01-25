@@ -273,7 +273,7 @@ Hardcore[2]
                 sword_list_strength = [] #List för de olika svärd i inventory
                 sword_list = []
                 print(f'Styrka från händer läggs på styrkan, när man använder ett vapen')
-                print(f'\nStyrka från ringar: {self.strength-20}')
+                print(f'\nStyrka från ringar: {self.strength-20}') # Det är -20 för att spelaren har redan 20 strength från början
 
                 for item in self.player_inventory:
                     if item.category == 'Sword': #Om kategorin är ett svärd
@@ -681,6 +681,11 @@ Tryck på valfri knapp för att gå tillbaka [X]
                         self.add_item_effect()
                         Player1.player_inventory.append(self) #Lägger till föremålet i spelarens inventory
                         break
+                else:
+                    print("Det du angav existerar ej")
+                    sleep(1)
+                    clear()
+
                     
     #Lägga till Ring effekt        
     def add_item_effect(self):
