@@ -5,7 +5,7 @@ from Hänga_Gubbe import *
 from os import system
 
 
-
+#Klassen Player
 class Player():
     '''
     En klass för att representera spelaren/ personen
@@ -87,17 +87,15 @@ Hardcore[2]
         '''
         print("\nLaban: Vad heter du?")
         self.name = input("Ange ditt namn ->: ")
-        print(f'''
-Laban: Jasså, så du heter {self.name}.
-       Du ser ut att ha varit med om en hel del.
-        ''')
+
 
     #Random Item + Room chest
     def room_chest(self):
         '''
         Parameter: self (objekt).
         Denna metod avgör vilket item du får från en kista genom att först välja kategori
-        och sedan ett item från den kategorin.
+        och sedan ett item från den kategorin. Föremålet läggs endast till om spelaren
+        inte har den i inventoryt.
         '''
         print("Det är en kista!")
 
@@ -137,7 +135,7 @@ Laban: Jasså, så du heter {self.name}.
         fällan är proportionelig mot spelaren LVL.
         '''
         print("\nOh no! It's a trap")
-        trap_damage = rand.randint(self.lvl,7*self.lvl) #Slumpat damage baserat på spelarens lvl
+        trap_damage = rand.randint(1+self.lvl,7*self.lvl) #Slumpat damage baserat på spelarens lvl
         self.hp = self.hp - trap_damage
         print(f"Du tog {trap_damage} skada")
         sleep(1)
@@ -167,23 +165,23 @@ Laban: Jasså, så du heter {self.name}.
         print(f"{monster_namn} har {monster_hp} HP")
         
         while True:
-            damage_on_monster = self.battle_menu()
+            damage_on_monster = self.battle_menu() 
 
             input(f"\nTryck <Enter> för att attackera {monster_namn}")
             sleep(1)
             clear()
-            monster_hp = monster_hp - damage_on_monster
+            monster_hp = monster_hp - damage_on_monster #Monster tar skada
             print(f"\n{monster_namn} tog {damage_on_monster} damage")
             if monster_hp <= 0: #För att inte visa negativt hp
                 monster_hp = 0
             print(f"{monster_namn} har {monster_hp} HP kvar")
         
-            if monster_hp <= 0:
+            if monster_hp <= 0: #Om monstret är död
                 if self.lvl >= 10:
                     break
                 print(f"\nDu besegrade {monster_namn}!")
                 sleep(1)
-                self.lvl = self.lvl +1
+                self.lvl = self.lvl +1 #Ökar spelarens level med 1
                 print("Du gick upp i LVL!")
                 sleep(1)
                 print(f"Du är nu LVL {self.lvl}!")
@@ -191,9 +189,9 @@ Laban: Jasså, så du heter {self.name}.
                 break
             
             #Den slumpade skadan från monstret ökar desto högre level spelaren är
-            damage1 = rand.randint(2*self.lvl,20 + 18*self.lvl) 
-            self.hp = self.hp - damage1 
-            print(f"\nDu tog {damage1} damage")
+            damage_on_player = rand.randint(2*self.lvl,20 + 18*self.lvl) 
+            self.hp = self.hp - damage_on_player #Spelaren
+            print(f"\nDu tog {damage_on_player} damage")
             if self.hp <= 0: 
                 self.hp = 0 #För att inte visa negativ hp
             print(f"Du har {self.hp} Hp kvar")
@@ -232,15 +230,15 @@ Laban: Jasså, så du heter {self.name}.
         print("BOSSS FIGHT PÅ GÅNG")
         sleep(1)
         dead_or_win = self.room_monster()
-        if dead_or_win == 'dead':
+        if dead_or_win == 'dead': #Om spelaren dog mot monstret
             return dead_or_win
         
         while True:
-            print("\nGör slut på Labans liv [1]")
-            print("Skona Labans liv       [2]")
+            print("\nAvliva Laban     [1]")
+            print("Skona Labans liv [2]")
             life_or_death = input('''
-            Vad väljer du?
-            ---> ''')
+    Vad väljer du?
+    ---> ''')
 
             if life_or_death == '1':
                 laban_death() #Från filen "Animationer.py"
