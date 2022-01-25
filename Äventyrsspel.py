@@ -868,10 +868,9 @@ start_game() #Från filen "Animationer.py"
 Prolog() #Från filen "Animationer.py"
 clear()
 Player1.difficulty() #Bestämmer antal liv
-sleep(0.2)
 clear()
 Player1.set_character() #Bestämmer namn på spelaren
-sleep(2.5)
+clear()
 while True:
     clear()
     animation_door(Player1.lives, Player1.hp)
