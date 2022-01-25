@@ -61,7 +61,7 @@ class Player():
 
     def difficulty(self):
         '''
-        Parameter: Self (objekt)
+        Parameter: self (objekt).
         Den här metoden frågar spelaren vilken svårighetsgrad de vill spela på och 
         ger den ett eller tre liv beroende på svaret. (Siffra som en string)
         '''
@@ -82,7 +82,7 @@ Hardcore[2]
 
     def set_character(self):
         '''
-        Parameter: Self (objekt)    
+        Parameter: self (objekt).    
         Denna metod gör så att spelaren får ge namn (string) till sin karaktär (objektet Player1).
         '''
         print("\nLaban: Vad heter du?")
@@ -95,7 +95,7 @@ Laban: Jasså, så du heter {self.name}.
     #Random Item + Room chest
     def room_chest(self):
         '''
-        Parameter: Self (objekt)
+        Parameter: self (objekt).
         Denna metod avgör vilket item du får från en kista genom att först välja kategori
         och sedan ett item från den kategorin.
         '''
@@ -132,7 +132,7 @@ Laban: Jasså, så du heter {self.name}.
     #Rummet med en fälla
     def room_trap(self):
         '''
-        Parameter: self (objekt)
+        Parameter: self (objekt).
         Den här metoden används när spelaren öppnar ett rum med en fälla. Funktionen gör så att skadan man tar från
         fällan är proportionelig mot spelaren LVL.
         '''
@@ -146,7 +146,7 @@ Laban: Jasså, så du heter {self.name}.
     #Monster fight rummet
     def room_monster(self):
         '''
-        Parameter: Self (objekt)
+        Parameter: Self (objekt).
         Denna metod kollar först om det är laban spelaren ska möta eller ett vanligt monster sedan
         kollar den vad monster_hp ska vara baserat på self_lvl och printar monstrets namn och hp.
         Efter det så startar fighting loopen. Där läggs spelarens ringar, bas-skada (20) och skadan från 
@@ -205,7 +205,7 @@ Laban: Jasså, så du heter {self.name}.
     #Boss monster                
     def boss_monster(self):
         '''
-        Parameter: Self (objekt)
+        Parameter: Self (objekt).
         Denna metod till en början startar spelet 'hänga gubbe' som är i en annan fil. Om spelaren har noll liv kvar
         efter att ha kört hänga gubbe så returneras 'string' (str). Om spelaren överlever hänga gubbe, kallas en metod. Om spelaren har dött i self.room_monster(), 
         då returneras dead_or_win, dvs 'dead' (str). Spelaren får sedan ett val, beroende på vad spelaren väljer ges det olika dialoger. 
@@ -256,7 +256,7 @@ Laban: Jasså, så du heter {self.name}.
     #Meny före strid
     def battle_menu(self):
         '''
-        Parametrar: self (objekt)
+        Parametrar: self (objekt).
         Denna funktion används i samband med att du möter ett monster som du ska döda. 
         Funttionen printar en meny där spelaren får välja mellan 3 olika alternativ om
         vad man vill göra. Du kan attackera monstret, använda en potion eller se information om spelaren.
@@ -307,7 +307,7 @@ Laban: Jasså, så du heter {self.name}.
                                 if choosen_weapon == 'Händer':
                                     pass
                                 else:      
-                                    for the_weapon in self.player_inventory:
+                                    for the_weapon in self.player_inventory: #För att veta var spelaren har sitt vapen i inventoryt
                                         if the_weapon == choosen_weapon:
                                             break
                                         position_in_inventory += 1
@@ -332,7 +332,7 @@ Laban: Jasså, så du heter {self.name}.
     #Förlust av liv
     def losing_lives(self):
         '''
-        Parametrar: self (objekt)
+        Parametrar: self (objekt).
         Den här metoden kollar om obejektet Player1 från klassen 'Player' 
         har 0 eller mindre hp och tar då bort ett liv och återställer spelarens
         hp om spelaren fortfarande har liv kvar.
@@ -351,7 +351,7 @@ Laban: Jasså, så du heter {self.name}.
         #Visar inventory
     def show_inventory(self):
         '''
-        Parametrar: self (objekt)
+        Parametrar: self (objekt).
         Denna metod printar en lista med dem föremål som du har i ditt inventory. Spelarens föremål
         printas i en numrerad lista samt att varje enskilt föremål har information om deras olika egenskaper.
         '''
@@ -378,7 +378,7 @@ Laban: Jasså, så du heter {self.name}.
     #Användning av inventory i menyn
     def inventory_usage(self):
         '''
-        Parametrar: self (objekt)
+        Parametrar: self (objekt).
         Denna metod står för inventoryts interkationsmeny, den undersöker om inventoryt
         är tomt eller inte sedan printar den ut inventoryt tillsammans med en rad olika
         interaktionsalternativ.
@@ -415,7 +415,7 @@ Laban: Jasså, så du heter {self.name}.
     #Spelarens information
     def player_information(self):
         '''
-        Parameter: Self (objekt)
+        Parameter: Self (objekt).
         Metoden tar emot objektet 'Player1' och skriver ut olika attributer som Player1 (spelaren) har.
         '''
         
@@ -432,7 +432,7 @@ MAX HP: {self.max_hp}''')
     #Använda potions
     def use_potion(self):
         '''
-        Parameter: self (objekt)
+        Parameter: self (objekt).
         När spelaren har valt att använda en potion så printar denna metod en lista på 
         alla potions tillsamans med siffror som representerar ordningen och låter sedan 
         spelaren välja vilken de vill använda eller om de vill gå tillbaka till menyn. 
@@ -480,7 +480,7 @@ Tryck på valfri knapp för att gå tillbaka [X]
     #Lägga till HP
     def add_health(self, health_increase):
         '''
-        Parametrar: self (objekt) & health_increase (int)
+        Parametrar: self (objekt) & health_increase (int).
         Om self.hp (int) adderat med health_increase (int) är större än self.max_hp (int) så är self.hp
         lika med self.max_hp annars adderas health_increase på self.hp
         '''
@@ -495,7 +495,7 @@ Tryck på valfri knapp för att gå tillbaka [X]
     #Tar bort föremål
     def delete_item(self,item_number):
         '''
-        Parametrar: self (objekt) & item_number (str)
+        Parametrar: self (objekt) & item_number (str).
         Metoden kontroller om siffran är giltig, och om den är det tas föremålet bort från objektets (self) inventory
         Antingen om item_number inte är ett heltal eller om item_number är utanför det bestämda området av siffror så returneras False (boolean).
         Om spelaren är säker på sitt val returneras True (boolean) annars returneras False (boolean). 
@@ -585,7 +585,7 @@ class Item():
     #Lägga till items i inventory
     def add_items_in_inventory(self):
         '''
-        Parameter: self (objekt)
+        Parameter: self (objekt).
         Slumpad extra effekt läggs på self.effect (int). Beroende på vad det är för föremål skrivs det ut på ett visst sätt.
         Om spelaren har mindre än 5 föremål i inventory så finns det ett antal val att välja mellan. Samma gäller för om spelaren har 5 stycken föremål
         i sitt inventory. Vissa val dyker endast upp beroende på vad det är för typ av föremål. Inget returneras i metoden.
@@ -687,7 +687,7 @@ Tryck på valfri knapp för att gå tillbaka [X]
     #Lägga till Ring effekt        
     def add_item_effect(self):
         '''
-        Parameter: Self
+        Parameter: self (objekt).
         Metoden tar emot objektet i form av self och ändrar olika attributer i objektet 
         beroende på om self.category är lika med en 'Ring' eller inte.
         '''
@@ -702,7 +702,7 @@ Tryck på valfri knapp för att gå tillbaka [X]
     #Tar bort effekt från Ring
     def popping_item(self):
         '''
-        Parameter: Self
+        Parameter: self (objekt).
         Metoden tar emot föremålet som ska tas bort ur spelarens inventory, om det är en ring så tas
         ringens påverkan på strength/health bort från spelaren
         '''
@@ -751,7 +751,7 @@ def meny():
         elif chosen_number == '2':
             Player1.inventory_usage() # Visar inventory etc.
         elif chosen_number == '3': #Stänger Meny
-            break   
+            break
         elif chosen_number == '4': #Avsluta spel
             end = input('''Är du säker på att du vill avsluta? 
 Ja     [1]
@@ -777,52 +777,47 @@ def the_room():
     Om spelaren vill avsluta spel returneras 'avsluta' (str).
     '''
     
-    while True:
-        chosen_input = input("Ange här --> ") 
-        chosen_input = chosen_input.lower() #Gör små bokstäver av input
+    chosen_input = input("Ange här --> ") 
+    chosen_input = chosen_input.lower() #Gör små bokstäver av input
 
-        if chosen_input == 'e': #Öppnar meny
-            quit_game = meny()
-            if quit_game == True: #Spelaren valde att avsluta spelet
-                return 'avsluta'        
-            
-        #Vid val av en dörr
-        elif chosen_input == 'v' or chosen_input == 'm' or chosen_input == 'h': 
-            if chosen_input == 'v':
-                print("Vänster dörr öppnas")
-            elif chosen_input == 'm':
-                print("Dörren i mitten öppnas")
-            elif chosen_input == 'h':
-                print("Höger dörr öppnas")
-            sleep(1)
-            clear()
-            room_type = door_chance() #Slumpar mellan de tre olika dörrar
-            if room_type == 1: #Rum med en kista
-                Player1.room_chest() 
-                input("\nTryck <Enter> för att fortsätta")
-                break
+    if chosen_input == 'e': #Öppnar meny
+        quit_game = meny()
+        if quit_game == True: #Spelaren valde att avsluta spelet
+            return 'avsluta'        
+    #Vid val av en dörr
+    elif chosen_input == 'v' or chosen_input == 'm' or chosen_input == 'h': 
+        if chosen_input == 'v':
+            print("Vänster dörr öppnas")
+        elif chosen_input == 'm':
+            print("Dörren i mitten öppnas")
+        elif chosen_input == 'h':
+            print("Höger dörr öppnas")
+        sleep(1)
+        clear()
+        room_type = door_chance() #Slumpar mellan de tre olika dörrar
+        if room_type == 1: #Rum med en kista
+            Player1.room_chest() 
+            input("\nTryck <Enter> för att fortsätta")
                 
-            elif room_type == 2: #Rum med ett monster
-                if Player1.lvl >= 10: #Om spelaren är level 10 startar boss fighten när en monster dörr öppnas
-                    dead_or_not = Player1.boss_monster()
-                    if dead_or_not == 'dead': #När spelaren har dött
-                        return True
-                    else:
-                        end_credit() #Från filen "Animationer.py"
-                        break 
-                    
-                dead_or_not = Player1.room_monster() 
+        elif room_type == 2: #Rum med ett monster
+            if Player1.lvl >= 10: #Om spelaren är level 10 startar boss fighten när en monster dörr öppnas
+                dead_or_not = Player1.boss_monster()
                 if dead_or_not == 'dead': #När spelaren har dött
                     return True
-                input("\nTryck <Enter> för att fortsätta") 
+                else:
+                    end_credit() #Från filen "Animationer.py"
+                    
+            dead_or_not = Player1.room_monster() 
+            if dead_or_not == 'dead': #När spelaren har dött
+                return True
+            input("\nTryck <Enter> för att fortsätta") 
                 
-            elif room_type == 3: #Rum med en fälla
-                Player1.room_trap()
-                if Player1.lives <= 0: #Om spelaren har 0 liv
-                    return True
-        elif chosen_input == "420": #Bypass
-            Player1.room_chest()
-            break
+        elif room_type == 3: #Rum med en fälla
+            Player1.room_trap()
+            if Player1.lives <= 0: #Om spelaren har 0 liv
+                return True
+    elif chosen_input == "420": #Bypass
+        Player1.room_chest()
 
 #Slumpad Dörr
 def door_chance():
