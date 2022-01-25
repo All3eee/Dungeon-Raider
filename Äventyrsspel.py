@@ -611,7 +611,7 @@ class Item():
         while True:
             #Inventory har plats för föremålet
             if len(Player1.player_inventory) < 5: 
-                if self.category == 'Potion':
+                if self.category == 'Potion': #Om föremålet är en potion
                     print('\n[0] Om du vill dricka föremålet')
                 print('''[1] Om du vill spara föremålet 
 [2] Om du vill kasta bort föremålet''')
@@ -640,7 +640,7 @@ class Item():
             elif len(Player1.player_inventory) >= 5: 
                 print("\n--- Ditt inventory är fullt ---")
                 
-                if self.category == 'Potion':
+                if self.category == 'Potion': #Om föremålet är en potion
                     print('[0] Om du vill dricka föremålet')
                 print('''[1] Om du vill byta ut något av de items som du redan har
 [2] Om du vill kasta bort föremålet ''')
